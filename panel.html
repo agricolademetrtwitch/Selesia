@@ -4,45 +4,119 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=320">
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#08080F;display:flex;justify-content:center;color:#fff;font-family:Inter,Arial,sans-serif}
-.wrap{width:320px;padding:10px;background:#08080F}
-.b{padding:8px 10px;background:#0E0E1A;border:0.5px solid #1A1A2E;border-left:2px solid #00F0FF;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.5px;text-align:center}
-.pr{height:2px;background:#1A1A2E;margin:8px 0;border-radius:2px;overflow:hidden}
-.pr div{height:100%;width:94.3%;background:#00F0FF}
-.h{font-size:9px;color:#5A5A7A;margin:14px 0 6px;letter-spacing:1.2px;font-weight:700}
+*{box-sizing:border-box;margin:0}
+body{background:#08080F;display:flex;justify-content:center;color:#fff;font-family:Inter,Arial,sans-serif;font-size:10px}
+.wrap{width:320px;padding:10px}
+.card{background:#0E0E1A;border:0.5px solid #1A1A2E;border-radius:6px;padding:8px 10px;margin-bottom:6px}
+.card-follow{border-left:2px solid #00F0FF;display:flex;justify-content:space-between;align-items:center}
+.live-dot{width:7px;height:7px;background:#00FF88;border-radius:50%;box-shadow:0 0 6px #00FF88;display:inline-block;animation:blink 1.5s infinite}
+@keyframes blink{50%{opacity:.3}}
+.h{font-size:8px;color:#5A5A7A;letter-spacing:1.2px;margin:12px 0 5px;font-weight:700}
 .g{display:grid;grid-template-columns:1fr 1fr;gap:4px}
-button{background:#12121F;border:0.5px solid #1E1E32;color:#A0A0B8;padding:9px;border-radius:4px;font-size:10px;font-weight:600;cursor:pointer;transition:.15s}
-button:hover{background:#151525;border-color:#00F0FF40;color:#fff}
+button{background:#12121F;border:0.5px solid #1E1E32;color:#A0A0B8;padding:8px 4px;border-radius:4px;font-size:10px;font-weight:600;cursor:pointer}
+button:hover{border-color:#00F0FF40;color:#fff;background:#151525}
 .f{grid-column:span 2;background:#00F0FF;color:#000;border:none;font-weight:800;letter-spacing:.5px}
-.f:hover{background:#00E0EF;box-shadow:0 0 12px #00F0FF40}
+.f:hover{box-shadow:0 0 10px #00F0FF60}
+.pr{height:2px;background:#1A1A2E;border-radius:2px;overflow:hidden;margin:6px 0}
+.pr div{height:100%;width:94.3%;background:linear-gradient(90deg,#00F0FF,#7000FF)}
+.ai-box{background:#0E0E1A;border:0.5px solid #7000FF30;border-radius:6px;padding:8px;grid-column:span 2}
+.ai-in{width:100%;background:#12121F;border:0.5px solid #1E1E32;border-radius:4px;padding:6px;color:#fff;font-size:10px;outline:none}
+.ai-out{margin-top:6px;background:#12121F;border-radius:4px;padding:6px;color:#9A9AB0;line-height:1.4;min-height:28px}
+.future{border:0.5px dashed #2A2A4A;color:#5A5A7A;padding:6px 8px;border-radius:4px;grid-column:span 2;font-size:9px;text-align:center}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="b">SILESIA — 1132 / 1200 — 68 LEFT</div>
+
+<!-- 1. FOLLOW + LIVE -->
+<div class="card card-follow"><b>⛏️ SILESIA 1132/1200 — 68 LEFT</b><span><span class="live-dot"></span> <span id="lt">LIVE</span></span></div>
 <div class="pr"><div></div></div>
-<div class="g"><button class="f" onclick="o('https://twitch.tv/Agricola_Demeter')">FOLLOW GOAL</button></div>
-<div class="h">STEAM TOOLS</div>
+<div class="g"><button class="f" onclick="o('https://twitch.tv/Agricola_Demeter')">FOLLOW GOAL — DOŁĄCZ DO KOPALNI</button></div>
+
+<!-- 2. LIVE STATUS -->
+<div class="h">🔴 LIVE / STATS (AUTO)</div>
 <div class="g">
-<button onclick="o('https://steamcommunity.com/id/agricolademeter/')">PROFILE</button>
+<div class="card" style="display:flex;justify-content:space-between"><span>FACEIT</span><b style="color:#00F0FF">LVL 7 • 1843 ELO</b></div>
+<div class="card" style="display:flex;justify-content:space-between"><span>PREMIER</span><b>18.543</b></div>
+<div class="card" style="grid-column:span 2;display:flex;justify-content:space-between"><span>STATUS</span><b id="st" style="color:#00FF88">● FACEIT ROAD TO 10 • 127 widzów</b></div>
+</div>
+
+<!-- 3. AI -->
+<div class="h">🤖 SILESIA AI - COACH + CHAT</div>
+<div class="g">
+<div class="ai-box">
+<input id="q" class="ai-in" placeholder="Zapytaj AI: mirage B retake? best crosshair?">
+<div id="a" class="ai-out"><b style="color:#00F0FF">SILESIA AI:</b> Jestem twoim AI coachem. Pytaj o smoki, taktyki, ELO. Tryb ślōnski gotowy!</div>
+<div style="display:flex;gap:4px;margin-top:6px">
+<button style="flex:1" onclick="ask()">ASK</button>
+<button style="flex:1" onclick="qa('mirage smokes')">SMOKES</button>
+<button style="flex:1" onclick="qa('lvl 10 tips')">LVL 10</button>
+<button style="flex:1" onclick="qa('crosshair')">CROSS</button>
+</div>
+</div>
+</div>
+
+<!-- 4. TOOLS -->
+<div class="h">⚒️ TOOLS - STEAM / CS2</div>
+<div class="g">
+<button onclick="o('https://steamcommunity.com/id/agricolademeter/')">STEAM PROF</button>
 <button onclick="o('https://steamcommunity.com/id/agricolademeter/inventory/')">INVENTORY</button>
 <button onclick="o('https://steam.tools/itemvalue/')">VALUE</button>
-<button onclick="o('https://vacbanned.com/search/agricolademeter')">VAC BAN</button>
-</div>
-<div class="h">FACEIT / CS2</div>
-<div class="g">
+<button onclick="o('https://vacbanned.com/search/agricolademeter')">VAC CHECK</button>
 <button onclick="o('https://www.faceit.com/en/players/agricolademeter')">FACEIT</button>
-<button onclick="o('https://faceitfinder.com/players/agricolademeter')">ELO CHECK</button>
-<button onclick="c('cl_crosshairsize 2; cl_crosshairgap -3')">CROSSHAIR</button>
-<button onclick="c('bind f \'use weapon_knife; use weapon_flashbang\'')">BINDS</button>
+<button onclick="o('https://faceitfinder.com/players/agricolademeter')">ELO FINDER</button>
+<button onclick="c('cl_crosshairsize 2; cl_crosshairgap -3; cl_crosshaircolor 5')">COPY CROSS</button>
+<button onclick="c('bind f \'use weapon_knife; use weapon_flashbang\'')">COPY BINDS</button>
 </div>
-<div class="h">SOCIAL</div>
-<div class="g"><button class="f" onclick="o('https://instagram.com/agricolademetrtwitch')" style="background:transparent;border:0.5px solid #1E1E32;color:#A0A0B8">IG @agricolademetrtwitch</button></div>
+
+<!-- 5. CONTENT -->
+<div class="h">📺 CONTENT + HARMONOGRAM</div>
+<div class="g">
+<button style="grid-column:span 2" onclick="o('https://twitch.tv/Agricola_Demeter/clips')">▶️ CLIP TYGODNIA - 1v3 CLUTCH</button>
+<div class="card" style="grid-column:span 2;line-height:1.5">PN-PT 20:00 CET — ROAD TO LVL 10<br>SOB 18:00 — PREMIER Z WIDZAMI<br>ND — VOD / YT MONTAGE</div>
+</div>
+
+<!-- 6. SILESIA + SOCIAL -->
+<div class="h">🌍 SILESIA / SOCIAL</div>
+<div class="g">
+<button onclick="o('https://instagram.com/agricolademetrtwitch')">IG</button>
+<button onclick="sl()">ŚLŌNSKI ON/OFF</button>
+<button class="f" style="background:transparent;border:0.5px solid #1E1E32;color:#7A7A9A" onclick="o('https://twitch.tv/Agricola_Demeter')">TWITCH.TV/AGRICOLA_DEMETER</button>
+</div>
+
+<!-- 7. FUTURE READY -->
+<div class="h">🚀 PRZYSZŁOŚĆ - GOTOWE SLOTY</div>
+<div class="g">
+<div class="future">🔜 SLOT 1: AI Głos Śląski (TTS) — gotowy<br>🔜 SLOT 2: Auto Clip Maker (AI wybiera moment)<br>🔜 SLOT 3: Sklep SILESIA merch / case battle<br>🔜 SLOT 4: Discord + Turniej Silesia Cup</div>
+</div>
+
 </div>
 <script>
 function o(u){window.open(u,'_blank')}
-function c(t){navigator.clipboard.writeText(t)}
+function c(t){navigator.clipboard.writeText(t);alert('✓ Copied')}
+const db={
+"mirage":"Mirage B: Smoke CT + Jungle + Flash Bench. 2x Market 1x Kitchen. Silesia style = info > aim",
+"smokes":"Mirage: CT -323 -235, Jungle -710, Window jumpthrow. Inferno: Banan + CT",
+"lvl 10":"Do 10 lvl: 2 mapy, 70% HS, graj stack 3-5, 6h dziennie FACEIT",
+"crosshair":"SILESIA CROSS: cl_crosshairsize 2; gap -3; color 5; dot 0; thickness 0.5",
+"taktyka":"Taktyka Silesia: Default 40s, potem contact. Nie force po 2 rundach"
+};
+function ask(){
+let q=document.getElementById('q').value.toLowerCase();
+let a=document.getElementById('a');
+if(!q)return;
+a.innerHTML='AI myśli... ⛏️';
+setTimeout(()=>{
+for(let k in db) if(q.includes(k)){a.innerHTML='<b style="color:#00F0FF">SILESIA AI:</b> '+db[k]; return}
+a.innerHTML='<b style="color:#00F0FF">SILESIA AI:</b> Dla "'+q+'" — polecam: Graj mądrze, nie szybko. Sprawdzę VOD!';
+},500);
+}
+function qa(t){document.getElementById('q').value=t; ask();}
+let slon=false;
+function sl(){
+slon=!slon;
+document.querySelector('.card-follow b').innerText= slon? '⛏️ SILESIA 1132/1200 FEDRUNGU' : '⛏️ SILESIA 1132/1200 — 68 LEFT';
+}
 </script>
 </body>
 </html>
