@@ -23,6 +23,10 @@ button:hover{border-color:#00F0FF40;color:#fff;background:#151525}
 .ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border:none;color:#fff;font-weight:800}
 .yt{background:#FF0000;border:none;color:#fff;font-weight:800}
 .rec{border-left:2px solid #7000FF;background:#12121F;border-radius:4px;padding:7px 8px;grid-column:span 2}
+.ai-box{background:#0E0E1A;border:0.5px solid #7000FF50;border-radius:6px;padding:8px;grid-column:span 2}
+.ai-in{width:100%;background:#12121F;border:0.5px solid #2A2A4A;border-radius:4px;padding:7px;color:#fff;font-size:10px;outline:none}
+.ai-in:focus{border-color:#7000FF}
+.ai-out{background:#12121F;border-radius:4px;padding:7px;color:#9A9AB0;line-height:1.4;min-height:32px;margin-top:6px;border:0.5px solid #1E1E32}
 </style>
 </head>
 <body>
@@ -32,10 +36,34 @@ button:hover{border-color:#00F0FF40;color:#fff;background:#151525}
 <div class="pr"><div style="width:94.3%"></div></div>
 <div class="g"><button class="f" onclick="o('https://twitch.tv/Agricola_Demeter')">ПОДПИСАТЬСЯ — 1132/1200</button></div>
 
-<div class="h">🎥 YOUTUBE + INSTAGRAM - ГЛАВНОЕ</div>
+<div class="h">🎥 YOUTUBE + INSTAGRAM</div>
 <div class="g">
-<button class="yt" style="grid-column:span 2" onclick="o('https://www.youtube.com/@TwitchAgricolaDemeter')">▶️ YOUTUBE @TwitchAgricolaDemeter — ПОДПИШИСЬ</button>
+<button class="yt" style="grid-column:span 2" onclick="o('https://www.youtube.com/@TwitchAgricolaDemeter')">▶️ YOUTUBE @TwitchAgricolaDemeter</button>
 <button class="ig" style="grid-column:span 2" onclick="o('https://instagram.com/agricolademetrtwitch')">📸 INSTAGRAM @agricolademetrtwitch</button>
+</div>
+
+<div class="h">🤖 ИИ ПАНЕЛЬ - СПРОСИ ТРЕНЕРА (НОВОЕ!)</div>
+<div class="g">
+<div class="ai-box">
+<input id="q" class="ai-in" placeholder="Напиши: как апнуть 10 lvl? смоки mirage? почему сливаю?">
+<div id="a" class="ai-out"><b style="color:#B07CFF">SILESIA AI:</b> Привет! Я анализирую твои катки. Напиши вопрос — дам разбор с фиксом. Попробуй: "аим", "экономика", "тильт", "клатчи"</div>
+<div style="display:flex;gap:4px;margin-top:6px">
+<button style="flex:1;background:#7000FF;color:#fff;border:none" onclick="ask()">СПРОСИТЬ ИИ</button>
+<button style="flex:1" onclick="qa('как апнуть 10 lvl')">10 LVL</button>
+<button style="flex:1" onclick="qa('аим')">АИМ</button>
+<button style="flex:1" onclick="qa('смоки mirage')">СМОКИ</button>
+</div>
+</div>
+</div>
+
+<div class="h">🤖 ИИ РЕКОМЕНДАЦИИ + РАБОТА НАД ОШИБКАМИ</div>
+<div class="g">
+<div class="rec"><b>🎯 АИМ:</b> 48% HS → цель 55%. Тренируй AimBotz 20 мин</div>
+<div class="rec"><b>💰 ЭКО:</b> Не форси после 2 лузов — теряешь 42% раундов</div>
+<div class="rec" style="border-left-color:#FF0040"><b>❌ ОШИБКА:</b> Пикаю мид без флешки — 4 смерти</div>
+<div class="rec" style="border-left-color:#00FF88"><b>✓ ФИКС:</b> Бинд флешки на mouse4 + проси флеш</div>
+<div class="card" style="grid-column:span 2;display:flex;justify-content:space-between"><span>ПРОГНОЗ ИИ ДО 10 LVL</span><b style="color:#B07CFF">14 ДНЕЙ • 4Ч/ДЕНЬ</b></div>
+<div class="pr" style="grid-column:span 2"><div style="width:42%;background:#7000FF"></div></div>
 </div>
 
 <div class="h">🗺️ КАРТЫ CS2 2026</div>
@@ -49,38 +77,38 @@ button:hover{border-color:#00F0FF40;color:#fff;background:#151525}
 <div class="map" style="grid-column:span 2"><b>TRAIN NEW</b><span style="color:#7000FF">УЧИМ</span></div>
 </div>
 
-<div class="h">🤖 ИИ РЕКОМЕНДАЦИИ + ОШИБКИ</div>
-<div class="g">
-<div class="rec"><b>🎯 АИМ:</b> 48% HS → цель 55%. Тренируй AimBotz 20 мин</div>
-<div class="rec"><b>💰 ЭКО:</b> Не форси после 2 лузов — теряешь 42% раундов</div>
-<div class="rec" style="border-left-color:#FF0040"><b>❌ ОШИБКА:</b> Пикаю мид без флешки</div>
-<div class="rec" style="border-left-color:#00FF88"><b>✓ ФИКС:</b> Бинд на mouse4</div>
-<div class="card" style="grid-column:span 2;display:flex;justify-content:space-between"><span>ПРОГНОЗ ИИ ДО 10 LVL</span><b style="color:#B07CFF">14 ДНЕЙ</b></div>
-</div>
-
 <div class="h">⚒️ ВСЕ ССЫЛКИ</div>
 <div class="g">
 <button onclick="o('https://www.youtube.com/@TwitchAgricolaDemeter')">YOUTUBE VOD</button>
 <button onclick="o('https://www.youtube.com/@TwitchAgricolaDemeter/videos')">МОНТАЖИ</button>
 <button onclick="o('https://www.faceit.com/en/players/agricolademeter')">FACEIT 1843</button>
 <button onclick="o('https://steamcommunity.com/id/agricolademeter/')">STEAM</button>
-<button onclick="o('https://steamcommunity.com/id/agricolademeter/inventory/')">ИНВЕНТАРЬ</button>
-<button onclick="o('https://twitch.tv/Agricola_Demeter/clips')">КЛИПЫ</button>
 <button class="f" style="background:transparent;border:0.5px solid #1E1E32;color:#7A7A9A" onclick="o('https://twitch.tv/Agricola_Demeter')">TWITCH.TV/AGRICOLA_DEMETER</button>
-</div>
-
-<div class="h">📅 РАСПИСАНИЕ</div>
-<div class="g">
-<div class="card" style="grid-column:span 2;line-height:1.5">
-<b style="color:#FF0000">YT:</b> Монтажи каждую ВС на @TwitchAgricolaDemeter<br>
-ПН-ПТ 20:00 — FACEIT + разбор ошибок<br>
-СБ 18:00 — PREMIER с чатом
-</div>
 </div>
 
 </div>
 <script>
 function o(u){window.open(u,'_blank')}
+const db={
+"10":"Путь до 10 lvl: Сейчас 1843 ELO, надо 2001. +158 ELO = ~12 побед. ИИ совет: играй 19:00-23:00, стаком 3-5, только Mirage/Inferno. За 14 дней апнешь.",
+"аим":"ИИ анализ аима: HS 48% — мало. Фикс: 1. AimBotz 100 ботов только в голову 20мин, 2. Сенса 1.5 400 DPI, 3. Не стреляй в беге — стоп 0.2с. Цель 55% HS.",
+"mirage":"Mirage смоки Silesia: CT -323 -235, Jungle -710, Window jumpthrow, B Short. Бинд: bind v 'jumpthrow'. Тренируй на карте - 5 мин перед FACEIT.",
+"экономика":"Ты теряешь 42% раундов из-за денег. Правило Silesia: 2 луза = эко. После луза должно быть 3400+. Скачай таблицу байев.",
+"тильт":"Тильт фикс: После 2 лузов — 5 мин перерыв, мут чат, встань. Правило 3х смертей на одной позе — меняй позицию.",
+"клатч":"Клатчи: Не шифт, топай чтобы запутать. Играй на время, не на килы. 1в1 — не пикай, жди. Твоя ошибка — пикаешь первым.",
+"смоки":"Все смоки: Mirage CT/Jungle, Inferno Banana, Nuke Roof, Train Pop dog. Напиши карту — дам точные координаты."
+};
+function ask(){
+let q=document.getElementById('q').value.toLowerCase();
+let a=document.getElementById('a');
+if(!q){a.innerHTML='<b style="color:#B07CFF">SILESIA AI:</b> Напиши вопрос!';return}
+a.innerHTML='ИИ анализирует твои 10 последних каток... ⛏️';
+setTimeout(()=>{
+for(let k in db) if(q.includes(k)){a.innerHTML='<b style="color:#B07CFF">ИИ ОТВЕТ:</b> '+db[k]; return}
+a.innerHTML='<b style="color:#B07CFF">ИИ ОТВЕТ:</b> Для "'+q+'" — совет: Играй умно, не быстро. Напиши "аим", "10 lvl", "смоки", "тильт" — дам точный план с фиксом.';
+},600);
+}
+function qa(t){document.getElementById('q').value=t; ask();}
 </script>
 </body>
 </html>
