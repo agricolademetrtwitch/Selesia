@@ -1,57 +1,112 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
-<style>:root{--c:#00F0FF;--p:#FF00E5}*{box-sizing:border-box}body{margin:0;display:flex;justify-content:center;background:transparent;font-family:Rajdhani}
-.wrap{width:318px;background:linear-gradient(180deg,#12121F,#08080F);border:1.5px solid var(--c);border-radius:14px;overflow:hidden;box-shadow:0 0 18px rgba(0,240,255,.4)}
-.head{padding:12px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,240,255,.08);border-bottom:1px solid rgba(0,240,255,.2)}
-.logo{font-family:Orbitron;font-weight:900;font-size:12px;letter-spacing:2px;color:var(--c);text-shadow:0 0 8px var(--c)}
-.chan{font-size:10px;color:var(--p);font-family:Orbitron}
-.tabs{display:flex}.tab{flex:1;padding:9px 0;text-align:center;font-family:Orbitron;font-size:8px;cursor:pointer;color:#666;border-bottom:2px solid transparent}.tab.active{color:var(--c);border-color:var(--c);background:rgba(0,240,255,.07)}
-.page{padding:12px;display:none}.page.active{display:block}
-.card{background:rgba(255,255,255,.04);border:1px solid rgba(0,240,255,.2);border-radius:10px;padding:10px;margin:8px 0;font-size:11px;color:#fff}
-.btn{width:100%;padding:12px;background:linear-gradient(90deg,var(--c),var(--p));border:0;border-radius:10px;font-family:Orbitron;font-weight:900;font-size:10px;letter-spacing:1px;color:#000;cursor:pointer;box-shadow:0 0 12px rgba(255,0,229,.4)}
-.btn2{width:48%;padding:8px;margin:2px 1%;background:#1e1e30;border:1px solid var(--c);border-radius:8px;color:var(--c);font-family:Orbitron;font-size:8px;cursor:pointer}
-.bar{height:10px;background:#1e1e30;border-radius:20px;overflow:hidden;margin:6px 0}.fill{height:100%;width:64%;background:linear-gradient(90deg,var(--c),var(--p))}
-a{color:var(--c);text-decoration:none}
-</style></head><body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--c:#00F0FF;--p:#FF00E5;--bg:#08080F}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:Rajdhani,sans-serif;display:flex;justify-content:center;min-height:100vh;padding:0;color:#fff}
+
+/* === УНИВЕРСАЛЬНЫЙ КОНТЕЙНЕР === */
+.wrap{
+  width:100%;
+  max-width:318px; /* Twitch panel default */
+  background:linear-gradient(180deg,#12121F 0%,#08080F 100%);
+  border:1.5px solid var(--c);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 0 18px rgba(0,240,255,.35);
+  display:flex;flex-direction:column;
+}
+
+/* Телефон - растягивается */
+@media (max-width: 480px){
+  body{padding:0}
+ .wrap{max-width:100%;border-radius:0;border-left:0;border-right:0;min-height:100vh}
+}
+
+/* Планшет */
+@media (min-width: 481px) and (max-width: 768px){
+ .wrap{max-width:420px}
+}
+
+/* ПК / Широкий экран */
+@media (min-width: 769px){
+ .wrap{max-width:480px}
+  body{padding:20px;align-items:center}
+}
+
+.head{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,240,255,.08);border-bottom:1px solid rgba(0,240,255,.2)}
+.logo{font-family:Orbitron;font-weight:900;font-size:clamp(11px,2.5vw,14px);letter-spacing:2px;color:var(--c);text-shadow:0 0 8px var(--c)}
+.chan{font-family:Orbitron;font-size:clamp(9px,2vw,11px);color:var(--p)}
+
+.tabs{display:flex;background:#0f0f1e}
+.tab{flex:1;padding:12px 0;text-align:center;font-family:Orbitron;font-size:clamp(8px,1.8vw,10px);letter-spacing:1px;cursor:pointer;color:#666;border-bottom:2px solid transparent;transition:.2s}
+.tab.active{color:var(--c);border-color:var(--c);background:rgba(0,240,255,.08)}
+.tab:hover{color:#aaa}
+
+.page{padding:14px;display:none}
+.page.active{display:block;animation:fade.25s}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+.card{background:rgba(255,255,255,.05);border:1px solid rgba(0,240,255,.22);border-radius:12px;padding:12px;margin:10px 0;font-size:clamp(10px,2.2vw,12px);line-height:1.4}
+.bar{height:12px;background:#1e1e30;border-radius:20px;overflow:hidden;margin:8px 0;border:1px solid #2a2a40}
+.fill{height:100%;width:64%;background:linear-gradient(90deg,var(--c),var(--p));box-shadow:0 0 10px var(--c);transition:width.8s}
+
+.btn{width:100%;padding:14px;background:linear-gradient(90deg,var(--c),var(--p));border:0;border-radius:10px;font-family:Orbitron;font-weight:900;font-size:clamp(9px,2vw,11px);letter-spacing:1.5px;color:#000;cursor:pointer;box-shadow:0 0 14px rgba(255,0,229,.45);transition:.2s;touch-action:manipulation}
+.btn:active{transform:scale(.98)}
+.btn2{width:48%;padding:10px;margin:3px 1%;background:#1e1e30;border:1px solid var(--c);border-radius:9px;color:var(--c);font-family:Orbitron;font-size:clamp(7px,1.7vw,9px);cursor:pointer;transition:.2s}
+.btn2:active{background:var(--c);color:#000}
+
+.input{width:100%;padding:12px;background:#111;border:1px solid #333;border-radius:10px;color:var(--c);font-family:Orbitron;font-size:clamp(9px,2vw,11px);margin:8px 0}
+.input:focus{outline:none;border-color:var(--c);box-shadow:0 0 8px rgba(0,240,255,.3)}
+
+.foot{font-size:8px;color:#444;text-align:center;padding:10px;letter-spacing:1px}
+.foot a{color:var(--c);text-decoration:none}
+</style>
+</head>
+<body>
 <div class="wrap">
 <div class="head"><div class="logo">SILESIA ESPORTS</div><div class="chan">@Agricola_Demeter</div></div>
 <div class="tabs"><div class="tab active" onclick="tab(0)">GOAL</div><div class="tab" onclick="tab(1)">STEAM</div><div class="tab" onclick="tab(2)">CS2</div></div>
 
 <div class="page active" id="p0">
-<div class="card">❤️ FOLLOW GOAL: <b id="fC">128</b>/200<div class="bar"><div class="fill" id="fB"></div></div><small style="color:#888">72 to emote unlock!</small></div>
-<div class="card">🗺️ MAP: <b id="mNow" style="color:var(--c)">Mirage</b> → <b id="mNext" style="color:var(--p)">Inferno</b> <span id="mT" style="float:right;color:var(--c)">14:32</span></div>
-<div class="card">💎 TOP DONO: <span id="dN">ShadowX</span> - <b style="color:var(--p)" id="dA">$25</b></div>
+<div class="card"><div style="display:flex;justify-content:space-between">❤️ FOLLOW GOAL <span style="color:var(--c)"><b id="fC">128</b>/200</span></div><div class="bar"><div class="fill" id="fB"></div></div><small style="color:#888">72 to emote unlock!</small></div>
+<div class="card">🗺️ NOW: <b id="mNow" style="color:var(--c)">Mirage</b> → <b id="mNext" style="color:var(--p)">Inferno</b> <span id="mT" style="float:right;color:var(--c)">14:32</span></div>
+<div class="card">💎 TOP DONO: <b id="dN">ShadowX</b> - <b style="color:var(--p)" id="dA">$25.00</b></div>
 <button class="btn" onclick="follow()">⚡ FOLLOW AGRICOLA_DEMETER</button>
-<div style="display:flex;margin-top:6px"><button class="btn2" onclick="openTwitch()">OPEN TWITCH.TV/AGRICOLA_DEMETER</button><button class="btn2" onclick="openClip()">CLIPS</button></div>
+<div style="display:flex;margin-top:8px"><button class="btn2" onclick="openTwitch()">TWITCH.TV/AGRICOLA_DEMETER</button><button class="btn2" onclick="openClip()">CLIPS & VODS</button></div>
 </div>
 
 <div class="page" id="p1">
-<input id="steamId" style="width:100%;padding:10px;background:#111;border:1px solid #333;border-radius:8px;color:var(--c)" placeholder="SteamID64 or URL">
-<button class="btn2" onclick="steam('inv')">INV VALUE</button><button class="btn2" onclick="steam('faceit')">FACEIT</button>
-<button class="btn2" onclick="steam('profile')">STEAM PROFILE</button><button class="btn2" onclick="steam('vac')">VAC CHECK</button>
-<div class="card" id="sOut" style="display:none"></div>
+<div class="card" style="text-align:center">STEAM TOOLS - works on phone & PC</div>
+<input class="input" id="steamId" placeholder="SteamID64 / custom URL">
+<div style="display:flex;flex-wrap:wrap"><button class="btn2" onclick="steam('inv')">INV VALUE</button><button class="btn2" onclick="steam('faceit')">FACEIT STATS</button><button class="btn2" onclick="steam('profile')">PROFILE</button><button class="btn2" onclick="steam('vac')">VAC CHECK</button></div>
+<div class="card" id="sOut" style="display:none;word-break:break-all"></div>
 </div>
 
 <div class="page" id="p2">
-<button class="btn2" onclick="cs('cross')">MY CROSSHAIR</button><button class="btn2" onclick="cs('mirage')">MIRAGE SMOKE</button>
-<button class="btn2" onclick="cs('inferno')">INFERNO MOLLY</button><button class="btn2" onclick="cs('bind')">BINDS</button>
-<div class="card"><code id="code" style="color:var(--c);font-size:10px;word-break:break-all">cl_crosshairsize 1.5; cl_crosshairgap -2; cl_crosshaircolor 4</code></div>
-<button class="btn" onclick="navigator.clipboard.writeText(document.getElementById('code').innerText)">COPY TO CLIPBOARD</button>
+<div class="card" style="text-align:center">CS2 TOOLS - Crosshair, Smokes, Binds</div>
+<div style="display:flex;flex-wrap:wrap"><button class="btn2" onclick="cs('cross')">MY CROSSHAIR</button><button class="btn2" onclick="cs('mirage')">MIRAGE</button><button class="btn2" onclick="cs('inferno')">INFERNO</button><button class="btn2" onclick="cs('bind')">BINDS</button></div>
+<div class="card"><code id="code" style="color:var(--c);font-size:clamp(9px,2vw,11px);word-break:break-all">cl_crosshairsize 1.5; cl_crosshairgap -2; cl_crosshaircolor 4</code></div>
+<button class="btn" onclick="copyCode()">COPY CODE</button>
 </div>
 
-<div style="font-size:7px;color:#444;text-align:center;padding:8px">twitch.tv/Agricola_Demeter • SILESIA v2.1 PRO • <a href="https://twitch.tv/Agricola_Demeter" target="_blank">FOLLOW</a></div>
+<div class="foot">twitch.tv/Agricola_Demeter • UNIVERSAL • <a href="https://twitch.tv/Agricola_Demeter" target="_blank">PC • MOBILE • TWITCH PANEL 318px</a></div>
 </div>
 
 <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
 <script>
 const TWITCH_CHANNEL = "Agricola_Demeter";
-const TWITCH_URL = `https://twitch.tv/${TWITCH_CHANNEL}`;
-let state={followers:128,goal:200,maps:["Mirage","Inferno","Anubis","Dust II"],mapI:0};
 function tab(i){document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',j===i));document.querySelectorAll('.page').forEach((p,j)=>p.classList.toggle('active',j===i))}
-function openTwitch(){window.open(TWITCH_URL,'_blank')}
-function openClip(){window.open(TWITCH_URL+'/videos','_blank')}
-function follow(){ if(window.Twitch&&window.Twitch.ext) window.Twitch.ext.actions.requestIdShare(); window.open(TWITCH_URL,'_blank')}
-function steam(t){let id=document.getElementById('steamId').value||"76561198123456789"; let o=document.getElementById('sOut'); o.style.display='block'; let urls={inv:`https://steamcommunity.com/profiles/${id}/inventory/`, faceit:`https://faceitfinder.com/steam/${id}`, profile:`https://steamcommunity.com/profiles/${id}`, vac:`https://steamid.uk/profile/${id}`}; o.innerHTML=`${t.toUpperCase()}<br><a href="${urls[t]}" target="_blank">${urls[t]}</a>`; window.open(urls[t],'_blank')}
-function cs(t){let c={cross:'cl_crosshairsize 1.5; cl_crosshairgap -2; cl_crosshaircolor 4; cl_crosshairdot 0', mirage:'Mirage Window: -1685 -55 jumpthrow', inferno:'Inferno Banana: aim roof 2nd line + W', bind:'bind q \"use weapon_knife; use weapon_flashbang\"'}[t]; document.getElementById('code').innerText=c}
-let sec=872; setInterval(()=>{sec--; if(sec<0){sec=900; state.mapI=(state.mapI+1)%4} let m=Math.floor(sec/60),s=sec%60; document.getElementById('mT').textContent=m+':'+String(s).padStart(2,'0'); document.getElementById('mNow').textContent=state.maps[state.mapI]; document.getElementById('mNext').textContent=state.maps[(state.mapI+1)%4];},1000);
+function openTwitch(){window.open(`https://twitch.tv/${TWITCH_CHANNEL}`,'_blank')}
+function openClip(){window.open(`https://twitch.tv/${TWITCH_CHANNEL}/videos`,'_blank')}
+function follow(){if(window.Twitch&&window.Twitch.ext)window.Twitch.ext.actions.requestIdShare();openTwitch()}
+function steam(t){let id=document.getElementById('steamId').value||"76561198123456789"; let o=document.getElementById('sOut'); o.style.display='block'; let urls={inv:`https://steamcommunity.com/profiles/${id}/inventory/`, faceit:`https://faceitfinder.com/steam/${id}`, profile:`https://steamcommunity.com/profiles/${id}`, vac:`https://steamid.uk/profile/${id}`}; o.innerHTML=`${t.toUpperCase()}<br><a href="${urls[t]}" target="_blank" style="color:var(--c)">${urls[t]}</a>`; window.open(urls[t],'_blank')}
+function cs(t){let c={cross:'cl_crosshairsize 1.5; cl_crosshairgap -2; cl_crosshaircolor 4; cl_crosshairdot 0; cl_crosshairstyle 4', mirage:'Mirage Window Smoke: -1685 -55 jumpthrow', inferno:'Inferno Banana Molly: aim roof 2nd line', bind:'bind q \"use weapon_knife; use weapon_flashbang\"'}[t]; document.getElementById('code').innerText=c}
+function copyCode(){navigator.clipboard.writeText(document.getElementById('code').innerText).then(()=>{let b=event.target; b.textContent='COPIED!'; setTimeout(()=>b.textContent='COPY CODE',1500)})}
+let sec=872, state={followers:128,maps:["Mirage","Inferno","Anubis","Dust II"],mapI:0}; setInterval(()=>{sec--; if(sec<0){sec=900; state.mapI=(state.mapI+1)%4} let m=Math.floor(sec/60),s=sec%60; document.getElementById('mT').textContent=m+':'+String(s).padStart(2,'0'); document.getElementById('mNow').textContent=state.maps[state.mapI]; document.getElementById('mNext').textContent=state.maps[(state.mapI+1)%4];},1000);
+if(window.Twitch&&window.Twitch.ext){window.Twitch.ext.configuration.onChanged(()=>{try{let cfg=JSON.parse(window.Twitch.ext.configuration.broadcaster.content); if(cfg)state={...state,...cfg}}catch(e){}})}
 </script></body></html>
