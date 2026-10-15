@@ -11,70 +11,68 @@ body{background:#08080F;display:flex;justify-content:center;color:#fff;font-fami
 .card-follow{border-left:2px solid #00F0FF;display:flex;justify-content:space-between}
 .live-dot{width:7px;height:7px;background:#00FF88;border-radius:50%;box-shadow:0 0 6px #00FF88;display:inline-block;animation:blink 1.5s infinite}
 @keyframes blink{50%{opacity:.3}}
-.h{font-size:8px;color:#5A5A7A;letter-spacing:1.2px;margin:12px 0 5px;font-weight:700}
+.h{font-size:8px;color:#5A5A7A;letter-spacing:1.2px;margin:14px 0 5px;font-weight:700}
 .g{display:grid;grid-template-columns:1fr 1fr;gap:4px}
-button{background:#12121F;border:0.5px solid #1E1E32;color:#A0A0B8;padding:8px 4px;border-radius:4px;font-size:10px;font-weight:600;cursor:pointer}
-button:hover{border-color:#00F0FF40;color:#fff}
+button{background:#12121F;border:0.5px solid #1E1E32;color:#A0A0B8;padding:9px 4px;border-radius:4px;font-size:10px;font-weight:600;cursor:pointer}
+button:hover{border-color:#00F0FF40;color:#fff;background:#151525}
 .f{grid-column:span 2;background:#00F0FF;color:#000;border:none;font-weight:800}
 .pr{height:2px;background:#1A1A2E;border-radius:2px;overflow:hidden;margin:6px 0}
-.pr div{height:100%;width:94.3%;background:linear-gradient(90deg,#00F0FF,#7000FF)}
-.err{background:#12121F;border-left:2px solid #FF0040;border-radius:4px;padding:7px 8px;margin-bottom:4px}
-.err b{color:#fff}
-.err span{color:#FF4A6A}
-.fix{background:#12121F;border-left:2px solid #00FF88;border-radius:4px;padding:7px 8px;margin-bottom:4px}
-.fix b{color:#00FF88}
-.ai-box{background:#0E0E1A;border:0.5px solid #7000FF30;border-radius:6px;padding:8px;grid-column:span 2}
-.ai-in{width:100%;background:#12121F;border:0.5px solid #1E1E32;border-radius:4px;padding:6px;color:#fff;font-size:10px;outline:none}
-.ai-out{margin-top:6px;background:#12121F;border-radius:4px;padding:6px;color:#9A9AB0;line-height:1.4;min-height:28px}
+.pr div{height:100%;background:linear-gradient(90deg,#00F0FF,#7000FF)}
+.map{padding:6px 8px;background:#12121F;border:0.5px solid #1E1E32;border-radius:4px;display:flex;justify-content:space-between}
+.map.on{border-color:#00FF8840}
+.ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border:none;color:#fff;font-weight:800}
+.yt{background:#FF0000;border:none;color:#fff;font-weight:800}
+.rec{border-left:2px solid #7000FF;background:#12121F;border-radius:4px;padding:7px 8px;grid-column:span 2}
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <div class="card card-follow"><b>⛏️ SILESIA 1132/1200 — 68 ОСТАЛОСЬ</b><span><span class="live-dot"></span> LIVE</span></div>
-<div class="pr"><div></div></div>
-<div class="g"><button class="f" onclick="o('https://twitch.tv/Agricola_Demeter')">ПОДПИСАТЬСЯ — ЦЕЛЬ 1132/1200</button></div>
+<div class="pr"><div style="width:94.3%"></div></div>
+<div class="g"><button class="f" onclick="o('https://twitch.tv/Agricola_Demeter')">ПОДПИСАТЬСЯ — 1132/1200</button></div>
 
-<div class="h">🤖 ИИ ТРЕНЕР</div>
+<div class="h">🎥 YOUTUBE + INSTAGRAM - ГЛАВНОЕ</div>
 <div class="g">
-<div class="ai-box">
-<input id="q" class="ai-in" placeholder="Спроси: почему сливаю клатчи?">
-<div id="a" class="ai-out"><b style="color:#00F0FF">SILESIA AI:</b> Напиши свою ошибку - я разберу.</div>
-<div style="display:flex;gap:4px;margin-top:6px">
-<button style="flex:1" onclick="ask()">РАЗБОР</button>
-<button style="flex:1" onclick="qa('сливаю клатчи')">КЛАТЧИ</button>
-<button style="flex:1" onclick="qa('тильтую')">ТИЛЬТ</button>
-<button style="flex:1" onclick="qa('не попадаю')">АИМ</button>
-</div>
-</div>
+<button class="yt" style="grid-column:span 2" onclick="o('https://www.youtube.com/@TwitchAgricolaDemeter')">▶️ YOUTUBE @TwitchAgricolaDemeter — ПОДПИШИСЬ</button>
+<button class="ig" style="grid-column:span 2" onclick="o('https://instagram.com/agricolademetrtwitch')">📸 INSTAGRAM @agricolademetrtwitch</button>
 </div>
 
-<div class="h">❌ РАБОТА НАД ОШИБКАМИ — ЭТА НЕДЕЛЯ</div>
+<div class="h">🗺️ КАРТЫ CS2 2026</div>
 <div class="g">
-<div class="err" style="grid-column:span 2"><b>ОШИБКА #1:</b> <span>Форс-бай после 2 лузов → 0 денег на 4 раунд</span><br><b>МАТЧ:</b> Mirage 12:8 vs LVL 8</div>
-<div class="err" style="grid-column:span 2"><b>ОШИБКА #2:</b> <span>Пикаю мид без флешки → умираю первым</span><br><b>МАТЧ:</b> Inferno Banana 3 раза подряд</div>
-<div class="err" style="grid-column:span 2"><b>ОШИБКА #3:</b> <span>Не чекаю углы — 70% смертей спина</span><br><b>КЛИП:</b> смотри VOD 1:24:10</div>
-
-<div class="fix" style="grid-column:span 2"><b>✓ ФИКС #1:</b> Правило Silesia: после 2 лузов — только эко/полусейв. Деньги > килы</div>
-<div class="fix" style="grid-column:span 2"><b>✓ ФИКС #2:</b> Перед пиком — всегда проси флеш. Бинд: bind mouse4 "+flash"</div>
-<div class="fix" style="grid-column:span 2"><b>✓ ФИКС #3:</b> Тренировка: 15 мин в день Deathmatch только на чек углов</div>
-
-<div class="card" style="grid-column:span 2;display:flex;justify-content:space-between;background:#12121F"><span>ПРОГРЕСС ИСПРАВЛЕНИЙ</span><b style="color:#00FF88">2/3 ИСПРАВЛЕНО</b></div>
-<div class="pr" style="grid-column:span 2"><div style="width:66%"></div></div>
+<div class="map on"><b>MIRAGE</b><span style="color:#00FF88">MAIN 1.18</span></div>
+<div class="map on"><b>INFERNO</b><span style="color:#00FF88">MAIN 1.12</span></div>
+<div class="map"><b>DUST2</b><span>1.05</span></div>
+<div class="map"><b>NUKE</b><span>0.98</span></div>
+<div class="map"><b>ANCIENT</b><span>0.95</span></div>
+<div class="map"><b>ANUBIS</b><span>0.91</span></div>
+<div class="map" style="grid-column:span 2"><b>TRAIN NEW</b><span style="color:#7000FF">УЧИМ</span></div>
 </div>
 
-<div class="h">⚒️ ИНСТРУМЕНТЫ</div>
+<div class="h">🤖 ИИ РЕКОМЕНДАЦИИ + ОШИБКИ</div>
 <div class="g">
-<button onclick="o('https://steamcommunity.com/id/agricolademeter/')">STEAM</button>
+<div class="rec"><b>🎯 АИМ:</b> 48% HS → цель 55%. Тренируй AimBotz 20 мин</div>
+<div class="rec"><b>💰 ЭКО:</b> Не форси после 2 лузов — теряешь 42% раундов</div>
+<div class="rec" style="border-left-color:#FF0040"><b>❌ ОШИБКА:</b> Пикаю мид без флешки</div>
+<div class="rec" style="border-left-color:#00FF88"><b>✓ ФИКС:</b> Бинд на mouse4</div>
+<div class="card" style="grid-column:span 2;display:flex;justify-content:space-between"><span>ПРОГНОЗ ИИ ДО 10 LVL</span><b style="color:#B07CFF">14 ДНЕЙ</b></div>
+</div>
+
+<div class="h">⚒️ ВСЕ ССЫЛКИ</div>
+<div class="g">
+<button onclick="o('https://www.youtube.com/@TwitchAgricolaDemeter')">YOUTUBE VOD</button>
+<button onclick="o('https://www.youtube.com/@TwitchAgricolaDemeter/videos')">МОНТАЖИ</button>
 <button onclick="o('https://www.faceit.com/en/players/agricolademeter')">FACEIT 1843</button>
-<button onclick="c('cl_crosshairsize 2; cl_crosshairgap -3')">ПРИЦЕЛ</button>
-<button onclick="o('https://twitch.tv/Agricola_Demeter/clips')">VOD РАЗБОР</button>
+<button onclick="o('https://steamcommunity.com/id/agricolademeter/')">STEAM</button>
+<button onclick="o('https://steamcommunity.com/id/agricolademeter/inventory/')">ИНВЕНТАРЬ</button>
+<button onclick="o('https://twitch.tv/Agricola_Demeter/clips')">КЛИПЫ</button>
+<button class="f" style="background:transparent;border:0.5px solid #1E1E32;color:#7A7A9A" onclick="o('https://twitch.tv/Agricola_Demeter')">TWITCH.TV/AGRICOLA_DEMETER</button>
 </div>
 
-<div class="h">📅 РАСПИСАНИЕ + ЦЕЛИ</div>
+<div class="h">📅 РАСПИСАНИЕ</div>
 <div class="g">
 <div class="card" style="grid-column:span 2;line-height:1.5">
-<b style="color:#00F0FF">ЦЕЛЬ НЕДЕЛИ:</b> Исправить 3 ошибки → LVL 8<br>
+<b style="color:#FF0000">YT:</b> Монтажи каждую ВС на @TwitchAgricolaDemeter<br>
 ПН-ПТ 20:00 — FACEIT + разбор ошибок<br>
 СБ 18:00 — PREMIER с чатом
 </div>
@@ -83,24 +81,6 @@ button:hover{border-color:#00F0FF40;color:#fff}
 </div>
 <script>
 function o(u){window.open(u,'_blank')}
-function c(t){navigator.clipboard.writeText(t);alert('✓ Скопировано')}
-const db={
-"клатч":"Клатчи сливаешь: 1. Не шифт - топай чтобы запутать, 2. Играй на время, не на килы, 3. 1в1 — не пикай, жди",
-"тильт":"Тильт фикс Silesia: 1. После 2 лузов подряд — 5 мин перерыв, 2. Мут токсиков, 3. Правило 3х смертей — меняй позицию",
-"попадаю":"Аим: 1. 15 мин AimBotz (100 ботов), 2. Sens 1.8 → 1.5, 3. Не стреляй в беге — стоп за 0.2с до выстрела",
-"ошибк":"Твоя главная ошибка сейчас — форс. Деньги решают. Смотри демку своего луза на 12:8"
-};
-function ask(){
-let q=document.getElementById('q').value.toLowerCase();
-let a=document.getElementById('a');
-if(!q)return;
-a.innerHTML='Анализирую ошибку... ⛏️';
-setTimeout(()=>{
-for(let k in db) if(q.includes(k)){a.innerHTML='<b style="color:#00F0FF">РАЗБОР:</b> '+db[k]; return}
-a.innerHTML='<b style="color:#00F0FF">РАЗБОР:</b> Опиши: "сливаю на банане", "не попадаю" — дам точный фикс.';
-},500);
-}
-function qa(t){document.getElementById('q').value=t; ask();}
 </script>
 </body>
 </html>
