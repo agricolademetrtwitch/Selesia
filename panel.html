@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0A0A12;color:#00F0FF;font-family:Orbitron,monospace;padding:12px}
+.box{border:2px solid #00F0FF;box-shadow:0 0 12px #FF00E5;padding:12px;border-radius:8px;background:rgba(0,240,255,0.05)}
+.title{color:#FF00E5;font-size:14px;letter-spacing:2px;margin-bottom:10px}
+.item{font-size:11px;margin:6px 0;color:#fff}
+.btn{background:linear-gradient(90deg,#00F0FF,#FF00E5);border:0;color:#000;padding:10px;width:100%;font-weight:700;cursor:pointer;margin-top:12px;border-radius:4px;font-family:Orbitron}
+</style>
+</head>
+<body>
+<div class="box">
+<div class="title">SILESIA • ESPORTS</div>
+<div class="item">🎮 MAP: MIRAGE • INFERNO • ANUBIS</div>
+<div class="item">❤️ FOLLOW GOAL: 128/200</div>
+<div class="item">💎 TOP DONO: ShadowX - $25</div>
+<button class="btn" onclick="window.open('https://twitch.tv')">FOLLOW NOW</button>
+</div>
+<script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+<script>window.Twitch.ext.onAuthorized(a=>{console.log('SILESIA loaded',a.channelId)});</script>
+</body>
+</html>
