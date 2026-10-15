@@ -1,102 +1,95 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="pl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SILESIA ESPORTS - Agricola_Demeter</title>
-
-<!-- FAVICON SILESIA -->
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512x512.png">
-<link rel="apple-touch-icon" href="favicon-180x180.png">
-<meta name="theme-color" content="#00F0FF">
-<meta name="description" content="SILESIA ESPORTS - Agricola_Demeter Official Twitch Extension">
-
+<link rel="icon" href="favicon-32x32.png"><meta name="theme-color" content="#00F0FF">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>:root{--c:#00F0FF;--p:#FF00E5}*{box-sizing:border-box}body{margin:0;display:flex;justify-content:center;background:#08080F;font-family:Rajdhani}
+<style>:root{--c:#00F0FF;--p:#FF00E5;--ig1:#feda75;--ig2:#d62976}*{box-sizing:border-box}body{margin:0;display:flex;justify-content:center;background:#08080F;font-family:Rajdhani}
 .wrap{width:100%;max-width:318px;background:linear-gradient(180deg,#12121F,#08080F);border:1.5px solid var(--c);border-radius:14px;overflow:hidden;box-shadow:0 0 18px rgba(0,240,255,.35)}
 @media(max-width:480px){.wrap{max-width:100%;border-radius:0;min-height:100vh}}@media(min-width:769px){.wrap{max-width:480px}body{padding:20px}}
 .head{padding:14px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,240,255,.08);border-bottom:1px solid rgba(0,240,255,.2)}
-.logo{font-family:Orbitron;font-weight:900;font-size:13px;color:var(--c);display:flex;align-items:center;gap:6px}.logo img{width:20px;height:20px;border-radius:4px;box-shadow:0 0 6px var(--c)}
-.chan{font-family:Orbitron;font-size:10px;color:var(--p)}
-.tabs{display:flex;background:#0f0f1e}.tab{flex:1;padding:12px 0;text-align:center;font-family:Orbitron;font-size:9px;color:#666;border-bottom:2px solid transparent;cursor:pointer}.tab.active{color:var(--c);border-color:var(--c);background:rgba(0,240,255,.08)}.tab i{display:block;font-size:14px;margin-bottom:3px}
+.logo{font-family:Orbitron;font-weight:900;font-size:13px;color:var(--c);display:flex;align-items:center;gap:6px}.logo img{width:20px;height:20px;border-radius:4px}
+.chan{font-family:Orbitron;font-size:9px;color:var(--p)}
+.tabs{display:flex;background:#0f0f1e}.tab{flex:1;padding:10px 0;text-align:center;font-family:Orbitron;font-size:8px;color:#666;border-bottom:2px solid transparent;cursor:pointer}.tab.active{color:var(--c);border-color:var(--c);background:rgba(0,240,255,.08)}.tab i{display:block;font-size:14px;margin-bottom:2px}
 .page{padding:14px;display:none}.page.active{display:block}
-.card{background:rgba(255,255,255,.05);border:1px solid rgba(0,240,255,.22);border-radius:12px;padding:12px;margin:10px 0;font-size:11px;color:#fff}.card i{margin-right:6px;color:var(--c)}
-.bar{height:12px;background:#1e1e30;border-radius:20px;overflow:hidden;margin:8px 0;border:1px solid #2a2a40}.fill{height:100%;width:64%;background:linear-gradient(90deg,var(--c),var(--p))}
-.btn{width:100%;padding:14px;background:linear-gradient(90deg,var(--c),var(--p));border:0;border-radius:10px;font-family:Orbitron;font-weight:900;font-size:10px;color:#000;cursor:pointer;display:block;text-align:center;text-decoration:none}.btn2{width:48%;padding:10px;margin:3px 1%;background:#1e1e30;border:1px solid var(--c);border-radius:9px;color:var(--c);font-family:Orbitron;font-size:8px;cursor:pointer;text-decoration:none;display:inline-block;text-align:center}.input{width:100%;padding:12px;background:#111;border:1px solid #333;border-radius:10px;color:var(--c);font-size:11px;margin:8px 0}
-.foot{font-size:8px;color:#444;text-align:center;padding:10px}.foot a{color:var(--c);text-decoration:none}
-</style></head>
-<body>
+.card{background:rgba(255,255,255,.05);border:1px solid rgba(0,240,255,.22);border-radius:12px;padding:12px;margin:8px 0;font-size:11px;color:#fff}
+.social{ display:flex;gap:6px;margin:8px 0 }
+.sbtn{flex:1;padding:10px 6px;border-radius:9px;text-align:center;font-family:Orbitron;font-size:8px;text-decoration:none;color:#fff;display:block}
+.sbtn.twitch{background:linear-gradient(90deg,#9146FF,#6441a5)} .sbtn.steam{background:linear-gradient(90deg,#1b2838,#2a475e)} .sbtn.insta{background:linear-gradient(90deg,#feda75,#d62976,#4f5bd5)}
+.btn{width:100%;padding:14px;background:linear-gradient(90deg,var(--c),var(--p));border:0;border-radius:10px;font-family:Orbitron;font-weight:900;font-size:10px;color:#000;cursor:pointer;display:block;text-align:center;text-decoration:none}
+.btn2{width:48%;padding:10px;margin:3px 1%;background:#1e1e30;border:1px solid var(--c);border-radius:9px;color:var(--c);font-family:Orbitron;font-size:8px;cursor:pointer;text-decoration:none;display:inline-block;text-align:center}
+.input{width:100%;padding:12px;background:#111;border:1px solid #333;border-radius:10px;color:var(--c);font-size:11px;margin:8px 0}
+.foot{font-size:8px;color:#444;text-align:center;padding:10px}
+</style></head><body>
 <div class="wrap">
-<div class="head"><div class="logo"><img src="favicon-32x32.png" alt="S"> SILESIA ESPORTS</div><div class="chan"><i class="fa-brands fa-twitch"></i> Agricola_Demeter</div></div>
+<div class="head"><div class="logo"><img src="favicon-32x32.png"> SILESIA ESPORTS</div><div class="chan"><i class="fa-brands fa-twitch"></i> Agricola_Demeter</div></div>
 <div class="tabs">
 <div class="tab active" id="tab0"><i class="fa-solid fa-heart"></i>GOAL</div>
 <div class="tab" id="tab1"><i class="fa-brands fa-steam"></i>STEAM</div>
 <div class="tab" id="tab2"><i class="fa-solid fa-crosshairs"></i>CS2</div>
+<div class="tab" id="tab3"><i class="fa-brands fa-instagram"></i>SOCIAL</div>
 </div>
 
 <div class="page active" id="p0">
-<div class="card"><i class="fa-solid fa-heart" style="color:var(--p)"></i> FOLLOW: <b id="fC">128</b>/200<div class="bar"><div class="fill" id="fB"></div></div></div>
-<div class="card"><i class="fa-solid fa-map"></i> NOW: <b id="mNow">Mirage</b> → <b id="mNext" style="color:var(--p)">Inferno</b> <span id="mT" style="float:right"><i class="fa-regular fa-clock"></i> 14:32</span></div>
-<div class="card"><i class="fa-solid fa-gem" style="color:var(--p)"></i> TOP DONO: <b>ShadowX - $25.00</b></div>
-<button class="btn" id="followBtn"><i class="fa-brands fa-twitch"></i> FOLLOW AGRICOLA_DEMETER</button>
-<div style="display:flex;margin-top:8px">
-<a class="btn2" href="https://twitch.tv/Agricola_Demeter" target="_blank"><i class="fa-solid fa-external-link"></i>OPEN TWITCH</a>
-<a class="btn2" href="https://twitch.tv/Agricola_Demeter/videos" target="_blank"><i class="fa-solid fa-clapperboard"></i>VODS</a>
+<div class="card"><i class="fa-solid fa-heart" style="color:var(--p)"></i> FOLLOW GOAL: <b>128</b>/200<div style="height:10px;background:#1e1e30;border-radius:10px;margin-top:6px"><div style="height:100%;width:64%;background:linear-gradient(90deg,var(--c),var(--p));border-radius:10px"></div></div></div>
+<div class="social">
+<a class="sbtn twitch" href="https://twitch.tv/Agricola_Demeter" target="_blank"><i class="fa-brands fa-twitch"></i><br>TWITCH</a>
+<a class="sbtn steam" href="https://steamcommunity.com/id/agricolademeter/" target="_blank"><i class="fa-brands fa-steam"></i><br>STEAM</a>
+<a class="sbtn insta" href="https://instagram.com/agricolademetertwitch" target="_blank"><i class="fa-brands fa-instagram"></i><br>INSTA</a>
 </div>
+<button class="btn" id="followBtn"><i class="fa-brands fa-twitch"></i> FOLLOW ON TWITCH</button>
 </div>
 
 <div class="page" id="p1">
-<input class="input" id="steamId" placeholder="SteamID64">
+<div class="card" style="text-align:center"><i class="fa-brands fa-steam" style="font-size:22px"></i><br><b style="color:var(--c)">agricolademeter</b><br><small style="color:#888">steamcommunity.com/id/agricolademeter/</small></div>
+<input class="input" id="steamId" value="agricolademeter">
 <div style="display:flex;flex-wrap:wrap">
-<a class="btn2" href="#" id="invBtn"><i class="fa-solid fa-box-open"></i>INV VALUE</a>
+<a class="btn2" href="#" id="invBtn"><i class="fa-solid fa-box-open"></i>INV</a>
 <a class="btn2" href="#" id="faceitBtn"><i class="fa-solid fa-trophy"></i>FACEIT</a>
 <a class="btn2" href="#" id="profileBtn"><i class="fa-brands fa-steam"></i>PROFILE</a>
-<a class="btn2" href="#" id="vacBtn"><i class="fa-solid fa-shield-halved"></i>VAC CHECK</a>
+<a class="btn2" href="#" id="vacBtn"><i class="fa-solid fa-shield-halved"></i>VAC</a>
 </div>
-<div class="card" id="sOut" style="display:none"></div>
+<div class="card" id="sOut"></div>
 </div>
 
 <div class="page" id="p2">
-<div style="display:flex;flex-wrap:wrap">
-<button class="btn2" id="crossBtn"><i class="fa-solid fa-crosshairs"></i>CROSSHAIR</button>
-<button class="btn2" id="mirageBtn"><i class="fa-solid fa-smog"></i>MIRAGE</button>
-<button class="btn2" id="infernoBtn"><i class="fa-solid fa-fire"></i>INFERNO</button>
-<button class="btn2" id="bindBtn"><i class="fa-solid fa-keyboard"></i>BINDS</button>
-</div>
+<div style="display:flex;flex-wrap:wrap"><button class="btn2" id="crossBtn"><i class="fa-solid fa-crosshairs"></i>CROSSHAIR</button><button class="btn2" id="mirageBtn"><i class="fa-solid fa-smog"></i>MIRAGE</button><button class="btn2" id="infernoBtn"><i class="fa-solid fa-fire"></i>INFERNO</button><button class="btn2" id="bindBtn"><i class="fa-solid fa-keyboard"></i>BINDS</button></div>
 <div class="card"><code id="code" style="color:var(--c);word-break:break-all">cl_crosshairsize 1.5; cl_crosshairgap -2; cl_crosshaircolor 4</code></div>
 <button class="btn" id="copyBtn"><i class="fa-regular fa-copy"></i> COPY CODE</button>
-<div id="copyStatus" style="text-align:center;font-size:9px;color:var(--c);margin-top:6px;display:none"><i class="fa-solid fa-check"></i> COPIED!</div>
 </div>
 
-<div class="foot"><img src="favicon-16x16.png" style="width:12px;height:12px;vertical-align:middle"> twitch.tv/Agricola_Demeter • v4.0 UNIVERSAL + FAVICON</div>
+<div class="page" id="p3">
+<div class="card" style="text-align:center;background:linear-gradient(135deg,#feda75 0%,#d62976 50%,#4f5bd5 100%);color:#fff;border:0"><i class="fa-brands fa-instagram" style="font-size:36px"></i><br><b style="font-family:Orbitron;font-size:14px">@agricolademetertwitch</b><br><small>Follow for clips & behind the scenes</small></div>
+<a class="btn" href="https://instagram.com/agricolademetertwitch" target="_blank" style="background:linear-gradient(90deg,#feda75,#d62976);color:#fff"><i class="fa-brands fa-instagram"></i> OPEN INSTAGRAM</a>
+<div style="display:flex;flex-wrap:wrap;margin-top:8px">
+<a class="sbtn twitch" href="https://twitch.tv/Agricola_Demeter" target="_blank"><i class="fa-brands fa-twitch"></i><br>TWITCH</a>
+<a class="sbtn steam" href="https://steamcommunity.com/id/agricolademeter/" target="_blank"><i class="fa-brands fa-steam"></i><br>STEAM</a>
+<a class="sbtn insta" href="https://instagram.com/agricolademetertwitch" target="_blank"><i class="fa-brands fa-instagram"></i><br>INSTA</a>
+</div>
+<div class="card" style="font-size:10px"><i class="fa-solid fa-link"></i> All links:<br>
+• twitch.tv/Agricola_Demeter<br>
+• steamcommunity.com/id/agricolademeter/<br>
+• instagram.com/agricolademetertwitch</div>
+</div>
+
+<div class="foot">Agricola_Demeter • SILESIA ESPORTS v4.2 • IG @agricolademetertwitch</div>
 </div>
 
 <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-  const CH = "Agricola_Demeter";
-  document.getElementById('tab0').addEventListener('click', ()=>switchTab(0));
-  document.getElementById('tab1').addEventListener('click', ()=>switchTab(1));
-  document.getElementById('tab2').addEventListener('click', ()=>switchTab(2));
-  function switchTab(i){document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',j===i));document.querySelectorAll('.page').forEach((p,j)=>p.classList.toggle('active',j===i));}
-  document.getElementById('followBtn').addEventListener('click', function(){ if(window.Twitch&&window.Twitch.ext&&window.Twitch.ext.actions&&window.Twitch.ext.actions.followChannel){ window.Twitch.ext.actions.followChannel(CH, function(){}); } else { window.open('https://twitch.tv/'+CH,'_blank'); } });
-  function getSteamId(){ return document.getElementById('steamId').value.trim() || "76561198123456789"; }
-  function showOut(text, url){ let o=document.getElementById('sOut'); o.style.display='block'; o.innerHTML=text+'<br><a href="'+url+'" target="_blank" style="color:var(--c)">'+url+'</a>'; }
-  document.getElementById('invBtn').addEventListener('click', function(e){ e.preventDefault(); let id=getSteamId(); let url=`https://steamcommunity.com/profiles/${id}/inventory/`; showOut('INV VALUE',url); window.open(url,'_blank'); });
-  document.getElementById('faceitBtn').addEventListener('click', function(e){ e.preventDefault(); let id=getSteamId(); let url=`https://faceitfinder.com/steam/${id}`; showOut('FACEIT STATS',url); window.open(url,'_blank'); });
-  document.getElementById('profileBtn').addEventListener('click', function(e){ e.preventDefault(); let id=getSteamId(); let url=`https://steamcommunity.com/profiles/${id}`; showOut('PROFILE',url); window.open(url,'_blank'); });
-  document.getElementById('vacBtn').addEventListener('click', function(e){ e.preventDefault(); let id=getSteamId(); let url=`https://steamid.uk/profile/${id}`; showOut('VAC CHECK',url); window.open(url,'_blank'); });
-  document.getElementById('crossBtn').addEventListener('click', ()=>{ document.getElementById('code').innerText='cl_crosshairsize 1.5; cl_crosshairgap -2; cl_crosshaircolor 4; cl_crosshairdot 0; cl_crosshairstyle 4'; });
-  document.getElementById('mirageBtn').addEventListener('click', ()=>{ document.getElementById('code').innerText='Mirage Window Smoke: place at x=-1685 y=-55 -> jumpthrow'; });
-  document.getElementById('infernoBtn').addEventListener('click', ()=>{ document.getElementById('code').innerText='Inferno Banana Molly: aim roof edge 2nd line + throw while moving'; });
-  document.getElementById('bindBtn').addEventListener('click', ()=>{ document.getElementById('code').innerText='bind q \"use weapon_knife; use weapon_flashbang\" // Quick flash'; });
-  document.getElementById('copyBtn').addEventListener('click', function(){ let txt=document.getElementById('code').innerText; if(navigator.clipboard){ navigator.clipboard.writeText(txt).then(()=>showCopied()); } else { let ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showCopied(); } });
-  function showCopied(){ let s=document.getElementById('copyStatus'); s.style.display='block'; setTimeout(()=>s.style.display='none',2000); }
-  let sec=872, maps=["Mirage","Inferno","Anubis","Dust II"], mapI=0; setInterval(()=>{ sec--; if(sec<0){sec=900; mapI=(mapI+1)%4} let m=Math.floor(sec/60),s=sec%60; document.getElementById('mT').innerHTML=`<i class="fa-regular fa-clock"></i> ${m}:${String(s).padStart(2,'0')}`; document.getElementById('mNow').textContent=maps[mapI]; document.getElementById('mNext').textContent=maps[(mapI+1)%4]; },1000);
+  const CH="Agricola_Demeter"; const STEAM="agricolademeter";
+  for(let i=0;i<4;i++){ document.getElementById('tab'+i).addEventListener('click', ()=>{ document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',j===i)); document.querySelectorAll('.page').forEach((p,j)=>p.classList.toggle('active',j===i)); }); }
+  document.getElementById('followBtn').addEventListener('click', function(){ if(window.Twitch&&window.Twitch.ext&&window.Twitch.ext.actions&&window.Twitch.ext.actions.followChannel){ window.Twitch.ext.actions.followChannel(CH,function(){});} else { window.open('https://twitch.tv/'+CH,'_blank'); } });
+  function getSteamId(){ let v=document.getElementById('steamId').value.trim(); return v||STEAM; }
+  function showOut(t,u){ document.getElementById('sOut').innerHTML=t+'<br><a href="'+u+'" target="_blank" style="color:var(--c)">'+u+'</a>'; }
+  document.getElementById('invBtn').addEventListener('click', function(e){ e.preventDefault(); let id=getSteamId(); let url=id.includes('7656')?`https://steamcommunity.com/profiles/${id}/inventory/`:`https://steamcommunity.com/id/${id}/inventory/`; showOut('INV',url); window.open(url,'_blank'); });
+  document.getElementById('faceitBtn').addEventListener('click', function(e){ e.preventDefault(); let id=getSteamId(); let url=`https://faceitfinder.com/steam/${id}`; showOut('FACEIT',url); window.open(url,'_blank'); });
+  document.getElementById('profileBtn').addEventListener('click', function(e){ e.preventDefault(); let id=getSteamId(); let url=id.includes('7656')?`https://steamcommunity.com/profiles/${id}`:`https://steamcommunity.com/id/${id}`; showOut('PROFILE',url); window.open(url,'_blank'); });
+  document.getElementById('vacBtn').addEventListener('click', function(e){ e.preventDefault(); let url=`https://steamid.uk/profile/${getSteamId()}`; showOut('VAC',url); window.open(url,'_blank'); });
+  document.getElementById('crossBtn').addEventListener('click', ()=>{ document.getElementById('code').innerText='cl_crosshairsize 1.5; cl_crosshairgap -2; cl_crosshaircolor 4; cl_crosshairdot 0'; });
+  document.getElementById('mirageBtn').addEventListener('click', ()=>{ document.getElementById('code').innerText='Mirage Window Smoke: -1685 -55 jumpthrow'; });
+  document.getElementById('infernoBtn').addEventListener('click', ()=>{ document.getElementById('code').innerText='Inferno Banana Molly: roof edge'; });
+  document.getElementById('bindBtn').addEventListener('click', ()=>{ document.getElementById('code').innerText='bind q \"use weapon_knife; use weapon_flashbang\"'; });
+  document.getElementById('copyBtn').addEventListener('click', function(){ navigator.clipboard.writeText(document.getElementById('code').innerText); });
 });
 </script></body></html>
