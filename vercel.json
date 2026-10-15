@@ -1,0 +1,10 @@
+{
+  "cleanUrls": false,
+  "routes": [
+    { "src": "/", "dest": "/panel.html" },
+    { "src": "/panel.html", "dest": "/panel.html" },
+    { "src": "/config.html", "dest": "/config.html" },
+    { "src": "/viewer.js", "dest": "/viewer.js" },
+    { "src": "/live_config.html", "dest": "/live_config.html" }
+  ]
+}
