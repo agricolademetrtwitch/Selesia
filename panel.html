@@ -2,40 +2,47 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=320">
 <style>
-*{box-sizing:border-box}body{margin:0;padding:8px;background:#08080F;color:#fff;font-family:Arial,sans-serif;font-size:10px;position:relative}
-body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(rgba(8,8,15,0.88),rgba(8,8,15,0.93)), url('BG_URL');background-size:cover;z-index:-1}
-.h{color:#00F0FF;font-size:9px;margin:7px 0 3px;padding-left:5px;border-left:2px solid #00F0FF;font-weight:800;letter-spacing:0.5px}
+*{box-sizing:border-box}
+body{margin:0;background:#08080F;display:flex;justify-content:center;color:#fff;font-family:Inter,Arial,sans-serif}
+.wrap{width:320px;padding:10px;background:#08080F}
+.b{padding:8px 10px;background:#0E0E1A;border:0.5px solid #1A1A2E;border-left:2px solid #00F0FF;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.5px;text-align:center}
+.pr{height:2px;background:#1A1A2E;margin:8px 0;border-radius:2px;overflow:hidden}
+.pr div{height:100%;width:94.3%;background:#00F0FF}
+.h{font-size:9px;color:#5A5A7A;margin:14px 0 6px;letter-spacing:1.2px;font-weight:700}
 .g{display:grid;grid-template-columns:1fr 1fr;gap:4px}
-button{background:rgba(18,18,31,0.85);border:1px solid #00F0FF30;color:#fff;padding:6px 3px;border-radius:5px;font-size:9px;cursor:pointer;font-weight:600}
-button:hover{background:#00F0FF;color:#000;box-shadow:0 0 8px #00F0FF}
-.f{grid-column:span 2;background:linear-gradient(90deg,#00F0FF,#7000FF);border:none;padding:8px;font-size:10px;font-weight:900}
-.b{text-align:center;background:rgba(0,240,255,0.12);padding:5px;border-radius:5px;border:1px solid #00F0FF60;font-size:9px}
-.pr{height:3px;background:#12121F;border-radius:2px;margin:3px 0}.pr div{height:100%;background:linear-gradient(90deg,#00F0FF,#7000FF);width:94.3%}
+button{background:#12121F;border:0.5px solid #1E1E32;color:#A0A0B8;padding:9px;border-radius:4px;font-size:10px;font-weight:600;cursor:pointer;transition:.15s}
+button:hover{background:#151525;border-color:#00F0FF40;color:#fff}
+.f{grid-column:span 2;background:#00F0FF;color:#000;border:none;font-weight:800;letter-spacing:.5px}
+.f:hover{background:#00E0EF;box-shadow:0 0 12px #00F0FF40}
 </style>
 </head>
 <body>
-<div class="b">⚒️ SILESIA | 1132 / 1200 | 68 LEFT</div>
+<div class="wrap">
+<div class="b">SILESIA — 1132 / 1200 — 68 LEFT</div>
 <div class="pr"><div></div></div>
-<div class="g"><button class="f" onclick="o('https://twitch.tv/Agricola_Demeter')">FOLLOW - 1132/1200</button></div>
+<div class="g"><button class="f" onclick="o('https://twitch.tv/Agricola_Demeter')">FOLLOW GOAL</button></div>
 <div class="h">STEAM TOOLS</div>
 <div class="g">
 <button onclick="o('https://steamcommunity.com/id/agricolademeter/')">PROFILE</button>
-<button onclick="o('https://steamcommunity.com/id/agricolademeter/inventory/')">INV</button>
+<button onclick="o('https://steamcommunity.com/id/agricolademeter/inventory/')">INVENTORY</button>
 <button onclick="o('https://steam.tools/itemvalue/')">VALUE</button>
-<button onclick="o('https://vacbanned.com/search/agricolademeter')">VAC</button>
+<button onclick="o('https://vacbanned.com/search/agricolademeter')">VAC BAN</button>
 </div>
 <div class="h">FACEIT / CS2</div>
 <div class="g">
 <button onclick="o('https://www.faceit.com/en/players/agricolademeter')">FACEIT</button>
-<button onclick="o('https://faceitfinder.com/players/agricolademeter')">ELO</button>
-<button onclick="c('cl_crosshairsize 2; cl_crosshairgap -3')">CROSS</button>
-<button onclick="c('bind f \"use weapon_knife; use weapon_flashbang\"')">BINDS</button>
+<button onclick="o('https://faceitfinder.com/players/agricolademeter')">ELO CHECK</button>
+<button onclick="c('cl_crosshairsize 2; cl_crosshairgap -3')">CROSSHAIR</button>
+<button onclick="c('bind f \'use weapon_knife; use weapon_flashbang\'')">BINDS</button>
 </div>
 <div class="h">SOCIAL</div>
-<div class="g"><button class="f" onclick="o('https://instagram.com/agricolademetrtwitch')">IG @agricolademetrtwitch</button></div>
+<div class="g"><button class="f" onclick="o('https://instagram.com/agricolademetrtwitch')" style="background:transparent;border:0.5px solid #1E1E32;color:#A0A0B8">IG @agricolademetrtwitch</button></div>
+</div>
 <script>
-function o(u){window.open(u,'_blank')}function c(t){navigator.clipboard.writeText(t)}
+function o(u){window.open(u,'_blank')}
+function c(t){navigator.clipboard.writeText(t)}
 </script>
 </body>
 </html>
