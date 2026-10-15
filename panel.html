@@ -1,87 +1,62 @@
-<!DOCTYPE html><html lang="pl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SILESIA ESPORTS - Agricola_Demeter</title>
-<link rel="icon" href="favicon-32x32.png"><meta name="theme-color" content="#00F0FF">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>:root{--c:#00F0FF;--p:#FF00E5}*{box-sizing:border-box}body{margin:0;display:flex;justify-content:center;background:#08080F;font-family:Rajdhani}
-.wrap{width:100%;max-width:318px;background:linear-gradient(180deg,#12121F,#08080F);border:1.5px solid var(--c);border-radius:14px;overflow:hidden}
-@media(max-width:480px){.wrap{max-width:100%;border-radius:0;min-height:100vh}}@media(min-width:769px){.wrap{max-width:480px}body{padding:20px}}
-.head{padding:14px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,240,255,.08);border-bottom:1px solid rgba(0,240,255,.2)}
-.logo{font-family:Orbitron;font-weight:900;font-size:13px;color:var(--c);display:flex;align-items:center;gap:6px}.logo img{width:20px;height:20px;border-radius:4px}
-.chan{font-family:Orbitron;font-size:9px;color:var(--p)}.tabs{display:flex;background:#0f0f1e}.tab{flex:1;padding:10px 0;text-align:center;font-family:Orbitron;font-size:8px;color:#666;border-bottom:2px solid transparent;cursor:pointer}.tab.active{color:var(--c);border-color:var(--c);background:rgba(0,240,255,.08)}.tab i{display:block;font-size:14px;margin-bottom:2px}
-.page{padding:14px;display:none}.page.active{display:block}.card{background:rgba(255,255,255,.05);border:1px solid rgba(0,240,255,.22);border-radius:12px;padding:12px;margin:8px 0;font-size:11px;color:#fff}
-.social{display:flex;gap:6px;margin:8px 0}.sbtn{flex:1;padding:10px 6px;border-radius:9px;text-align:center;font-family:Orbitron;font-size:8px;text-decoration:none;color:#fff;display:block}
-.sbtn.twitch{background:linear-gradient(90deg,#9146FF,#6441a5)}.sbtn.steam{background:linear-gradient(90deg,#1b2838,#2a475e)}.sbtn.insta{background:linear-gradient(90deg,#feda75,#d62976,#4f5bd5)}
-.btn{width:100%;padding:14px;background:linear-gradient(90deg,var(--c),var(--p));border:0;border-radius:10px;font-family:Orbitron;font-weight:900;font-size:10px;color:#000;cursor:pointer;display:block;text-align:center;text-decoration:none}
-.btn2{width:48%;padding:10px;margin:3px 1%;background:#1e1e30;border:1px solid var(--c);border-radius:9px;color:var(--c);font-family:Orbitron;font-size:8px;cursor:pointer;text-decoration:none;display:inline-block;text-align:center}
-.input{width:100%;padding:12px;background:#111;border:1px solid #333;border-radius:10px;color:var(--c);font-size:11px;margin:8px 0}.foot{font-size:8px;color:#444;text-align:center;padding:10px}
-</style></head><body>
-<div class="wrap">
-<div class="head"><div class="logo"><img src="favicon-32x32.png"> SILESIA ESPORTS</div><div class="chan"><i class="fa-brands fa-twitch"></i> Agricola_Demeter</div></div>
-<div class="tabs">
-<div class="tab active" id="tab0"><i class="fa-solid fa-heart"></i>GOAL</div>
-<div class="tab" id="tab1"><i class="fa-brands fa-steam"></i>STEAM</div>
-<div class="tab" id="tab2"><i class="fa-solid fa-crosshairs"></i>CS2</div>
-<div class="tab" id="tab3"><i class="fa-brands fa-instagram"></i>SOCIAL</div>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+body{background:#08080F;color:#fff;font-family:Orbitron,sans-serif;margin:0;padding:12px}
+h2{color:#00F0FF;font-size:11px;margin:12px 0 6px;border-left:3px solid #00F0FF;padding-left:6px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+button{background:#12121F;border:1px solid #00F0FF40;color:#fff;padding:10px;border-radius:8px;font-size:11px;cursor:pointer;font-weight:bold}
+button:hover{background:#00F0FF;color:#000;box-shadow:0 0 12px #00F0FF}
+.full{grid-column:span 2}
+.follow{background:linear-gradient(90deg,#00F0FF,#7000FF);border:none;font-size:12px;padding:12px}
+.badge{background:linear-gradient(90deg,#00F0FF20,#7000FF20);border:1px solid #00F0FF;padding:8px;text-align:center;border-radius:8px;font-size:11px}
+.prog{height:6px;background:#12121F;border-radius:3px;margin:6px 0;overflow:hidden}
+.prog div{height:100%;background:linear-gradient(90deg,#00F0FF,#7000FF);width:94.3%}
+</style>
+</head>
+<body>
+
+<div class="badge">SILESIA ESPORTS | Agricola_Demeter</div>
+
+<h2>🔥 FOLLOW GOAL 1132 / 1200</h2>
+<div class="prog"><div></div></div>
+<div style="font-size:10px;opacity:0.7;text-align:center;margin-bottom:6px">Осталось 68 фолловеров до цели!</div>
+<div class="grid"><button class="full follow" onclick="act('https://twitch.tv/Agricola_Demeter')">FOLLOW - 1132/1200</button></div>
+
+<h2>🎮 STEAM TOOLS</h2>
+<div class="grid">
+<button onclick="act('https://steamcommunity.com/id/agricolademeter/')">PROFILE</button>
+<button onclick="act('https://steamcommunity.com/id/agricolademeter/inventory/')">INV</button>
+<button onclick="act('https://steam.tools/itemvalue/')">INV VALUE</button>
+<button onclick="act('https://steamid.io/lookup/agricolademeter')">STEAM ID</button>
+<button onclick="act('https://vacbanned.com/search/agricolademeter')">VAC CHECK</button>
+<button onclick="act('https://steamcommunity.com/tradeoffer/new/')">TRADE</button>
 </div>
 
-<div class="page active" id="p0">
-<div class="card"><i class="fa-solid fa-heart" style="color:var(--p)"></i> FOLLOW GOAL: <b>128</b>/200<div style="height:10px;background:#1e1e30;border-radius:10px;margin-top:6px"><div style="height:100%;width:64%;background:linear-gradient(90deg,var(--c),var(--p));border-radius:10px"></div></div></div>
-<div class="social">
-<a class="sbtn twitch" href="https://twitch.tv/Agricola_Demeter" target="_blank"><i class="fa-brands fa-twitch"></i><br>TWITCH</a>
-<a class="sbtn steam" href="https://steamcommunity.com/id/agricolademeter/" target="_blank"><i class="fa-brands fa-steam"></i><br>STEAM</a>
-<a class="sbtn insta" href="https://instagram.com/agricolademetrtwitch" target="_blank"><i class="fa-brands fa-instagram"></i><br>INSTA</a>
-</div>
-<button class="btn" id="followBtn"><i class="fa-brands fa-twitch"></i> FOLLOW ON TWITCH</button>
+<h2>🏆 FACEIT</h2>
+<div class="grid">
+<button onclick="act('https://www.faceit.com/en/players/agricolademeter')">FACEIT PROFILE</button>
+<button onclick="act('https://faceitfinder.com/players/agricolademeter')">ELO / LEVEL</button>
 </div>
 
-<div class="page" id="p1">
-<div class="card" style="text-align:center"><i class="fa-brands fa-steam" style="font-size:22px"></i><br><b style="color:var(--c)">agricolademeter</b></div>
-<input class="input" id="steamId" value="agricolademeter">
-<div style="display:flex;flex-wrap:wrap">
-<a class="btn2" href="#" id="invBtn"><i class="fa-solid fa-box-open"></i>INV</a>
-<a class="btn2" href="#" id="faceitBtn"><i class="fa-solid fa-trophy"></i>FACEIT</a>
-<a class="btn2" href="#" id="profileBtn"><i class="fa-brands fa-steam"></i>PROFILE</a>
-<a class="btn2" href="#" id="vacBtn"><i class="fa-solid fa-shield-halved"></i>VAC</a>
-</div>
-<div class="card" id="sOut"></div>
+<h2>💥 CS2</h2>
+<div class="grid">
+<button onclick="copy('cl_crosshairsize 2; cl_crosshairgap -3; cl_crosshairthickness 1; cl_crosshaircolor 5')">CROSSHAIR</button>
+<button onclick="copy('bind f \"use weapon_knife; use weapon_flashbang\"')">BINDS</button>
+<button onclick="act('https://totalcsgo.com/commands')">COMMANDS</button>
+<button onclick="act('https://www.youtube.com/results?search_query=mirage+smokes+cs2')">MIRAGE/INFERNO</button>
 </div>
 
-<div class="page" id="p2">
-<div style="display:flex;flex-wrap:wrap"><button class="btn2" id="crossBtn"><i class="fa-solid fa-crosshairs"></i>CROSSHAIR</button><button class="btn2" id="mirageBtn"><i class="fa-solid fa-smog"></i>MIRAGE</button><button class="btn2" id="infernoBtn"><i class="fa-solid fa-fire"></i>INFERNO</button><button class="btn2" id="bindBtn"><i class="fa-solid fa-keyboard"></i>BINDS</button></div>
-<div class="card"><code id="code" style="color:var(--c);word-break:break-all">cl_crosshairsize 1.5; cl_crosshairgap -2; cl_crosshaircolor 4</code></div>
-<button class="btn" id="copyBtn"><i class="fa-regular fa-copy"></i> COPY CODE</button>
+<h2>📲 SOCIALS</h2>
+<div class="grid">
+<button class="full" onclick="act('https://instagram.com/agricolademetrtwitch')">IG @agricolademetrtwitch - 1132 FOLLOWERS ON TWITCH</button>
 </div>
 
-<div class="page" id="p3">
-<div class="card" style="text-align:center;background:linear-gradient(135deg,#feda75 0%,#d62976 50%,#4f5bd5 100%);color:#fff;border:0"><i class="fa-brands fa-instagram" style="font-size:36px"></i><br><b style="font-family:Orbitron;font-size:14px">@agricolademetrtwitch</b><br><small>Clips & behind the scenes</small></div>
-<a class="btn" href="https://instagram.com/agricolademetrtwitch" target="_blank" style="background:linear-gradient(90deg,#feda75,#d62976);color:#fff"><i class="fa-brands fa-instagram"></i> OPEN INSTAGRAM @agricolademetrtwitch</a>
-<div style="display:flex;flex-wrap:wrap;margin-top:8px">
-<a class="sbtn twitch" href="https://twitch.tv/Agricola_Demeter" target="_blank"><i class="fa-brands fa-twitch"></i><br>TWITCH</a>
-<a class="sbtn steam" href="https://steamcommunity.com/id/agricolademeter/" target="_blank"><i class="fa-brands fa-steam"></i><br>STEAM</a>
-<a class="sbtn insta" href="https://instagram.com/agricolademetrtwitch" target="_blank"><i class="fa-brands fa-instagram"></i><br>INSTA</a>
-</div>
-<div class="card" style="font-size:10px"><i class="fa-solid fa-link"></i> All links:<br>- twitch.tv/Agricola_Demeter<br>- steamcommunity.com/id/agricolademeter/<br>- instagram.com/agricolademetrtwitch</div>
-</div>
-
-<div class="foot">Agricola_Demeter • v4.2.1 • IG @agricolademetrtwitch • FIXED</div>
-</div>
-<script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-  const CH="Agricola_Demeter"; const STEAM="agricolademeter";
-  for(let i=0;i<4;i++){ document.getElementById('tab'+i).addEventListener('click', ()=>{ document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',j===i)); document.querySelectorAll('.page').forEach((p,j)=>p.classList.toggle('active',j===i)); }); }
-  document.getElementById('followBtn').addEventListener('click', function(){ if(window.Twitch&&window.Twitch.ext&&window.Twitch.ext.actions&&window.Twitch.ext.actions.followChannel){ window.Twitch.ext.actions.followChannel(CH,function(){});} else { window.open('https://twitch.tv/'+CH,'_blank'); } });
-  function getSteamId(){ let v=document.getElementById('steamId').value.trim(); return v||STEAM; }
-  function showOut(t,u){ document.getElementById('sOut').innerHTML=t+'<br><a href="'+u+'" target="_blank" style="color:var(--c)">'+u+'</a>'; }
-  document.getElementById('invBtn').addEventListener('click', function(e){ e.preventDefault(); let id=getSteamId(); let url=id.includes('7656')?`https://steamcommunity.com/profiles/${id}/inventory/`:`https://steamcommunity.com/id/${id}/inventory/`; showOut('INV',url); window.open(url,'_blank'); });
-  document.getElementById('faceitBtn').addEventListener('click', function(e){ e.preventDefault(); let id=getSteamId(); let url=`https://faceitfinder.com/steam/${id}`; showOut('FACEIT',url); window.open(url,'_blank'); });
-  document.getElementById('profileBtn').addEventListener('click', function(e){ e.preventDefault(); let id=getSteamId(); let url=id.includes('7656')?`https://steamcommunity.com/profiles/${id}`:`https://steamcommunity.com/id/${id}`; showOut('PROFILE',url); window.open(url,'_blank'); });
-  document.getElementById('vacBtn').addEventListener('click', function(e){ e.preventDefault(); let url=`https://steamid.uk/profile/${getSteamId()}`; showOut('VAC',url); window.open(url,'_blank'); });
-  document.getElementById('crossBtn').addEventListener('click', ()=>{ document.getElementById('code').innerText='cl_crosshairsize 1.5; cl_crosshairgap -2; cl_crosshaircolor 4; cl_crosshairdot 0'; });
-  document.getElementById('mirageBtn').addEventListener('click', ()=>{ document.getElementById('code').innerText='Mirage Window Smoke: -1685 -55 jumpthrow'; });
-  document.getElementById('infernoBtn').addEventListener('click', ()=>{ document.getElementById('code').innerText='Inferno Banana Molly: roof edge'; });
-  document.getElementById('bindBtn').addEventListener('click', ()=>{ document.getElementById('code').innerText='bind q \"use weapon_knife; use weapon_flashbang\"'; });
-  document.getElementById('copyBtn').addEventListener('click', function(){ navigator.clipboard.writeText(document.getElementById('code').innerText); });
-});
-</script></body></html>
+let audio=new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=click-124467.mp3');
+function act(url){try{audio.currentTime=0;audio.play()}catch(e){} window.open(url,'_blank');}
+function copy(t){try{audio.currentTime=0;audio.play()}catch(e){} navigator.clipboard.writeText(t); let n=document.createElement('div'); n.textContent='✓ Скопировано!'; n.style='position:fixed;bottom:10px;left:50%;transform:translateX(-50%);background:#00F0FF;color:#000;padding:6px 12px;border-radius:4px;font-size:10px;z-index:999'; document.body.appendChild(n); setTimeout(()=>n.remove(),1500);}
+</script>
+</body>
+</html>
