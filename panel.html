@@ -3,60 +3,39 @@
 <head>
 <meta charset="utf-8">
 <style>
-body{background:#08080F;color:#fff;font-family:Orbitron,sans-serif;margin:0;padding:12px}
-h2{color:#00F0FF;font-size:11px;margin:12px 0 6px;border-left:3px solid #00F0FF;padding-left:6px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-button{background:#12121F;border:1px solid #00F0FF40;color:#fff;padding:10px;border-radius:8px;font-size:11px;cursor:pointer;font-weight:bold}
-button:hover{background:#00F0FF;color:#000;box-shadow:0 0 12px #00F0FF}
-.full{grid-column:span 2}
-.follow{background:linear-gradient(90deg,#00F0FF,#7000FF);border:none;font-size:12px;padding:12px}
-.badge{background:linear-gradient(90deg,#00F0FF20,#7000FF20);border:1px solid #00F0FF;padding:8px;text-align:center;border-radius:8px;font-size:11px}
-.prog{height:6px;background:#12121F;border-radius:3px;margin:6px 0;overflow:hidden}
-.prog div{height:100%;background:linear-gradient(90deg,#00F0FF,#7000FF);width:94.3%}
+*{box-sizing:border-box}body{margin:0;padding:8px;background:#08080F;color:#fff;font-family:Arial,sans-serif;font-size:10px;position:relative}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(rgba(8,8,15,0.88),rgba(8,8,15,0.93)), url('BG_URL');background-size:cover;z-index:-1}
+.h{color:#00F0FF;font-size:9px;margin:7px 0 3px;padding-left:5px;border-left:2px solid #00F0FF;font-weight:800;letter-spacing:0.5px}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+button{background:rgba(18,18,31,0.85);border:1px solid #00F0FF30;color:#fff;padding:6px 3px;border-radius:5px;font-size:9px;cursor:pointer;font-weight:600}
+button:hover{background:#00F0FF;color:#000;box-shadow:0 0 8px #00F0FF}
+.f{grid-column:span 2;background:linear-gradient(90deg,#00F0FF,#7000FF);border:none;padding:8px;font-size:10px;font-weight:900}
+.b{text-align:center;background:rgba(0,240,255,0.12);padding:5px;border-radius:5px;border:1px solid #00F0FF60;font-size:9px}
+.pr{height:3px;background:#12121F;border-radius:2px;margin:3px 0}.pr div{height:100%;background:linear-gradient(90deg,#00F0FF,#7000FF);width:94.3%}
 </style>
 </head>
 <body>
-
-<div class="badge">SILESIA ESPORTS | Agricola_Demeter</div>
-
-<h2>🔥 FOLLOW GOAL 1132 / 1200</h2>
-<div class="prog"><div></div></div>
-<div style="font-size:10px;opacity:0.7;text-align:center;margin-bottom:6px">Осталось 68 фолловеров до цели!</div>
-<div class="grid"><button class="full follow" onclick="act('https://twitch.tv/Agricola_Demeter')">FOLLOW - 1132/1200</button></div>
-
-<h2>🎮 STEAM TOOLS</h2>
-<div class="grid">
-<button onclick="act('https://steamcommunity.com/id/agricolademeter/')">PROFILE</button>
-<button onclick="act('https://steamcommunity.com/id/agricolademeter/inventory/')">INV</button>
-<button onclick="act('https://steam.tools/itemvalue/')">INV VALUE</button>
-<button onclick="act('https://steamid.io/lookup/agricolademeter')">STEAM ID</button>
-<button onclick="act('https://vacbanned.com/search/agricolademeter')">VAC CHECK</button>
-<button onclick="act('https://steamcommunity.com/tradeoffer/new/')">TRADE</button>
+<div class="b">⚒️ SILESIA | 1132 / 1200 | 68 LEFT</div>
+<div class="pr"><div></div></div>
+<div class="g"><button class="f" onclick="o('https://twitch.tv/Agricola_Demeter')">FOLLOW - 1132/1200</button></div>
+<div class="h">STEAM TOOLS</div>
+<div class="g">
+<button onclick="o('https://steamcommunity.com/id/agricolademeter/')">PROFILE</button>
+<button onclick="o('https://steamcommunity.com/id/agricolademeter/inventory/')">INV</button>
+<button onclick="o('https://steam.tools/itemvalue/')">VALUE</button>
+<button onclick="o('https://vacbanned.com/search/agricolademeter')">VAC</button>
 </div>
-
-<h2>🏆 FACEIT</h2>
-<div class="grid">
-<button onclick="act('https://www.faceit.com/en/players/agricolademeter')">FACEIT PROFILE</button>
-<button onclick="act('https://faceitfinder.com/players/agricolademeter')">ELO / LEVEL</button>
+<div class="h">FACEIT / CS2</div>
+<div class="g">
+<button onclick="o('https://www.faceit.com/en/players/agricolademeter')">FACEIT</button>
+<button onclick="o('https://faceitfinder.com/players/agricolademeter')">ELO</button>
+<button onclick="c('cl_crosshairsize 2; cl_crosshairgap -3')">CROSS</button>
+<button onclick="c('bind f \"use weapon_knife; use weapon_flashbang\"')">BINDS</button>
 </div>
-
-<h2>💥 CS2</h2>
-<div class="grid">
-<button onclick="copy('cl_crosshairsize 2; cl_crosshairgap -3; cl_crosshairthickness 1; cl_crosshaircolor 5')">CROSSHAIR</button>
-<button onclick="copy('bind f \"use weapon_knife; use weapon_flashbang\"')">BINDS</button>
-<button onclick="act('https://totalcsgo.com/commands')">COMMANDS</button>
-<button onclick="act('https://www.youtube.com/results?search_query=mirage+smokes+cs2')">MIRAGE/INFERNO</button>
-</div>
-
-<h2>📲 SOCIALS</h2>
-<div class="grid">
-<button class="full" onclick="act('https://instagram.com/agricolademetrtwitch')">IG @agricolademetrtwitch - 1132 FOLLOWERS ON TWITCH</button>
-</div>
-
+<div class="h">SOCIAL</div>
+<div class="g"><button class="f" onclick="o('https://instagram.com/agricolademetrtwitch')">IG @agricolademetrtwitch</button></div>
 <script>
-let audio=new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=click-124467.mp3');
-function act(url){try{audio.currentTime=0;audio.play()}catch(e){} window.open(url,'_blank');}
-function copy(t){try{audio.currentTime=0;audio.play()}catch(e){} navigator.clipboard.writeText(t); let n=document.createElement('div'); n.textContent='✓ Скопировано!'; n.style='position:fixed;bottom:10px;left:50%;transform:translateX(-50%);background:#00F0FF;color:#000;padding:6px 12px;border-radius:4px;font-size:10px;z-index:999'; document.body.appendChild(n); setTimeout(()=>n.remove(),1500);}
+function o(u){window.open(u,'_blank')}function c(t){navigator.clipboard.writeText(t)}
 </script>
 </body>
 </html>
