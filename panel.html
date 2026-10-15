@@ -15,107 +15,94 @@ body{background:#08080F;display:flex;justify-content:center;color:#fff;font-fami
 .g{display:grid;grid-template-columns:1fr 1fr;gap:4px}
 button{background:#12121F;border:0.5px solid #1E1E32;color:#A0A0B8;padding:8px 4px;border-radius:4px;font-size:10px;font-weight:600;cursor:pointer}
 button:hover{border-color:#00F0FF40;color:#fff;background:#151525}
-.f{grid-column:span 2;background:#00F0FF;color:#000;border:none;font-weight:800;letter-spacing:.5px}
+.f{grid-column:span 2;background:#00F0FF;color:#000;border:none;font-weight:800}
 .f:hover{box-shadow:0 0 10px #00F0FF60}
 .pr{height:2px;background:#1A1A2E;border-radius:2px;overflow:hidden;margin:6px 0}
 .pr div{height:100%;width:94.3%;background:linear-gradient(90deg,#00F0FF,#7000FF)}
 .ai-box{background:#0E0E1A;border:0.5px solid #7000FF30;border-radius:6px;padding:8px;grid-column:span 2}
 .ai-in{width:100%;background:#12121F;border:0.5px solid #1E1E32;border-radius:4px;padding:6px;color:#fff;font-size:10px;outline:none}
 .ai-out{margin-top:6px;background:#12121F;border-radius:4px;padding:6px;color:#9A9AB0;line-height:1.4;min-height:28px}
-.future{border:0.5px dashed #2A2A4A;color:#5A5A7A;padding:6px 8px;border-radius:4px;grid-column:span 2;font-size:9px;text-align:center}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<!-- 1. FOLLOW + LIVE -->
-<div class="card card-follow"><b>⛏️ SILESIA 1132/1200 — 68 LEFT</b><span><span class="live-dot"></span> <span id="lt">LIVE</span></span></div>
+<div class="card card-follow"><b>⛏️ SILESIA 1132/1200 — 68 ОСТАЛОСЬ</b><span><span class="live-dot"></span> LIVE</span></div>
 <div class="pr"><div></div></div>
-<div class="g"><button class="f" onclick="o('https://twitch.tv/Agricola_Demeter')">FOLLOW GOAL — DOŁĄCZ DO KOPALNI</button></div>
+<div class="g"><button class="f" onclick="o('https://twitch.tv/Agricola_Demeter')">ПОДПИСАТЬСЯ — ЦЕЛЬ 1132/1200</button></div>
 
-<!-- 2. LIVE STATUS -->
-<div class="h">🔴 LIVE / STATS (AUTO)</div>
+<div class="h">🔴 ЛАЙВ СТАТУС</div>
 <div class="g">
-<div class="card" style="display:flex;justify-content:space-between"><span>FACEIT</span><b style="color:#00F0FF">LVL 7 • 1843 ELO</b></div>
+<div class="card" style="display:flex;justify-content:space-between"><span>FACEIT</span><b style="color:#00F0FF">7 LVL • 1843 ELO</b></div>
 <div class="card" style="display:flex;justify-content:space-between"><span>PREMIER</span><b>18.543</b></div>
-<div class="card" style="grid-column:span 2;display:flex;justify-content:space-between"><span>STATUS</span><b id="st" style="color:#00FF88">● FACEIT ROAD TO 10 • 127 widzów</b></div>
+<div class="card" style="grid-column:span 2;display:flex;justify-content:space-between"><span>СТРИМ</span><b style="color:#00FF88">● FACEIT ДО 10 LVL • 127 зрителей</b></div>
 </div>
 
-<!-- 3. AI -->
-<div class="h">🤖 SILESIA AI - COACH + CHAT</div>
+<div class="h">🤖 ИИ ТРЕНЕР SILESIA</div>
 <div class="g">
 <div class="ai-box">
-<input id="q" class="ai-in" placeholder="Zapytaj AI: mirage B retake? best crosshair?">
-<div id="a" class="ai-out"><b style="color:#00F0FF">SILESIA AI:</b> Jestem twoim AI coachem. Pytaj o smoki, taktyki, ELO. Tryb ślōnski gotowy!</div>
+<input id="q" class="ai-in" placeholder="Спроси ИИ: как сыграть ретейк B на mirage?">
+<div id="a" class="ai-out"><b style="color:#00F0FF">SILESIA AI:</b> Привет! Я твой ИИ тренер. Спроси про смоки, прицел, тактики.</div>
 <div style="display:flex;gap:4px;margin-top:6px">
-<button style="flex:1" onclick="ask()">ASK</button>
-<button style="flex:1" onclick="qa('mirage smokes')">SMOKES</button>
-<button style="flex:1" onclick="qa('lvl 10 tips')">LVL 10</button>
-<button style="flex:1" onclick="qa('crosshair')">CROSS</button>
+<button style="flex:1" onclick="ask()">СПРОСИТЬ</button>
+<button style="flex:1" onclick="qa('смоки mirage')">СМОКИ</button>
+<button style="flex:1" onclick="qa('до 10 лвл')">10 LVL</button>
+<button style="flex:1" onclick="qa('прицел')">ПРИЦЕЛ</button>
 </div>
 </div>
 </div>
 
-<!-- 4. TOOLS -->
-<div class="h">⚒️ TOOLS - STEAM / CS2</div>
+<div class="h">⚒️ ИНСТРУМЕНТЫ - STEAM / CS2</div>
 <div class="g">
-<button onclick="o('https://steamcommunity.com/id/agricolademeter/')">STEAM PROF</button>
-<button onclick="o('https://steamcommunity.com/id/agricolademeter/inventory/')">INVENTORY</button>
-<button onclick="o('https://steam.tools/itemvalue/')">VALUE</button>
-<button onclick="o('https://vacbanned.com/search/agricolademeter')">VAC CHECK</button>
+<button onclick="o('https://steamcommunity.com/id/agricolademeter/')">ПРОФИЛЬ STEAM</button>
+<button onclick="o('https://steamcommunity.com/id/agricolademeter/inventory/')">ИНВЕНТАРЬ</button>
+<button onclick="o('https://steam.tools/itemvalue/')">ЦЕНА ИНВ</button>
+<button onclick="o('https://vacbanned.com/search/agricolademeter')">VAC БАН</button>
 <button onclick="o('https://www.faceit.com/en/players/agricolademeter')">FACEIT</button>
-<button onclick="o('https://faceitfinder.com/players/agricolademeter')">ELO FINDER</button>
-<button onclick="c('cl_crosshairsize 2; cl_crosshairgap -3; cl_crosshaircolor 5')">COPY CROSS</button>
-<button onclick="c('bind f \'use weapon_knife; use weapon_flashbang\'')">COPY BINDS</button>
+<button onclick="o('https://faceitfinder.com/players/agricolademeter')">ПРОВЕРКА ELO</button>
+<button onclick="c('cl_crosshairsize 2; cl_crosshairgap -3; cl_crosshaircolor 5')">КОПИР ПРИЦЕЛ</button>
+<button onclick="c('bind f \'use weapon_knife; use weapon_flashbang\'')">КОПИР БИНДЫ</button>
 </div>
 
-<!-- 5. CONTENT -->
-<div class="h">📺 CONTENT + HARMONOGRAM</div>
+<div class="h">📺 КОНТЕНТ + РАСПИСАНИЕ</div>
 <div class="g">
-<button style="grid-column:span 2" onclick="o('https://twitch.tv/Agricola_Demeter/clips')">▶️ CLIP TYGODNIA - 1v3 CLUTCH</button>
-<div class="card" style="grid-column:span 2;line-height:1.5">PN-PT 20:00 CET — ROAD TO LVL 10<br>SOB 18:00 — PREMIER Z WIDZAMI<br>ND — VOD / YT MONTAGE</div>
+<button style="grid-column:span 2" onclick="o('https://twitch.tv/Agricola_Demeter/clips')">▶️ КЛИП НЕДЕЛИ - КЛАТЧ 1в3</button>
+<div class="card" style="grid-column:span 2;line-height:1.5">ПН-ПТ 20:00 — ДОРОГА ДО 10 LVL<br>СБ 18:00 — PREMIER СО ЗРИТЕЛЯМИ<br>ВС — ВЫХОДНОЙ / МОНТАЖ</div>
 </div>
 
-<!-- 6. SILESIA + SOCIAL -->
-<div class="h">🌍 SILESIA / SOCIAL</div>
+<div class="h">🌍 SILESIA / СОЦСЕТИ</div>
 <div class="g">
-<button onclick="o('https://instagram.com/agricolademetrtwitch')">IG</button>
-<button onclick="sl()">ŚLŌNSKI ON/OFF</button>
+<button onclick="o('https://instagram.com/agricolademetrtwitch')">INSTAGRAM</button>
+<button onclick="sl()">СИЛЕЗСКИЙ ON/OFF</button>
 <button class="f" style="background:transparent;border:0.5px solid #1E1E32;color:#7A7A9A" onclick="o('https://twitch.tv/Agricola_Demeter')">TWITCH.TV/AGRICOLA_DEMETER</button>
-</div>
-
-<!-- 7. FUTURE READY -->
-<div class="h">🚀 PRZYSZŁOŚĆ - GOTOWE SLOTY</div>
-<div class="g">
-<div class="future">🔜 SLOT 1: AI Głos Śląski (TTS) — gotowy<br>🔜 SLOT 2: Auto Clip Maker (AI wybiera moment)<br>🔜 SLOT 3: Sklep SILESIA merch / case battle<br>🔜 SLOT 4: Discord + Turniej Silesia Cup</div>
 </div>
 
 </div>
 <script>
 function o(u){window.open(u,'_blank')}
-function c(t){navigator.clipboard.writeText(t);alert('✓ Copied')}
+function c(t){navigator.clipboard.writeText(t);alert('✓ Скопировано')}
 const db={
-"mirage":"Mirage B: Smoke CT + Jungle + Flash Bench. 2x Market 1x Kitchen. Silesia style = info > aim",
-"smokes":"Mirage: CT -323 -235, Jungle -710, Window jumpthrow. Inferno: Banan + CT",
-"lvl 10":"Do 10 lvl: 2 mapy, 70% HS, graj stack 3-5, 6h dziennie FACEIT",
-"crosshair":"SILESIA CROSS: cl_crosshairsize 2; gap -3; color 5; dot 0; thickness 0.5",
-"taktyka":"Taktyka Silesia: Default 40s, potem contact. Nie force po 2 rundach"
+"mirage":"Mirage B ретейк: Смок CT + Jungle, флеш с лавки, 2 с маркета 1 с кухни. Инфа > стрельба!",
+"смоки":"Топ Mirage: CT -323 -235, Jungle -710, Window - jumpthrow. Inferno: банан + CT",
+"10":"До 10 лвл: 2 карты макс (Mirage/Inferno), 70% HS, играй стаком 3-5, 6ч в день FACEIT",
+"прицел":"ПРИЦЕЛ SILESIA: cl_crosshairsize 2; gap -3; color 5; dot 0; thickness 0.5",
+"тактика":"Тактика Silesia: Дефолт 40 сек, потом контакт. Не форси после 2 лузов"
 };
 function ask(){
 let q=document.getElementById('q').value.toLowerCase();
 let a=document.getElementById('a');
 if(!q)return;
-a.innerHTML='AI myśli... ⛏️';
+a.innerHTML='ИИ думает... ⛏️';
 setTimeout(()=>{
 for(let k in db) if(q.includes(k)){a.innerHTML='<b style="color:#00F0FF">SILESIA AI:</b> '+db[k]; return}
-a.innerHTML='<b style="color:#00F0FF">SILESIA AI:</b> Dla "'+q+'" — polecam: Graj mądrze, nie szybko. Sprawdzę VOD!';
+a.innerHTML='<b style="color:#00F0FF">SILESIA AI:</b> Для "'+q+'" — совет: Играй умно, а не быстро. Посмотрю твой VOD!';
 },500);
 }
 function qa(t){document.getElementById('q').value=t; ask();}
 let slon=false;
 function sl(){
 slon=!slon;
-document.querySelector('.card-follow b').innerText= slon? '⛏️ SILESIA 1132/1200 FEDRUNGU' : '⛏️ SILESIA 1132/1200 — 68 LEFT';
+document.querySelector('.card-follow b').innerText= slon? '⛏️ SILESIA 1132/1200 FEDRUNGU' : '⛏️ SILESIA 1132/1200 — 68 ОСТАЛОСЬ';
 }
 </script>
 </body>
