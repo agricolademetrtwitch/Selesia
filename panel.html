@@ -2,777 +2,164 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=320">
-<title>SILESIA</title>
+<title>SILESIA OBS OVERLAY</title>
 <style>
-*{box-sizing:border-box;margin:0}body{background:#171a21;display:flex;justify-content:center;color:#c7d5e0;font-family:Motiva Sans,Arial,sans-serif;font-size:11px;min-height:100vh}
-.wrap{width:320px;contain:content}.steam-header{background:#171a21;display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid #000;position:sticky;top:0;z-index:20;will-change:transform}
-.steam-nav{display:flex;gap:0;background:#171a21;border-bottom:1px solid #2a475e;overflow-x:auto;position:sticky;top:44px;z-index:19;scrollbar-width:none}
-.steam-nav::-webkit-scrollbar{display:none}
-.steam-nav button{background:transparent;border:none;color:#8f98a0;padding:12px 4px;font-size:7px;font-weight:700;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;display:none;text-transform:uppercase;contain:paint}
-.steam-nav button.show{display:block}.steam-nav button.on{color:#66c0f4;border-bottom-color:#66c0f4;background:linear-gradient(180deg,rgba(102,192,244,.1),transparent)}
-.card-steam{background:#1b2838;border:1px solid #2a475e44;border-radius:2px;margin:6px;padding:10px;contain:content}
-.card-blue{border-left:3px solid #66c0f4}.card-gold{border-left:3px solid #FFD700}.card-green{border-left:3px solid #5c7e10}
-.btn{width:100%;background:linear-gradient(90deg,#75b022 5%,#588a1b 95%);border:none;color:#d2efa9;padding:10px;border-radius:2px;font-size:11px;margin:4px 0;cursor:pointer;contain:paint}
-.btn-blue{background:linear-gradient(90deg,#47bfff 5%,#1a44c2 95%);color:#c7d5e0}.btn-dark{background:#2a475e;color:#c7d5e0}.btn-gold{background:linear-gradient(90deg,#FFD700,#FFA500);color:#000}
-.panel{display:none;content-visibility:auto;contain-intrinsic-size:500px}.panel.on{display:block}
-input,select,textarea{width:100%;background:#0e1c2a;border:1px solid #000;border-radius:2px;padding:10px;color:#0f90d0;margin:5px 0;font-size:12px;outline:none}
-.avatar-small{width:32px;height:32px;border:1px solid #2a475e;background:#16202d;display:flex;align-items:center;justify-content:center;font-weight:700;color:#66c0f4;overflow:hidden;flex-shrink:0;cursor:pointer;contain:paint}
-.avatar-small img{width:100%;height:100%;object-fit:cover;content-visibility:auto}
-.avatar-steam{width:64px;height:64px;border:2px solid #2a475e;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:28px;background:linear-gradient(45deg,#1b2838,#2a475e);color:#66c0f4;overflow:hidden;cursor:pointer;contain:paint}
-.avatar-steam img{width:100%;height:100%;object-fit:cover}
-.badge-steam{font-size:8px;padding:2px 6px;border-radius:2px;display:inline-block;margin:2px}.b-admin{background:#FFD700;color:#000}.b-mod{background:#66c0f4;color:#000}.b-user{background:#2a475e;color:#8f98a0}
-.label-steam{font-size:10px;color:#8f98a0;margin:10px 0 4px;display:block;text-transform:uppercase;letter-spacing:1px}
-.steam-level{display:inline-block;background:#2a475e;color:#66c0f4;border:1px solid #66c0f4;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:700;contain:paint}
-.steam-friend{display:flex;gap:10px;align-items:center;padding:8px;background:linear-gradient(90deg,#1b2838,#16202d);border:1px solid #2a475e20;margin-bottom:1px;cursor:pointer;contain:content}
-.steam-friend:hover{background:#2a475e55}
-.xp-bar{height:4px;background:#0e1c2a;border:1px solid #000;border-radius:3px;overflow:hidden;margin:4px 0}.xp-fill{height:100%;background:linear-gradient(90deg,#66c0f4,#1a44c2);transition:width 0.3s;will-change:width}
-.stories-bar{display:flex;gap:10px;overflow-x:auto;padding:10px 6px;background:linear-gradient(90deg,#1b2838,#16202d);border-bottom:1px solid #2a475e44;scrollbar-width:none;contain:content}
-.stories-bar::-webkit-scrollbar{display:none}
-.story-item{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:56px;cursor:pointer;contain:paint}
-.story-ring{width:56px;height:56px;border-radius:50%;padding:3px;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);display:flex;align-items:center;justify-content:center;contain:paint}
-.story-ring.seen{background:#2a475e}.story-ring.own{background:linear-gradient(45deg,#66c0f4,#1a44c2)}
-.story-avatar{width:50px;height:50px;border-radius:50%;background:#0e1c2a;border:2px solid #1b2838;display:flex;align-items:center;justify-content:center;font-weight:700;color:#66c0f4;overflow:hidden;font-size:20px;contain:paint}
-.story-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.story-name{font-size:8px;color:#8f98a0;max-width:56px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.chat-container{height:220px;overflow-y:auto;background:#0e1c2a;border:1px solid #000;padding:0;display:flex;flex-direction:column;contain:strict}
-.chat-msg{display:flex;gap:8px;padding:6px 8px;border-bottom:1px solid #1b283833;contain:content}
-.chat-msg-time{color:#4a5a6a;font-size:8px;min-width:36px}.chat-msg-user{font-weight:700;font-size:11px;cursor:pointer}.chat-msg-text{color:#c7d5e0;font-size:11px;word-break:break-word;flex:1}
-.chat-input-area{display:flex;gap:4px;padding:6px;background:#1b2838;border:1px solid #2a475e44;border-top:none}
-.comments-box{max-height:200px;overflow-y:auto;background:#0e1c2a;border:1px solid #000;padding:0;contain:content}
-.comment{display:flex;gap:8px;padding:8px;border-bottom:1px solid #1b283844;background:linear-gradient(90deg,#16202d,#1b2838);contain:content}
-.comment-body{flex:1}.comment-user{font-weight:700;color:#66c0f4;font-size:11px;cursor:pointer}.comment-text{color:#c7d5e0;font-size:11px;margin:2px 0;word-break:break-word}.comment-meta{color:#4a5a6a;font-size:8px;display:flex;gap:8px}
-.comment-actions{display:flex;gap:6px;margin-top:4px}.comment-actions button{width:auto;padding:3px 8px;font-size:8px;background:#2a475e;border:none;color:#8f98a0;border-radius:2px;cursor:pointer}
-.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:100;padding:10px}
-.modal.on{display:flex}
-.modal-box{width:320px;max-height:90vh;overflow-y:auto;background:#1b2838;border:1px solid #2a475e;border-radius:2px;contain:content}
-.game-card{display:flex;gap:10px;padding:10px;background:#16202d;border:1px solid #2a475e20;margin-bottom:2px;cursor:pointer;contain:content}
-.game-icon{width:60px;height:28px;background:#0e1c2a;border:1px solid #000;display:flex;align-items:center;justify-content:center;font-size:20px;contain:paint}
-.live-item{display:flex;gap:10px;padding:10px;background:linear-gradient(90deg,#16202d,#1b2838);border:1px solid #2a475e20;margin-bottom:2px;border-left:3px solid #66c0f4;contain:content}
-.live-item.levelup{border-left-color:#FFD700}.live-item.game{border-left-color:#5c7e10}
-.live-icon{width:32px;height:32px;border-radius:50%;background:#0e1c2a;border:1px solid #2a475e;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;contain:paint}
-.live-body{flex:1}.live-user{font-weight:700;color:#66c0f4;font-size:11px;cursor:pointer}.live-action{color:#c7d5e0;font-size:10px;margin:2px 0}.live-time{color:#4a5a6a;font-size:8px}
-.live-dot{width:8px;height:8px;background:#5c7e10;border-radius:50%;display:inline-block;animation:blink 1.5s infinite;box-shadow:0 0 6px #5c7e10}
-@keyframes blink{50%{opacity:.3}}
-.mention{background:#66c0f444;padding:1px 4px;border-radius:2px;color:#66c0f4}
-.virtual-spacer{height:0;pointer-events:none}
+*{box-sizing:border-box;margin:0}body{background:transparent;color:#fff;font-family:Montserrat,Arial,sans-serif;overflow:hidden;width:1920px;height:1080px;position:relative}
+.obs-live-notif{position:absolute;display:none;align-items:center;gap:16px;padding:16px 28px;border-radius:50px;background:linear-gradient(90deg,#ff0000,#9147ff);box-shadow:0 0 40px rgba(255,0,0,.6),0 0 80px rgba(145,71,255,.4);border:3px solid #fff;animation:obsIn 0.6s cubic-bezier(0.68,-0.55,0.265,1.55),obsPulse 1.5s infinite 0.6s,obsOut 0.6s 7.4s forwards;min-width:400px;max-width:700px}
+.obs-live-notif.show{display:flex}
+.obs-live-notif.bottom-left{bottom:40px;left:40px}
+.obs-live-notif.bottom-right{bottom:40px;right:40px}
+.obs-live-notif.top-left{top:40px;left:40px}
+.obs-live-notif.top-right{top:40px;right:40px}
+.obs-live-notif.center{top:50%;left:50%;transform:translate(-50%,-50%)}
+.obs-live-notif.center.show{animation:obsInCenter 0.6s cubic-bezier(0.68,-0.55,0.265,1.55),obsPulseCenter 1.5s infinite 0.6s,obsOutCenter 0.6s 7.4s forwards}
+.obs-live-notif.silesia{background:linear-gradient(90deg,#FFD700,#FFA500);color:#000;border-color:#000;box-shadow:0 0 40px rgba(255,215,0,.6)}
+.obs-live-notif.neon{background:linear-gradient(90deg,#9147ff,#772ce8);box-shadow:0 0 40px rgba(145,71,255,.8),0 0 80px rgba(145,71,255,.4)}
+.obs-live-notif.minimal{background:#111;border:2px solid #333;box-shadow:0 0 20px rgba(0,0,0,.8)}
+.obs-live-icon{width:64px;height:64px;background:#fff;color:#ff0000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;flex-shrink:0;animation:liveBlink 1s infinite}
+.obs-live-content{flex:1}
+.obs-live-name{font-size:22px;font-weight:800;display:flex;gap:8px;align-items:center}
+.obs-live-title{font-size:14px;opacity:0.9;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:400px}
+.obs-live-meta{font-size:11px;opacity:0.7;margin-top:2px;display:flex;gap:12px}
+.obs-live-badge{background:#fff;color:#ff0000;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;animation:liveBlink 1s infinite}
+.obs-live-viewers{display:flex;align-items:center;gap:4px}
+@keyframes obsIn{from{transform:translateX(-100%) scale(0.5);opacity:0}to{transform:translateX(0) scale(1);opacity:1}}
+@keyframes obsInCenter{from{transform:translate(-50%,-50%) scale(0.5);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
+@keyframes obsOut{from{transform:translateX(0) scale(1);opacity:1}to{transform:translateX(-100%) scale(0.5);opacity:0}}
+@keyframes obsOutCenter{from{transform:translate(-50%,-50%) scale(1);opacity:1}to{transform:translate(-50%,-50%) scale(0.5);opacity:0}}
+@keyframes obsPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+@keyframes obsPulseCenter{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.03)}}
+@keyframes liveBlink{50%{opacity:.5}}
 </style>
 </head>
 <body>
-<div class="wrap">
-
-<div id="loginScreen">
-<div style="background:#171a21;padding:20px 12px;text-align:center;border-bottom:1px solid #2a475e">
-<div style="width:80px;height:80px;background:linear-gradient(45deg,#1b2838,#66c0f4);border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:36px">♨️</div>
-<h2 style="color:#c7d5e0;font-weight:400;letter-spacing:2px">SILESIA 8.7 OPTIMIZED</h2>
-<p style="color:#8f98a0;font-size:9px;margin-top:4px">5x FASTER • Virtual Scroll • Memoized • Lazy Avatar • Web Worker Hash</p>
-</div>
-<div class="card-steam">
-<span class="label-steam">Login (Web Worker hash)</span>
-<input id="l" placeholder="agricola"><input id="p" type="password" placeholder="Пароль">
-<button class="btn" onclick="Auth.login()">ВОЙТИ</button>
-<button class="btn btn-dark" onclick="document.getElementById('regBox').style.display='block'">Создать аккаунт</button>
-<div id="err" style="color:#b52424;display:none;margin-top:8px;background:#b5242422;padding:8px;border:1px solid #b5242444"></div>
-<div id="perf" style="margin-top:8px;font-size:8px;color:#5c7e10"></div>
-</div>
-<div class="card-steam" id="regBox" style="display:none">
-<span class="label-steam">Создать аккаунт</span>
-<input id="rLogin" placeholder="Логин"><input id="rEmail" placeholder="Email"><input id="rPass" type="password" placeholder="Пароль"><input id="rPass2" type="password" placeholder="Повтори">
-<button class="btn" onclick="Auth.register()">СОЗДАТЬ</button>
-<button class="btn btn-dark" onclick="document.getElementById('regBox').style.display='none'">Отмена</button>
+<div class="obs-live-notif bottom-left" id="liveNotif">
+<div class="obs-live-icon">🔴</div>
+<div class="obs-live-content">
+<div class="obs-live-name"><span id="obsName">Agricola</span> <span class="obs-live-badge">🔴 LIVE</span></div>
+<div class="obs-live-title" id="obsTitle">SILESIA 1132/1200 — стрим!</div>
+<div class="obs-live-meta"><span id="obsGame">🎮 Just Chatting</span> <span class="obs-live-viewers" id="obsViewers">👁️ 42</span></div>
 </div>
 </div>
-
-<div id="mainScreen" style="display:none">
-<div class="steam-header"><b>♨️ SILESIA 8.7</b><div style="display:flex;gap:8px;align-items:center"><span id="headerUser" style="color:#8f98a0;font-size:10px">agricola</span><div class="avatar-small" id="headerAvatar" onclick="Profile.view(headerUser.textContent)">A</div><div class="steam-level" id="headerLevel">Ур. 1</div></div></div>
-<div class="stories-bar" id="storiesBar"></div>
-<div class="steam-nav" id="tabBar">
-<button id="btn-live" data-role="all" class="show on" onclick="RBAC.openTab('live')">ЛАЙФ <span class="live-dot"></span></button>
-<button id="btn-games" data-role="all" class="show" onclick="RBAC.openTab('games')">ИГРЫ</button>
-<button id="btn-chat" data-role="all" class="show" onclick="RBAC.openTab('chat')">ЧАТ</button>
-<button id="btn-comments" data-role="all" class="show" onclick="RBAC.openTab('comments')">КОММЕНТЫ</button>
-<button id="btn-library" data-role="all" class="show" onclick="RBAC.openTab('library')">БИБЛИОТЕКА</button>
-<button id="btn-account" data-role="all" class="show" onclick="RBAC.openTab('account')">ПРОФИЛЬ</button>
-<button id="btn-friends" data-role="all" class="show" onclick="RBAC.openTab('friends')">ДРУЗЬЯ</button>
-<button id="btn-users" data-role="admin mod" onclick="RBAC.openTab('users')">ЮЗЕРЫ</button>
-</div>
-
-<div id="live" class="panel on">
-<div class="card-steam card-green" style="padding:6px"><div style="display:flex;justify-content:space-between"><b style="color:#a4c639">🔴 LIVE FEED OPTIMIZED</b><span style="color:#5c7e10;font-size:9px"><span id="liveCount">0</span> • <span id="perfLive">0ms</span> рендер • <span id="liveOnline">0</span> онлайн</span></div><span style="color:#8f98a0;font-size:8px">Virtual scroll • 60fps • requestIdleCallback • memoized</span></div>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;margin:6px">
-<button class="btn btn-dark" style="padding:6px;font-size:8px" onclick="Live.setFilter('all')">📋 Все</button>
-<button class="btn btn-dark" style="padding:6px;font-size:8px" onclick="Live.setFilter('levelup')">🎉 Уровни</button>
-<button class="btn btn-dark" style="padding:6px;font-size:8px" onclick="Live.setFilter('game')">🎮 Игры</button>
-<button class="btn btn-dark" style="padding:6px;font-size:8px" onclick="Live.setFilter('story')">📸 Сторис</button>
-</div>
-<div class="card-steam" style="padding:0"><div id="liveFeed" style="max-height:400px;overflow-y:auto;contain:strict"></div></div>
-</div>
-
-<div id="games" class="panel">
-<div class="card-steam card-blue" style="padding:6px"><b style="color:#66c0f4">🎮 БАЗА ИГР OPTIMIZED</b> <span style="color:#8f98a0;font-size:9px"><span id="gamesTotal">0</span> игр • <span id="perfGames">0ms</span></span></div>
-<div class="card-steam"><input id="gameSearch" placeholder="Поиск..." oninput="Games.debounceSearch()"><select id="gameGenreFilter" onchange="Games.render()"><option value="all">Все жанры</option><option value="FPS">🔫 FPS</option><option value="MOBA">⚔️ MOBA</option><option value="Battle Royale">🪂 Battle Royale</option><option value="Silesia">⛏️ Silesia</option><option value="Other">📦 Другие</option></select></div>
-<div class="card-steam" id="gamesList"></div>
-<div class="card-steam"><input id="newGameName" placeholder="Название"><input id="newGameIcon" placeholder="Иконка 🎮"><input id="newGameGenre" placeholder="Жанр"><input id="newGameDesc" placeholder="Описание"><button class="btn btn-gold" onclick="Games.add()">➕ Добавить</button></div>
-</div>
-
-<div id="chat" class="panel">
-<div class="card-steam card-blue" style="padding:6px"><b style="color:#66c0f4">💬 ЧАТ OPTIMIZED</b> <span style="color:#5c7e10;font-size:9px">● <span id="chatOnlineCount">0</span> онлайн • <span id="perfChat">0ms</span></span></div>
-<div class="chat-container" id="chatContainer"></div><div class="chat-input-area"><input id="chatInput" placeholder="Написать..." maxlength="200" onkeydown="if(event.key==='Enter')Chat.send()"><button class="btn btn-blue" style="width:auto;padding:10px 14px;margin:0" onclick="Chat.send()">Отпр.</button></div>
-</div>
-
-<div id="comments" class="panel">
-<div class="card-steam card-gold" style="padding:6px"><b style="color:#FFD700">💬 КОММЕНТЫ</b> <span style="color:#8f98a0;font-size:9px"><span id="totalComments">0</span> • <span id="perfComments">0ms</span></span></div>
-<div class="card-steam"><select id="commentTarget"><option value="general">🌐 Общий</option></select><textarea id="commentInput" placeholder="Коммент... @ник" maxlength="300" style="min-height:60px"></textarea><button class="btn btn-blue" onclick="Comments.add()">💬 Опубликовать (+3 XP)</button></div>
-<div class="card-steam" style="padding:0"><div class="comments-box" id="commentsBox"></div></div>
-</div>
-
-<div id="library" class="panel"><div class="card-steam card-blue"><b style="color:#66c0f4">📚 БИБЛИОТЕКА</b></div><div id="libraryGames"></div></div>
-
-<div id="account" class="panel">
-<div class="card-steam" style="text-align:center">
-<div style="display:flex;gap:12px;align-items:center;text-align:left">
-<div style="position:relative"><div class="avatar-steam" id="avatarBig" onclick="document.getElementById('avatarInput').click()"><span id="avatarLetter">A</span></div><div class="steam-level" id="avatarLevelBig" style="position:absolute;bottom:-8px;right:-8px;width:28px;height:28px;font-size:11px;display:flex;align-items:center;justify-content:center">1</div></div>
-<div><b id="accLogin" style="font-size:16px;color:#fff">agricola</b> <span class="steam-level" id="steamLevel">Ур. 1</span><br><span id="accBadges"></span><br><span style="color:#8f98a0;font-size:10px" id="accEmail"></span><br><span style="color:#5c7e10;font-size:10px">● В сети • <span id="accXP">0 XP</span></span><div class="xp-bar" style="width:140px"><div class="xp-fill" id="xpFill" style="width:0%"></div></div><span style="font-size:8px;color:#8f98a0" id="xpText">0 / 100 XP</span></div>
-</div>
-<input type="file" id="avatarInput" accept="image/png,image/jpeg,image/webp" style="display:none">
-</div>
-<div class="card-steam"><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px"><div class="steam-stat"><b id="statLevel">1</b><span style="color:#8f98a0">Ур.</span></div><div class="steam-stat"><b id="statXP">0</b><span style="color:#8f98a0">XP</span></div><div class="steam-stat"><b id="statGames">0</b><span style="color:#8f98a0">Игр</span></div></div></div>
-<div class="card-steam"><span class="label-steam">Оптимизации (показываю perf)</span><span style="font-size:9px;color:#8f98a0" id="perfStats">Загрузка...</span></div>
-<div class="card-steam"><span class="label-steam">Редактировать</span><input id="accEditLogin"><input id="accEditReal"><select id="accEditCountry"><option value="PL">🇵🇱 Польша</option><option value="DE">🇩🇪 Германия</option><option value="RU">🇷🇺 Россия</option><option value="UA">🇺🇦 Украина</option><option value="US">🇺🇸 США</option></select><textarea id="accEditBio"></textarea><input id="accEditTwitch"><input id="accEditSteam" placeholder="Steam ID64"><span style="font-size:8px;color:#8f98a0" id="steamIdStatus"></span><button class="btn" onclick="Account.saveProfile()">Сохранить</button></div>
-<div class="card-steam"><input id="oldPass" type="password" placeholder="Старый"><input id="newPass" type="password" placeholder="Новый"><input id="newPass2" type="password" placeholder="Повтори"><button class="btn btn-dark" onclick="Account.changePassword()">Сменить пароль</button></div>
-<div class="card-steam card-red"><button class="btn btn-red" onclick="Auth.logout()">Выйти</button><button class="btn btn-dark" onclick="Account.deleteMyAccount()">Удалить</button><button class="btn btn-dark" onclick="Perf.clearCache()">🗑️ Очистить кэш оптимизации</button></div>
-</div>
-
-<div id="friends" class="panel"><div class="card-steam card-blue"><b style="color:#66c0f4">👥 ДРУЗЬЯ</b></div><div class="card-steam"><div id="friendsBox"></div></div><div class="card-steam"><input id="friendSearch" placeholder="Поиск" oninput="Friends.debounceSearch()"><div id="friendSearchBox"></div></div></div>
-<div id="users" class="panel"><div class="card-steam card-gold"><b>👥 ЮЗЕРЫ</b><br><span style="color:#8f98a0">Всего: <span id="userCount">0</span> • <span id="perfUsers">0ms</span></span><br><input id="userSearch" placeholder="🔍 Поиск" oninput="Users.debounceSearch()"><select id="roleFilter" onchange="Users.render()"><option value="all">Все</option><option value="admin">👑 Админ</option><option value="mod">💎 Мод</option><option value="user">👤 Юзер</option><option value="banned">🚫 Бан</option></select></div><div id="usersBox"></div></div>
-
-</div>
-</div>
-
-<div class="modal" id="profileModal" onclick="if(event.target===this)Profile.close()"><div class="modal-box"><div class="card-steam" style="margin:0;border:none"><div style="display:flex;justify-content:space-between"><b style="color:#66c0f4">👤 ПРОФИЛЬ</b><button class="btn btn-dark" style="width:auto;padding:4px 10px" onclick="Profile.close()">✕</button></div><div id="profileModalContent"></div></div></div></div>
-<div class="modal" id="gameModal" onclick="if(event.target===this)Games.closeModal()"><div class="modal-box"><div class="card-steam" style="margin:0;border:none"><div style="display:flex;justify-content:space-between"><b style="color:#66c0f4">🎮 ИГРА</b><button class="btn btn-dark" style="width:auto;padding:4px 10px" onclick="Games.closeModal()">✕</button></div><div id="gameModalContent"></div></div></div></div>
-<div class="modal" id="storyViewer" onclick="if(event.target===this)Stories.closeViewer()"><div class="modal-box" style="background:#000;border:none;width:320px;height:100vh;max-height:100vh"><div id="storyViewerContent" style="height:100%;display:flex;flex-direction:column"></div></div></div>
 
 <script>
-// PERF MONITORING
-const Perf={
- marks:{},
- cache:new Map(),
- start(key){this.marks[key]=performance.now();},
- end(key){const t=performance.now()-(this.marks[key]||0);const el=document.getElementById('perf'+key);if(el)el.textContent=Math.round(t)+'ms';return t;},
- memo(key,fn){if(this.cache.has(key)) return this.cache.get(key);const v=fn();this.cache.set(key,v);if(this.cache.size>100){const first=this.cache.keys().next().value;this.cache.delete(first);}return v;},
- clearCache(){this.cache.clear();localStorage.removeItem('silesia_perf_cache');alert('Кэш очищен');location.reload();},
- debounced:{},
- debounce(key,fn,delay=200){clearTimeout(this.debounced[key]);this.debounced[key]=setTimeout(fn,delay);},
- idle(fn){if('requestIdleCallback' in window) requestIdleCallback(fn,{timeout:1000});else setTimeout(fn,0);},
+function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+let audioCtx=null;
+function getAudioCtx(){if(audioCtx&&audioCtx.state!=='closed')return audioCtx;try{audioCtx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){audioCtx=null;}return audioCtx;}
+
+const sounds={
+ default:{freq1:880,freq2:440,duration:400},
+ donate1:{freq1:1200,freq2:800,duration:300},
+ donate2:{freq1:200,freq2:400,duration:800},
+ shroud:{freq1:1500,freq2:300,duration:200},
+ xqc:{freq1:600,freq2:1200,duration:600},
+ agricola:{freq1:300,freq2:600,duration:500},
 };
 
-// UTILS
-function escapeHtml(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
-function escapeAttr(s){return escapeHtml(s).replace(/'/g,'&#039;').replace(/"/g,'&quot;');}
-function isValidLogin(s){return /^[a-zA-Z0-9_]{3,20}$/.test(s);}
-function isValidId(s){return /^[a-zA-Z0-9_\-]{3,50}$/.test(s);}
-
-// STORAGE WITH CACHE
-const Storage={
- _cache:{},
- getUsers(){if(this._cache.users) return this._cache.users;try{const u=JSON.parse(localStorage.getItem('silesia_users')||'[]');this._cache.users=u;return u;}catch{return [];}},
- saveUsers(u){this._cache.users=u;localStorage.setItem('silesia_users',JSON.stringify(u));},
- getFriends(){try{return JSON.parse(localStorage.getItem('silesia_friends')||'[]');}catch{return [];}},
- saveFriends(f){localStorage.setItem('silesia_friends',JSON.stringify(f));},
- getChat(){try{return JSON.parse(localStorage.getItem('silesia_chat')||'[]');}catch{return [];}},
- saveChat(c){localStorage.setItem('silesia_chat',JSON.stringify(c.slice(-200)));},
- getComments(){try{return JSON.parse(localStorage.getItem('silesia_comments')||'[]');}catch{return [];}},
- saveComments(c){localStorage.setItem('silesia_comments',JSON.stringify(c.slice(-500)));},
- getGames(){if(this._cache.games) return this._cache.games;try{const g=JSON.parse(localStorage.getItem('silesia_games')||'[]');this._cache.games=g;return g;}catch{return [];}},
- saveGames(g){this._cache.games=g;localStorage.setItem('silesia_games',JSON.stringify(g));},
- getLibrary(){try{return JSON.parse(localStorage.getItem('silesia_library')||'{}');}catch{return {};}},
- saveLibrary(l){localStorage.setItem('silesia_library',JSON.stringify(l));},
- getLive(){try{return JSON.parse(localStorage.getItem('silesia_live')||'[]');}catch{return [];}},
- saveLive(l){localStorage.setItem('silesia_live',JSON.stringify(l.slice(-200)));},
- getStories(){try{return JSON.parse(localStorage.getItem('silesia_stories')||'[]');}catch{return [];}},
- saveStories(s){localStorage.setItem('silesia_stories',JSON.stringify(s.slice(-100)));},
- getSeenStories(){try{return JSON.parse(localStorage.getItem('silesia_seen_stories')||'[]');}catch{return [];}},
- saveSeenStories(s){localStorage.setItem('silesia_seen_stories',JSON.stringify(s));},
-};
-
-// AVATAR DB WITH LRU CACHE + WEBP
-const AvatarDB={
- db:null,cache:new Map(),lru:[],
- async init(){return new Promise((res,rej)=>{const req=indexedDB.open('SilesiaAvatars',3);req.onupgradeneeded=e=>{if(!e.target.result.objectStoreNames.contains('avatars'))e.target.result.createObjectStore('avatars',{keyPath:'login'});};req.onsuccess=e=>{this.db=e.target.result;res();};req.onerror=()=>rej();});},
- async save(login,data){
-  if(!login||!isValidLogin(login))return;
-  this.cache.set(login,data);this.lru.unshift(login);if(this.lru.length>20){const old=this.lru.pop();this.cache.delete(old);}
-  if(!this.db) await this.init();
-  return new Promise((res,rej)=>{const tx=this.db.transaction('avatars','readwrite');tx.objectStore('avatars').put({login,data});tx.oncomplete=()=>res();tx.onerror=()=>rej();});
- },
- async get(login){
-  if(!login||!isValidLogin(login))return '';
-  if(this.cache.has(login)) return this.cache.get(login);
-  if(!this.db) await this.init();
-  return new Promise(res=>{
-   const tx=this.db.transaction('avatars','readonly');
-   const req=tx.objectStore('avatars').get(login);
-   req.onsuccess=()=>{const d=req.result?.data||'';if(d){this.cache.set(login,d);this.lru.unshift(login);}res(d);};
-   req.onerror=()=>res('');
-  });
- },
- async delete(login){this.cache.delete(login);if(!this.db) await this.init();const tx=this.db.transaction('avatars','readwrite');tx.objectStore('avatars').delete(login);},
-};
-
-// WEB WORKER FOR HASH — NON-BLOCKING
-let hashWorker=null;
-function getHashWorker(){
- if(hashWorker) return hashWorker;
- const code=`self.onmessage=async e=>{const enc=new TextEncoder().encode(e.data);const buf=await crypto.subtle.digest('SHA-256',enc);const hash=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');self.postMessage(hash);};`;
- const blob=new Blob([code],{type:'application/javascript'});
- hashWorker=new Worker(URL.createObjectURL(blob));
- return hashWorker;
-}
-function hashPassword(pass){
- return new Promise(res=>{
-  const w=getHashWorker();
-  w.onmessage=e=>res(e.data);
-  w.postMessage(pass);
- });
+function playSound(key, customUrl){
+ if(customUrl){
+  const audio=new Audio(customUrl);
+  audio.volume=0.6;
+  audio.play().catch(()=>playSynth(sounds[key]||sounds.default));
+  return;
+ }
+ playSynth(sounds[key]||sounds.default);
 }
 
-// LEVEL
-const Level={
- calcLevel(xp){return Perf.memo('level_'+Math.floor((xp||0)/100),()=>Math.floor(Math.sqrt((xp||0)/100))+1);},
- xpForLevel(l){return Math.pow(l-1,2)*100;},
- xpForNextLevel(l){return this.xpForLevel(l+1);},
- xpProgress(xp){
-  const level=this.calcLevel(xp);
-  const cur=this.xpForLevel(level);
-  const next=this.xpForNextLevel(level);
-  const prog=next-cur===0?100:((xp-cur)/(next-cur)*100);
-  return {level,xp,cur,next,progress:Math.min(100,Math.max(0,prog)),need:next-xp};
- },
- addXP(amount,reason=''){
-  const login=localStorage.getItem('silesia_user');if(!login||!isValidLogin(login))return;
-  const users=Storage.getUsers();const idx=users.findIndex(u=>u.login===login);if(idx<0)return;
-  const oldLevel=this.calcLevel(users[idx].xp||0);
-  users[idx].xp=(users[idx].xp||0)+amount;users[idx].totalXP=users[idx].xp;
-  const newLevel=this.calcLevel(users[idx].xp);
-  Storage.saveUsers(users);
-  if(newLevel>oldLevel){this.showLevelUp(oldLevel,newLevel,reason);Live.add('levelup',login,'повысил уровень с '+oldLevel+' до '+newLevel,'🎉',reason||'');}
-  Perf.debounce('renderAll',()=>{Account.render();renderMyStatusMini();Users.render();Live.render();},100);
- },
- showLevelUp(o,n,r){const t=document.createElement('div');t.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(90deg,#1b2838,#2a475e);border:2px solid #FFD700;padding:20px;border-radius:4px;text-align:center;z-index:200;box-shadow:0 0 30px rgba(255,215,0,.5)';t.innerHTML='<div style="font-size:32px">🎉</div><b style="color:#FFD700;font-size:18px">LEVEL UP!</b><br><span style="font-size:24px;color:#fff">'+o+' → '+n+'</span><br><span style="color:#8f98a0;font-size:10px">'+escapeHtml(r||'')+'</span>';document.body.appendChild(t);setTimeout(()=>t.remove(),3000);},
-};
-
-// BROADCAST + VISIBILITY
-let bc=null;try{bc=new BroadcastChannel('silesia_sync');bc.onmessage=e=>{if(e.data==='chat')Chat.render();if(e.data==='live')Live.render();if(e.data==='comments')Comments.render();if(e.data==='stories')Stories.render();};}catch{bc=null;}
-function broadcast(type){try{if(bc)bc.postMessage(type);}catch{}}
-window.addEventListener('storage',e=>{if(e.key==='silesia_chat')Chat.render();if(e.key==='silesia_live')Live.render();if(e.key==='silesia_comments')Comments.render();if(e.key==='silesia_stories')Stories.render();});
-document.addEventListener('visibilitychange',()=>{if(!document.hidden){Live.render();Games.render();Chat.render();Stories.render();}});
-
-// LIVE WITH VIRTUAL SCROLL
-const Live={
- filter:'all',unread:0,virtualStart:0,virtualCount:20,
- add(type,login,action,icon,target){
-  if(!login||!isValidLogin(login)) return;
-  const banned=Storage.getUsers().filter(u=>u.banned).map(u=>u.login);
-  if(banned.includes(login)) return;
-  const live=Storage.getLive();
-  live.push({id:Date.now()+Math.random(),type,login,action:escapeHtml(action).slice(0,100),icon:escapeHtml(icon||'🔔').slice(0,2),target:escapeHtml(target||'').slice(0,50),time:new Date().toLocaleTimeString().slice(0,5),timestamp:Date.now()});
-  Storage.saveLive(live);this.render();broadcast('live');
- },
- render(){
-  Perf.start('Live');const box=document.getElementById('liveFeed');if(!box||document.hidden) return;
-  let live=Storage.getLive().slice().reverse();
-  const banned=Storage.getUsers().filter(u=>u.banned).map(u=>u.login);
-  live=live.filter(l=>!banned.includes(l.login));
-  if(this.filter!=='all') live=live.filter(l=>l.type===this.filter);
-  document.getElementById('liveCount').textContent=live.length;
-  document.getElementById('liveOnline').textContent=Storage.getUsers().filter(u=>!u.banned).length;
-  if(!live.length){box.innerHTML='<div style="padding:20px;text-align:center;color:#4a5a6a">Лайф пуст</div>';Perf.end('Live');return;}
-  // VIRTUAL SCROLL — рендерим только 20 видимых
-  const visible=live.slice(0,40);
-  box.innerHTML=visible.map(l=>{
-   const u=Storage.getUsers().find(x=>x.login===l.login)||{role:'user',xp:0};
-   const roleColor=u.role==='admin'?'#FFD700':u.role==='mod'?'#66c0f4':'#8f98a0';
-   const safeLogin=escapeAttr(l.login);
-   return '<div class="live-item '+escapeAttr(l.type)+'"><div class="live-icon">'+escapeHtml(l.icon)+'</div><div class="live-body"><span class="live-user" style="color:'+roleColor+'" onclick="Profile.view(\''+safeLogin+'\')">'+escapeHtml(l.login)+' <span class="steam-level" style="font-size:7px">Ур. '+Level.calcLevel(u.xp||0)+'</span></span><div class="live-action">'+escapeHtml(l.action)+'</div>'+(l.target?'<div class="live-target" onclick="Profile.view(\''+escapeAttr(l.target)+'\')">'+escapeHtml(l.target)+'</div>':'')+'<div class="live-time">'+escapeHtml(l.time)+' • '+escapeHtml(l.type)+'</div></div></div>';
-  }).join('');
-  Perf.end('Live');
- },
- setFilter(f){this.filter=f;this.render();},
- clear(){if(localStorage.getItem('silesia_role')!=='admin'){alert('⛔ Только админ');return;}if(!confirm('Очистить Лайф?'))return;Storage.saveLive([]);this.render();broadcast('live');},
- init(){this.render();},
-};
-
-const Stories={
- add(){
-  const text=document.getElementById('storyText')?.value.trim()||prompt('Текст сторис (макс 100):')||'';
-  if(!text||text.length>100){alert('Текст 1-100');return;}
-  const login=localStorage.getItem('silesia_user');if(!isValidLogin(login))return;
-  const me=Storage.getUsers().find(u=>u.login===login);if(!me||me.banned){alert('🚫 Забанен');return;}
-  const story={id:Date.now()+Math.random(),login,role:me.role,level:Level.calcLevel(me.xp||0),text:escapeHtml(text).slice(0,100),bg:'gradient1',time:new Date().toLocaleString(),timestamp:Date.now(),expires:Date.now()+24*60*60*1000,views:[]};
-  const stories=Storage.getStories();stories.push(story);Storage.saveStories(stories);
-  const input=document.getElementById('storyText');if(input)input.value='';
-  this.render();Live.add('story',login,'добавил сторис: '+text.slice(0,30),'📸',login);Level.addXP(10,'сторис');broadcast('stories');
- },
- getValidStories(){
-  const now=Date.now();
-  const stories=Storage.getStories().filter(s=>s.expires>now);
-  if(stories.length!==Storage.getStories().length)Storage.saveStories(stories);
-  return stories;
- },
- render(){
-  if(document.hidden) return;
-  const stories=this.getValidStories();
-  const banned=Storage.getUsers().filter(u=>u.banned).map(u=>u.login);
-  const valid=stories.filter(s=>!banned.includes(s.login));
-  const me=localStorage.getItem('silesia_user');
-  const bar=document.getElementById('storiesBar');if(!bar) return;
-  const byUser={};valid.forEach(s=>{if(!byUser[s.login])byUser[s.login]=[];byUser[s.login].push(s);});
-  const users=Object.keys(byUser).sort((a,b)=>{if(a===me) return -1;if(b===me) return 1;return 0;});
-  const seen=Storage.getSeenStories();
-  let html='<div class="story-item" onclick="Stories.add()"><div class="story-ring own story-add" style="position:relative"><div class="story-avatar" id="ownStoryAvatar">'+escapeHtml(me?.[0]?.toUpperCase()||'A')+'</div></div><span class="story-name" style="color:#66c0f4">Твоя сторис</span></div>';
-  users.filter(u=>u!==me).forEach(login=>{
-   const hasUnseen=byUser[login].some(s=>!seen.includes(s.id));
-   html+='<div class="story-item" onclick="Stories.viewUser(\''+escapeAttr(login)+'\')"><div class="story-ring '+(hasUnseen?'':'seen')+'"><div class="story-avatar">'+escapeHtml(login[0].toUpperCase())+'</div></div><span class="story-name">'+escapeHtml(login)+'</span></div>';
-  });
-  if(users.filter(u=>u!==me).length===0) html+='<div style="color:#4a5a6a;font-size:9px;padding:10px">Нет сторис</div>';
-  bar.innerHTML=html;
-  Perf.idle(async()=>{const av=await AvatarDB.get(me);const el=document.getElementById('ownStoryAvatar');if(el&&av)el.innerHTML='<img src="'+av+'" loading="lazy">';});
- },
- viewUser(login){
-  if(!isValidLogin(login)) return;
-  const stories=this.getValidStories().filter(s=>s.login===login);
-  if(!stories.length){alert('Нет сторис');return;}
-  const s=stories[0];
-  const viewer=document.getElementById('storyViewer');const content=document.getElementById('storyViewerContent');
-  content.innerHTML='<div style="padding:10px;display:flex;justify-content:space-between"><b style="color:#fff">'+escapeHtml(s.login)+'</b><button class="btn btn-dark" style="width:auto;padding:4px 10px" onclick="Stories.closeViewer()">✕</button></div><div style="flex:1;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976);margin:10px;border-radius:12px"><span style="font-size:20px;color:#fff;font-weight:700;text-align:center">'+escapeHtml(s.text)+'</span></div><div style="padding:10px"><span style="color:#8f98a0;font-size:9px">👁️ '+(s.views?.length||0)+' просмотров • '+s.time+'</span></div>';
-  viewer.classList.add('on');
-  const seen=Storage.getSeenStories();if(!seen.includes(s.id)){seen.push(s.id);Storage.saveSeenStories(seen);}
-  if(!s.views) s.views=[];if(!s.views.includes(localStorage.getItem('silesia_user'))){s.views.push(localStorage.getItem('silesia_user'));Storage.saveStories(Storage.getStories());}
-  setTimeout(()=>this.closeViewer(),5000);
- },
- closeViewer(){document.getElementById('storyViewer').classList.remove('on');this.render();},
- init(){this.render();},
-};
-
-const Games={
- debounceSearch(){Perf.debounce('gamesSearch',()=>this.render(),300);},
- getAll(){return Storage.getGames();},
- add(){
-  if(localStorage.getItem('silesia_role')!=='admin'&&localStorage.getItem('silesia_role')!=='mod'){alert('⛔ Только админ/мод');return;}
-  const name=document.getElementById('newGameName').value.trim();if(!name||name.length>40){alert('Название 1-40');return;}
-  const games=this.getAll();if(games.find(g=>g.name.toLowerCase()===name.toLowerCase())){alert('Уже есть');return;}
-  const icon=document.getElementById('newGameIcon').value.trim()||'🎮';
-  const genre=document.getElementById('newGameGenre').value.trim()||'Other';
-  const desc=document.getElementById('newGameDesc').value.trim()||'';
-  const newGame={id:'game_'+Date.now(),name:escapeHtml(name).slice(0,40),icon:escapeHtml(icon).slice(0,2),genre:escapeHtml(genre).slice(0,20),desc:escapeHtml(desc).slice(0,100),hours:0,created:new Date().toLocaleString(),addedBy:localStorage.getItem('silesia_user')};
-  games.push(newGame);Storage.saveGames(games);
-  document.getElementById('newGameName').value='';document.getElementById('newGameIcon').value='';document.getElementById('newGameGenre').value='';document.getElementById('newGameDesc').value='';
-  this.render();renderLibrary();Live.add('game',localStorage.getItem('silesia_user'),'добавил игру '+newGame.name,'🎮',newGame.name);Level.addXP(20,'добавил игру');broadcast('live');
- },
- render(){
-  Perf.start('Games');if(document.hidden) return;
-  const games=this.getAll();
-  const search=(document.getElementById('gameSearch')?.value||'').toLowerCase();
-  const genre=document.getElementById('gameGenreFilter')?.value||'all';
-  let filtered=games.filter(g=>{if(search&&!g.name.toLowerCase().includes(search))return false;if(genre!=='all'&&g.genre!==genre)return false;return true;});
-  document.getElementById('gamesTotal').textContent=games.length;
-  const library=Storage.getLibrary();const me=localStorage.getItem('silesia_user');const myLib=library[me]||[];
-  const box=document.getElementById('gamesList');if(!box){Perf.end('Games');return;}
-  if(!filtered.length){box.innerHTML='<div style="padding:20px;text-align:center;color:#4a5a6a">Нет игр</div>';Perf.end('Games');return;}
-  box.innerHTML=filtered.slice(0,30).map(g=>{
-   const isOwned=myLib.includes(g.id);
-   const safeId=escapeAttr(g.id);
-   return '<div class="game-card" onclick="Games.view(\''+safeId+'\')"><div class="game-icon">'+escapeHtml(g.icon)+'</div><div style="flex:1"><b style="color:#fff">'+escapeHtml(g.name)+'</b> <span style="font-size:7px;background:#2a475e;padding:2px 5px;border-radius:2px">'+escapeHtml(g.genre)+'</span> '+(isOwned?'<span style="font-size:7px;background:#5c7e10;color:#fff;padding:2px 5px;border-radius:2px">В БИБЛИОТЕКЕ</span>':'')+'<br><span style="color:#8f98a0;font-size:9px">'+escapeHtml(g.desc||'')+'</span></div><div><button class="btn btn-dark" style="width:auto;padding:4px 8px;font-size:8px" onclick="event.stopPropagation();Games.toggleLibrary(\''+safeId+'\')">'+(isOwned?'Удалить':'В библ.')+'</button></div></div>';
-  }).join('');
-  Perf.end('Games');
- },
- view(gameId){
-  if(!isValidId(gameId)) return;
-  const g=this.getAll().find(x=>x.id===gameId);if(!g)return;
-  const modal=document.getElementById('gameModal');const content=document.getElementById('gameModalContent');
-  const safeId=escapeAttr(g.id);
-  const library=Storage.getLibrary();const me=localStorage.getItem('silesia_user');const isOwned=(library[me]||[]).includes(gameId);
-  content.innerHTML='<div style="text-align:center;padding:10px"><div style="width:80px;height:45px;background:#0e1c2a;border:1px solid #000;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px">'+escapeHtml(g.icon)+'</div><b style="font-size:16px;color:#fff">'+escapeHtml(g.name)+'</b><br><span style="color:#8f98a0;font-size:10px">'+escapeHtml(g.genre)+' • '+escapeHtml(g.addedBy||'')+'</span><br><br><button class="btn '+(isOwned?'btn-dark':'')+'" onclick="Games.toggleLibrary(\''+safeId+'\');Games.view(\''+safeId+'\')">'+(isOwned?'Удалить':'Добавить в библиотеку')+'</button></div>';
-  modal.classList.add('on');
- },
- toggleLibrary(gameId){
-  if(!isValidId(gameId)) return;
-  const me=localStorage.getItem('silesia_user');if(!me){alert('Войди');return;}
-  const library=Storage.getLibrary();if(!library[me]) library[me]=[];
-  const idx=library[me].indexOf(gameId);
-  const g=this.getAll().find(x=>x.id===gameId);
-  if(idx>=0){library[me].splice(idx,1);Live.add('game',me,'удалил игру '+(g?.name||''),'📚',g?.name||'');}
-  else{library[me].push(gameId);Level.addXP(10,'игра в библиотеку');Live.add('game',me,'добавил игру '+(g?.name||''),'🎮',g?.name||'');}
-  Storage.saveLibrary(library);this.render();renderLibrary();broadcast('live');
- },
- closeModal(){document.getElementById('gameModal').classList.remove('on');},
-};
-
-const Profile={
- async view(login){
-  if(!isValidLogin(login)) return;
-  const u=Storage.getUsers().find(x=>x.login===login);if(!u)return;
-  const prog=Level.xpProgress(u.xp||0);const avatarData=await AvatarDB.get(login);
-  const modal=document.getElementById('profileModal');const content=document.getElementById('profileModalContent');
-  const safeLogin=escapeAttr(u.login);
-  content.innerHTML='<div style="text-align:center;padding:10px"><div class="avatar-steam" style="margin:0 auto 10px">'+(avatarData?'<img src="'+avatarData+'" loading="lazy">':escapeHtml(u.login[0].toUpperCase()))+'</div><b style="font-size:16px;color:#fff">'+escapeHtml(u.login)+'</b> <span class="steam-level">Ур. '+prog.level+'</span><br><span class="badge-steam '+(u.role==='admin'?'b-admin':u.role==='mod'?'b-mod':'b-user')+'">'+escapeHtml(u.role.toUpperCase())+'</span><br><span style="color:#8f98a0;font-size:10px">'+escapeHtml(u.realName||'')+' • '+escapeHtml(u.bio||'')+'</span><br><br><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px"><div class="steam-stat"><b>'+prog.level+'</b><span style="color:#8f98a0">Ур.</span></div><div class="steam-stat"><b>'+(u.xp||0)+'</b><span style="color:#8f98a0">XP</span></div><div class="steam-stat"><b>'+(Storage.getLibrary()[login]||[]).length+'</b><span style="color:#8f98a0">Игр</span></div></div><div class="xp-bar"><div class="xp-fill" style="width:'+prog.progress+'%"></div></div><br><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><button class="btn btn-blue" onclick="Profile.addFriend(\''+safeLogin+'\')">👥 Добавить в друзья</button><button class="btn btn-dark" onclick="Profile.mention(\''+safeLogin+'\')">💬 @Упомянуть</button></div></div>';
-  modal.classList.add('on');
- },
- addFriend(login){if(!isValidLogin(login)) return;this.close();Friends.sendRequest(login);},
- mention(login){if(!isValidLogin(login)) return;this.close();RBAC.openTab('chat');setTimeout(()=>Chat.mention(login),100);},
- close(){document.getElementById('profileModal').classList.remove('on');},
-};
-
-const Chat={
- lastMsgTime:0,autoScroll:true,
- send(){
-  const input=document.getElementById('chatInput');let text=input.value.trim();if(!text)return;if(text.length>200){alert('Макс 200');return;}
-  const now=Date.now();if(now-this.lastMsgTime<3000){alert('Анти-спам 3 сек');return;}
-  const login=localStorage.getItem('silesia_user');const users=Storage.getUsers();const me=users.find(u=>u.login===login);if(!me||me.banned){alert('🚫 Забанен');return;}
-  const msg={id:Date.now(),login,role:me.role,level:Level.calcLevel(me.xp||0),text:escapeHtml(text).slice(0,200),time:new Date().toLocaleTimeString().slice(0,5),timestamp:now};
-  const chat=Storage.getChat();chat.push(msg);Storage.saveChat(chat);this.lastMsgTime=now;input.value='';Level.addXP(5,'чат');Live.add('chat',login,'написал: '+text.slice(0,40),'💬',text.slice(0,20));
-  const idx=users.findIndex(u=>u.login===login);if(idx>=0){users[idx].msgCount=(users[idx].msgCount||0)+1;Storage.saveUsers(users);}
-  this.render();broadcast('chat');
- },
- render(){
-  Perf.start('Chat');const container=document.getElementById('chatContainer');if(!container||document.hidden){Perf.end('Chat');return;}
-  const chat=Storage.getChat();const banned=Storage.getUsers().filter(u=>u.banned).map(u=>u.login);
-  const filtered=chat.filter(m=>!banned.includes(m.login)).slice(-50);
-  container.innerHTML=filtered.map(m=>{
-   const roleColor=m.role==='admin'?'#FFD700':m.role==='mod'?'#66c0f4':'#8f98a0';
-   const safeLogin=escapeAttr(m.login);
-   let text=escapeHtml(m.text);text=text.replace(/@(\w+)/g,'<span class="mention">@$1</span>');
-   return '<div class="chat-msg"><span class="chat-msg-time">'+escapeHtml(m.time)+'</span><div style="flex:1"><span class="chat-msg-user" style="color:'+roleColor+'" onclick="Profile.view(\''+safeLogin+'\')">'+escapeHtml(m.login)+' <span class="steam-level" style="font-size:7px">Ур. '+m.level+'</span></span><span class="chat-msg-text">'+text+'</span></div></div>';
-  }).join('');
-  if(this.autoScroll)container.scrollTop=container.scrollHeight;
-  document.getElementById('chatOnlineCount').textContent=Storage.getUsers().filter(u=>!u.banned).length;
-  Perf.end('Chat');
- },
- mention(login){if(!isValidLogin(login)) return;const input=document.getElementById('chatInput');input.value='@'+login+' '+input.value;input.focus();},
- init(){this.render();},
-};
-
-const Comments={
- add(){
-  const input=document.getElementById('commentInput');const target=document.getElementById('commentTarget');
-  let text=input.value.trim();if(!text||text.length>300){alert('1-300');return;}
-  const login=localStorage.getItem('silesia_user');if(!isValidLogin(login)) return;
-  const users=Storage.getUsers();const me=users.find(u=>u.login===login);if(!me||me.banned){alert('🚫');return;}
-  if(!isValidId(target.value)){alert('Таргет неверный');return;}
-  const comment={id:Date.now(),login,role:me.role,level:Level.calcLevel(me.xp||0),text:escapeHtml(text).slice(0,300),target:escapeAttr(target.value),targetName:escapeHtml(target.options[target.selectedIndex].text).slice(0,40),time:new Date().toLocaleString(),timestamp:Date.now(),likes:[]};
-  const comments=Storage.getComments();comments.push(comment);Storage.saveComments(comments);input.value='';Level.addXP(3,'коммент');Live.add('comment',login,'коммент к '+target.options[target.selectedIndex].text+': '+text.slice(0,40),'💬',target.value);
-  const idx=users.findIndex(u=>u.login===login);if(idx>=0){users[idx].commentCount=(users[idx].commentCount||0)+1;Storage.saveUsers(users);}
-  this.render();broadcast('comments');
- },
- render(){
-  Perf.start('Comments');const box=document.getElementById('commentsBox');if(!box||document.hidden){Perf.end('Comments');return;}
-  const banned=Storage.getUsers().filter(u=>u.banned).map(u=>u.login);
-  let comments=Storage.getComments().filter(c=>!banned.includes(c.login)).slice().reverse().slice(0,30);
-  document.getElementById('totalComments').textContent=Storage.getComments().filter(c=>!banned.includes(c.login)).length;
-  if(!comments.length){box.innerHTML='<div style="padding:20px;text-align:center;color:#4a5a6a">Нет комментов</div>';Perf.end('Comments');return;}
-  box.innerHTML=comments.map(c=>{
-   const roleColor=c.role==='admin'?'#FFD700':c.role==='mod'?'#66c0f4':'#8f98a0';
-   const safeLogin=escapeAttr(c.login);
-   let text=escapeHtml(c.text);text=text.replace(/@(\w+)/g,'<span class="mention">@$1</span>');
-   return '<div class="comment"><div class="avatar-small" onclick="Profile.view(\''+safeLogin+'\')">'+escapeHtml(c.login[0].toUpperCase())+'</div><div class="comment-body"><div style="display:flex;gap:6px"><span class="comment-user" style="color:'+roleColor+'" onclick="Profile.view(\''+safeLogin+'\')">'+escapeHtml(c.login)+' <span class="steam-level" style="font-size:7px">Ур. '+c.level+'</span></span><span style="font-size:7px;background:#2a475e;padding:2px 5px;border-radius:2px">'+escapeHtml(c.targetName)+'</span></div><div class="comment-text">'+text+'</div><div class="comment-meta"><span>'+escapeHtml(c.time)+'</span><span>👍 '+(c.likes?.length||0)+'</span></div><div class="comment-actions"><button onclick="Comments.like('+c.id+')">👍 Лайк ('+(c.likes?.length||0)+')</button></div></div></div>';
-  }).join('');
-  Perf.end('Comments');
- },
- like(id){
-  const me=localStorage.getItem('silesia_user');if(!isValidLogin(me)) return;
-  const comments=Storage.getComments();const c=comments.find(x=>x.id===id);if(!c)return;
-  if(!c.likes) c.likes=[];
-  const idx=c.likes.indexOf(me);if(idx>=0)c.likes.splice(idx,1);else c.likes.push(me);
-  Storage.saveComments(comments);this.render();broadcast('comments');
- },
-};
-
-const Auth={
- async login(){
-  const u=document.getElementById('l').value.trim(),p=document.getElementById('p').value.trim();
-  const err=document.getElementById('err');const perf=document.getElementById('perf');
-  if(!u||!p){err.style.display='block';err.textContent='Заполни';return;}
-  Perf.start('Auth');
-  const users=Storage.getUsers();
-  const hashed=await hashPassword(p);
-  let found=users.find(x=> (x.login===u||x.email===u) && (x.passHash===hashed || x.pass===p) );
-  if(u==='agricola'&& (p==='Silesia1132'||hashed===await hashPassword('Silesia1132'))) found={login:'agricola',role:'admin'};
-  const t=Perf.end('Auth');
-  if(perf)perf.textContent='Hash (Web Worker): '+t+'ms • 5x faster, non-blocking';
-  if(found){
-   if(found.banned){err.style.display='block';err.textContent='🚫 Забанен';return;}
-   localStorage.setItem('silesia_auth',btoa(u+':'+Date.now()));localStorage.setItem('silesia_user',found.login);localStorage.setItem('silesia_role',found.role||'user');location.reload();
-  }else{err.style.display='block';err.textContent='❌ Неверно';}
- },
- async register(){
-  const l=document.getElementById('rLogin').value.trim(),e=document.getElementById('rEmail').value.trim(),p=document.getElementById('rPass').value.trim(),p2=document.getElementById('rPass2').value.trim();
-  if(!l||!e||!p){alert('Заполни');return;}if(l.length<3||!isValidLogin(l)){alert('Логин 3-20 a-z0-9_');return;}if(!e.includes('@')){alert('Email неверный');return;}if(p.length<6){alert('Мин 6');return;}if(p!==p2){alert('Не совпадают');return;}
-  const users=Storage.getUsers();if(users.find(x=>x.login===l)){alert('Логин занят');return;}if(users.find(x=>x.email===e)){alert('Email занят');return;}
-  const hash=await hashPassword(p);
-  users.push({id:Date.now(),login:l.replace(/[<>]/g,''),email:e.replace(/[<>]/g,''),passHash:hash,role:'user',realName:l,country:'PL',bio:'',twitch_id:'',steam_id:'',xp:0,totalXP:0,level:1,msgCount:0,commentCount:0,banned:false,verified:true,created:new Date().toLocaleString(),lastLogin:new Date().toLocaleString()});
-  Storage.saveUsers(users);
-  localStorage.setItem('silesia_auth',btoa(l+':'+Date.now()));localStorage.setItem('silesia_user',l);localStorage.setItem('silesia_role','user');location.reload();
- },
- logout(){localStorage.removeItem('silesia_auth');location.href=location.href.split('?')[0]+'?logout='+Date.now();setTimeout(()=>location.reload(),150);},
-};
-
-const RBAC={
- openTab(name){
-  if(!isValidId(name)) return;
-  const role=localStorage.getItem('silesia_role')||'user';
-  const btn=document.getElementById('btn-'+name);
-  if(btn){const allowed=btn.getAttribute('data-role')||'all';if(allowed!=='all' &&!allowed.split(' ').includes(role)){alert('⛔ Только: '+allowed.toUpperCase());return;}}
-  if((name==='users') && role==='user'){alert('⛔ Только admin/mod');return;}
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
-  const t=document.getElementById(name); if(t) t.classList.add('on');
-  document.querySelectorAll('.steam-nav button').forEach(b=>b.classList.remove('on'));
-  if(btn) btn.classList.add('on');
-  Perf.idle(()=>{
-   if(name==='users')Users.render();
-   if(name==='friends')Friends.render();
-   if(name==='library')renderLibrary();
-   if(name==='account')Account.render();
-   if(name==='chat')Chat.render();
-   if(name==='comments')Comments.render();
-   if(name==='games')Games.render();
-   if(name==='live')Live.render();
-  });
- },
- apply(){
-  const role=localStorage.getItem('silesia_role')||'user';
-  document.querySelectorAll('.steam-nav button').forEach(btn=>{const allowed=btn.getAttribute('data-role')||'all';if(allowed==='all' || allowed.split(' ').includes(role))btn.classList.add('show');else btn.classList.remove('show');});
- },
-};
-
-const Friends={
- debounceSearch(){Perf.debounce('friendsSearch',()=>this.searchUsers(),300);},
- searchUsers(){
-  const q=(document.getElementById('friendSearch')?.value||'').toLowerCase().trim();
-  const box=document.getElementById('friendSearchBox');if(!box) return;
-  if(!q){box.innerHTML='<span style="color:#8f98a0;font-size:9px">Введи логин</span>';return;}
-  const users=Storage.getUsers();const me=localStorage.getItem('silesia_user');const friends=Storage.getFriends();
-  const filtered=users.filter(u=>u.login!==me && u.login.toLowerCase().includes(q) &&!friends.find(f=> (f.from===me&&f.to===u.login) || (f.from===u.login&&f.to===me) )).slice(0,10);
-  if(!filtered.length){box.innerHTML='<span style="color:#8f98a0">Не найдено</span>';return;}
-  box.innerHTML=filtered.map(u=>{
-   const safeLogin=escapeAttr(u.login);
-   return '<div class="steam-friend" onclick="Profile.view(\''+safeLogin+'\')"><div class="avatar-small">'+escapeHtml(u.login[0].toUpperCase())+'</div><div style="flex:1"><b>'+escapeHtml(u.login)+'</b> Ур. '+(Level.calcLevel(u.xp||0))+'</div><button class="btn btn-blue" style="width:auto;padding:6px 10px" onclick="event.stopPropagation();Friends.sendRequest(\''+safeLogin+'\')">+ Добавить</button></div>';
-  }).join('');
- },
- sendRequest(to){
-  if(!isValidLogin(to)) return;
-  const from=localStorage.getItem('silesia_user');if(from===to){alert('Нельзя себя');return;}
-  const friends=Storage.getFriends();
-  if(friends.find(f=> (f.from===from&&f.to===to) || (f.from===to&&f.to===from) )){alert('Уже есть заявка');return;}
-  friends.push({id:Date.now(),from,to,status:'pending',date:new Date().toLocaleString()});Storage.saveFriends(friends);
-  Level.addXP(25,'друг');Live.add('friend',from,'добавил в друзья '+to,'👥',to);broadcast('live');
-  alert('✅ Заявка '+to);this.render();this.searchUsers();
- },
- render(){
-  const me=localStorage.getItem('silesia_user');const users=Storage.getUsers();const friends=Storage.getFriends();
-  const myFriends=friends.filter(f=> (f.from===me||f.to===me) && f.status==='accepted');
-  const box=document.getElementById('friendsBox');if(!box) return;
-  if(!myFriends.length) box.innerHTML='<span style="color:#8f98a0;font-size:9px">Нет друзей</span>';
-  else box.innerHTML=myFriends.map(f=>{
-   const other=f.from===me? f.to : f.from;
-   const u=users.find(x=>x.login===other)||{login:other,xp:0};
-   const safeOther=escapeAttr(other);
-   return '<div class="steam-friend" onclick="Profile.view(\''+safeOther+'\')"><div class="avatar-small">'+escapeHtml(u.login[0].toUpperCase())+'</div><div style="flex:1"><b style="color:#90ba3c">'+escapeHtml(u.login)+'</b> Ур. '+Level.calcLevel(u.xp||0)+'</div><button class="btn btn-dark" style="width:auto;padding:4px 8px;font-size:8px" onclick="event.stopPropagation();Friends.removeFriend(\''+safeOther+'\')">Удалить</button></div>';
-  }).join('');
- },
- removeFriend(otherLogin){if(!isValidLogin(otherLogin)) return;if(!confirm('Удалить '+otherLogin+'?'))return;const me=localStorage.getItem('silesia_user');let friends=Storage.getFriends();friends=friends.filter(f=>!((f.from===me&&f.to===otherLogin)||(f.from===otherLogin&&f.to===me)));Storage.saveFriends(friends);this.render();Live.add('friend',me,'удалил '+otherLogin,'👥',otherLogin);broadcast('live');},
-};
-
-const Users={
- debounceSearch(){Perf.debounce('usersSearch',()=>this.render(),300);},
- render(){
-  Perf.start('Users');if(document.hidden){Perf.end('Users');return;}
-  const role=localStorage.getItem('silesia_role')||'user';
-  if(role==='user'){document.getElementById('usersBox').innerHTML='<div class="card-steam card-red"><b>⛔ Только admin/mod</b></div>';Perf.end('Users');return;}
-  const users=Storage.getUsers();const s=(document.getElementById('userSearch')?.value||'').toLowerCase();const rf=document.getElementById('roleFilter')?.value||'all';
-  let f=users.filter(u=>{if(s&&! (u.login+' '+(u.email||'')).toLowerCase().includes(s))return false;if(rf==='banned'&&!u.banned)return false;if(rf!=='all'&&rf!=='banned'&&u.role!==rf)return false;return true;});
-  f=f.slice(0,30);
-  document.getElementById('userCount').textContent=users.length;
-  document.getElementById('usersBox').innerHTML=f.map(u=>{
-   const prog=Level.xpProgress(u.xp||0);
-   const safeLogin=escapeAttr(u.login);
-   return '<div class="steam-friend" onclick="Profile.view(\''+safeLogin+'\')"><div class="avatar-small">'+escapeHtml((u.login[0]||'U').toUpperCase())+'</div><div style="flex:1"><b>'+escapeHtml(u.login)+'</b> <span class="badge-steam '+(u.banned?'b-ban':u.role==='admin'?'b-admin':u.role==='mod'?'b-mod':'b-user')+'">'+(u.banned?'BAN':escapeHtml(u.role.toUpperCase()))+'</span> <span class="steam-level">Ур. '+prog.level+'</span><br><span style="color:#8f98a0;font-size:8px">'+ (u.xp||0)+' XP • '+(u.commentCount||0)+' комм.</span><div class="xp-bar" style="width:120px;height:3px"><div class="xp-fill" style="width:'+prog.progress+'%"></div></div></div><div>'+(u.login!=='agricola'?'<button class="btn btn-dark" style="padding:4px 6px;font-size:8px" onclick="event.stopPropagation();Admin.toggleRole(\''+safeLogin+'\')">👑</button>':'YOU')+'</div></div>';
-  }).join('');
-  Perf.end('Users');
- }
-};
-
-const Account={
- async render(){
-  const me=Storage.getUsers().find(x=>x.login===localStorage.getItem('silesia_user')); if(!me)return;
-  const prog=Level.xpProgress(me.xp||0);
-  document.getElementById('accLogin').textContent=me.login;
-  document.getElementById('accEmail').textContent=me.email||'-';
-  document.getElementById('accBadges').innerHTML='<span class="badge-steam '+(me.role==='admin'?'b-admin':me.role==='mod'?'b-mod':'b-user')+'">'+escapeHtml(me.role.toUpperCase())+'</span>';
-  document.getElementById('steamLevel').textContent='Ур. '+prog.level;
-  document.getElementById('avatarLevelBig').textContent=prog.level;
-  document.getElementById('headerLevel').textContent='Ур. '+prog.level;
-  document.getElementById('accXP').textContent=(me.xp||0)+' XP';
-  document.getElementById('xpFill').style.width=prog.progress+'%';
-  document.getElementById('xpText').textContent=(me.xp||0)+' / '+prog.next+' XP до '+ (prog.level+1)+' ур. ('+prog.need+' XP)';
-  document.getElementById('statLevel').textContent=prog.level;
-  document.getElementById('statXP').textContent=me.xp||0;
-  document.getElementById('statGames').textContent=(Storage.getLibrary()[me.login]||[]).length;
-  const big=document.getElementById('avatarBig');
-  const avatarData=await AvatarDB.get(me.login);
-  if(avatarData){big.innerHTML='<img src="'+avatarData+'" loading="lazy">';}else{big.innerHTML='<span>'+escapeHtml(me.login[0]||'A').toUpperCase()+'</span>';}
-  document.getElementById('accEditLogin').value=me.login;
-  document.getElementById('accEditReal').value=me.realName||'';
-  document.getElementById('accEditCountry').value=me.country||'PL';
-  document.getElementById('accEditTwitch').value=me.twitch_id||'';
-  document.getElementById('accEditSteam').value=me.steam_id||'';
-  document.getElementById('accEditBio').value=me.bio||'';
-  const stats=document.getElementById('perfStats');
-  if(stats){
-   const cacheSize=AvatarDB.cache.size;
-   const memoSize=Perf.cache.size;
-   const totalGames=Storage.getGames().length;
-   const totalUsers=Storage.getUsers().length;
-   stats.innerHTML='✅ Оптимизации:<br>• Avatar LRU cache: '+cacheSize+'/20<br>• Memo cache: '+memoSize+'/100<br>• content-visibility: auto (вкл)<br>• contain: content/strict (вкл)<br>• will-change: transform (вкл)<br>• requestIdleCallback для аватаров<br>• Virtual scroll: 40/200 Live<br>• Debounced search: 300ms<br>• Web Worker hash: non-blocking<br>• BroadcastChannel sync<br>• Lazy loading img: loading=lazy<br>• Slice(0,30) для списков<br>• Perf marks: Live/Games/Chat';
-  }
- },
- async saveProfile(){
-  let login=document.getElementById('accEditLogin').value.trim();if(!login||!isValidLogin(login)){alert('Логин 3-20 a-z0-9_');return;}
-  login=login.replace(/[<>]/g,'').slice(0,20);
-  const users=Storage.getUsers();const idx=users.findIndex(x=>x.login===localStorage.getItem('silesia_user')); if(idx<0)return;
-  if(users.find((x,i)=>x.login===login&&i!==idx)){alert('Логин занят');return;}
-  const oldLogin=users[idx].login;
-  users[idx].login=login;Storage.saveUsers(users);
-  if(oldLogin!==login){const avatar=await AvatarDB.get(oldLogin);if(avatar){await AvatarDB.save(login,avatar);await AvatarDB.delete(oldLogin);}localStorage.setItem('silesia_user',login);}
-  Live.add('profile',login,'обновил профиль','📝',login);broadcast('live');
-  alert('✅ Профиль сохранен');this.render();renderMyStatusMini();
- },
- async changePassword(){
-  const oldP=document.getElementById('oldPass').value.trim(),newP=document.getElementById('newPass').value.trim(),newP2=document.getElementById('newPass2').value.trim();
-  if(!oldP||!newP||!newP2){alert('Заполни');return;}if(newP.length<6){alert('Мин 6');return;}if(newP!==newP2){alert('Не совпадают');return;}
-  const users=Storage.getUsers();const idx=users.findIndex(x=>x.login===localStorage.getItem('silesia_user'));if(idx<0)return;
-  const oldHash=await hashPassword(oldP);
-  if(users[idx].passHash!==oldHash && users[idx].pass!==oldP && oldP!=='Silesia1132'){alert('Старый неверный');return;}
-  users[idx].passHash=await hashPassword(newP);delete users[idx].pass;
-  Storage.saveUsers(users);
-  document.getElementById('oldPass').value='';document.getElementById('newPass').value='';document.getElementById('newPass2').value='';
-  alert('✅ Пароль сменен (Web Worker)');
- },
- deleteMyAccount(){
-  const me=Storage.getUsers().find(x=>x.login===localStorage.getItem('silesia_user')); if(!me)return;
-  if(me.login==='agricola'){alert('⛔ Админа нельзя');return;}
-  if(!confirm('Удалить '+me.login+'?'))return;
-  Storage.saveUsers(Storage.getUsers().filter(x=>x.login!==me.login));
-  AvatarDB.delete(me.login);
-  alert('Удален');Auth.logout();
- },
-};
-
-const Admin={
- toggleRole(login){
-  if(!isValidLogin(login)) return;
-  if(localStorage.getItem('silesia_role')!=='admin'){alert('⛔ Только админ');return;}
-  const users=Storage.getUsers();const u=users.find(x=>x.login===login);if(!u)return;if(u.role==='admin')u.role='mod';else if(u.role==='mod')u.role='user';else u.role='admin';Storage.saveUsers(users);Users.render();
- },
-};
-
-async function renderMyStatusMini(){
- const me=Storage.getUsers().find(x=>x.login===localStorage.getItem('silesia_user'))||{login:'GUEST',role:'user',email:'-',xp:0};
- const prog=Level.xpProgress(me.xp||0);
- const avatarData=await AvatarDB.get(me.login);
- const av=avatarData?'<img src="'+avatarData+'" loading="lazy">':escapeHtml(me.login[0]||'G').toUpperCase();
- const safeLogin=escapeAttr(me.login);
- document.getElementById('myStatusMini').innerHTML='<div style="display:flex;gap:10px;align-items:center"><div class="avatar-small" onclick="Profile.view(\''+safeLogin+'\')">'+av+'</div><div><b style="color:#fff;cursor:pointer" onclick="Profile.view(\''+safeLogin+'\')">'+escapeHtml(me.login)+'</b> <span class="badge-steam '+(me.role==='admin'?'b-admin':me.role==='mod'?'b-mod':'b-user')+'">'+escapeHtml(me.role.toUpperCase())+'</span> <span class="steam-level">Ур. '+prog.level+'</span><br><span style="color:#8f98a0;font-size:9px">'+ (me.xp||0)+' XP</span><div class="xp-bar" style="width:100px;height:3px"><div class="xp-fill" style="width:'+prog.progress+'%"></div></div></div></div>';
- document.getElementById('headerUser').textContent=me.login;
- document.getElementById('headerAvatar').innerHTML=av;
- document.getElementById('headerLevel').textContent='Ур. '+prog.level;
-}
-function renderLibrary(){
- const me=localStorage.getItem('silesia_user');
- const library=Storage.getLibrary();
- const myGames=library[me]||[];
- const gamesDB=Storage.getGames();
- const box=document.getElementById('libraryGames');
- if(!myGames.length){box.innerHTML='<div class="card-steam" style="text-align:center;color:#4a5a6a;padding:20px">Нет игр<br><button class="btn btn-blue" style="width:auto;margin-top:8px" onclick="RBAC.openTab(\'games\')">База игр</button></div>';return;}
- box.innerHTML=myGames.slice(0,20).map(gid=>{
-  const g=gamesDB.find(x=>x.id===gid);
-  if(!g) return '';
-  const safeId=escapeAttr(g.id);
-  return '<div class="game-card" onclick="Games.view(\''+safeId+'\')"><div class="game-icon">'+escapeHtml(g.icon)+'</div><div style="flex:1"><b style="color:#fff">'+escapeHtml(g.name)+'</b> <span style="font-size:7px;background:#5c7e10;color:#fff;padding:2px 5px;border-radius:2px">В БИБЛИОТЕКЕ</span></div><button class="btn btn-dark" style="width:auto;padding:4px 8px;font-size:8px" onclick="event.stopPropagation();Games.toggleLibrary(\''+safeId+'\')">Удалить</button></div>';
- }).join('');
+function playSynth(s){
+ try{
+  const ctx=getAudioCtx();
+  if(!ctx) return;
+  if(ctx.state==='suspended') ctx.resume();
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  osc.type='sine';
+  osc.frequency.value=s.freq1||880;
+  gain.gain.value=0.3;
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  setTimeout(()=>{try{osc.frequency.value=s.freq2||440;}catch(e){}},150);
+  setTimeout(()=>{try{osc.stop();}catch(e){}},s.duration||400);
+ }catch(e){}
 }
 
-(async function init(){
- Perf.start('Init');
- await AvatarDB.init();
- let users=Storage.getUsers();
- if(!users.find(x=>x.login==='agricola')){
-  const hash=await hashPassword('Silesia1132');
-  users.unshift({id:1,login:'agricola',passHash:hash,email:'agricola@silesia.gg',role:'admin',realName:'Agricola Demeter',country:'PL',bio:'Владелец SILESIA',twitch_id:'Agricola_Demeter',steam_id:'76561198000000000',xp:2500,totalXP:2500,level:6,msgCount:0,commentCount:0,banned:false,verified:true,created:new Date().toLocaleString(),lastLogin:new Date().toLocaleString()});
-  Storage.saveUsers(users);
- }
- let games=Storage.getGames();
- if(!games.length){
-  games=[
-   {id:'game_730',name:'Counter-Strike 2',icon:'🎮',genre:'FPS',desc:'Лучший шутер • 1843 ELO',hours:342,created:'01.10.2026',addedBy:'agricola'},
-   {id:'game_silesia',name:'SILESIA 1132/1200',icon:'⛏️',genre:'Silesia',desc:'Цель 1200 фолловеров',hours:128,created:'01.10.2026',addedBy:'agricola'},
-   {id:'game_faceit',name:'FACEIT 1843 ELO',icon:'🎯',genre:'FPS',desc:'Путь к 10 lvl',hours:512,created:'02.10.2026',addedBy:'agricola'},
-   {id:'game_dota2',name:'Dota 2',icon:'⚔️',genre:'MOBA',desc:'MOBA от Valve',hours:0,created:'05.10.2026',addedBy:'agricola'},
-  ];
-  Storage.saveGames(games);
- }
- if(!localStorage.getItem('silesia_chat')){Storage.saveChat([{id:Date.now(),login:'SYSTEM',role:'admin',level:99,text:'Добро пожаловать! Оптимизировано в 5x',time:new Date().toLocaleTimeString().slice(0,5),timestamp:Date.now()}]);}
- if(!localStorage.getItem('silesia_comments')){Storage.saveComments([{id:Date.now(),login:'agricola',role:'admin',level:6,text:'Оптимизировано: virtual scroll, memo, lazy load',target:'general',targetName:'🌐 Общий',time:new Date().toLocaleString(),timestamp:Date.now(),likes:[]}]);}
- if(!localStorage.getItem('silesia_live')){Storage.saveLive([{id:Date.now(),type:'levelup',login:'agricola',action:'запустил оптимизированную версию 8.7',icon:'⚡',target:'',time:new Date().toLocaleTimeString().slice(0,5),timestamp:Date.now()}]);}
- if(!localStorage.getItem('silesia_stories')){Storage.saveStories([{id:Date.now(),login:'agricola',role:'admin',level:6,text:'Оптимизация 5x быстрее! ⚡',bg:'gradient1',time:new Date().toLocaleString(),timestamp:Date.now(),expires:Date.now()+24*60*60*1000,views:[]}]);}
- if(localStorage.getItem('silesia_auth')){
-  document.getElementById('loginScreen').style.display='none';
-  document.getElementById('mainScreen').style.display='block';
-  RBAC.apply();
-  Perf.idle(()=>{
-   renderMyStatusMini();Users.render();Account.render();Friends.render();renderLibrary();Chat.render();Comments.render();Games.render();Live.init();Stories.render();
-   Perf.end('Init');
-   const perfEl=document.getElementById('perf');
-   if(perfEl) perfEl.textContent='Init: '+Math.round(performance.now())+'ms • 5x faster • All optimized';
-  });
- }
-})();
+function showNotif(data){
+ const notif=document.getElementById('liveNotif');
+ const name=document.getElementById('obsName');
+ const title=document.getElementById('obsTitle');
+ const game=document.getElementById('obsGame');
+ const viewers=document.getElementById('obsViewers');
 
-document.getElementById('avatarInput').addEventListener('change', async (e)=>{
- const file=e.target.files[0]; if(!file)return;
- if(!['image/png','image/jpeg','image/webp'].includes(file.type)){alert('❌ Только PNG/JPG/WEBP');return;}
- if(file.size>1000000){alert('Макс 1MB');return;}
- const reader=new FileReader();
- reader.onload=async ev=>{
-  const data=ev.target.result;
-  const img=new Image();
-  img.onload=async ()=>{
-   const canvas=document.createElement('canvas');
-   const max=128;let w=img.width,h=img.height;
-   if(w>h){if(w>max){h*=max/w;w=max;}}else{if(h>max){w*=max/h;h=max;}}
-   canvas.width=w;canvas.height=h;
-   const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,w,h);
-   // WebP с качеством 0.4 для оптимизации
-   let compressed;
-   try{compressed=canvas.toDataURL('image/webp',0.4);}catch{compressed=canvas.toDataURL('image/jpeg',0.4);}
-   const login=localStorage.getItem('silesia_user');
-   await AvatarDB.save(login,compressed);
-   Account.render();renderMyStatusMini();Stories.render();
-   Live.add('profile',login,'обновил аватар (WebP)','📝',login);broadcast('live');
-   alert('✅ Аватар WebP '+(compressed.length/1024).toFixed(1)+' KB (оптимизировано)');
-  };
-  img.src=data;
- };
- reader.readAsDataURL(file);
+ // Load settings
+ let settings={theme:'default',position:'bottom-left',duration:'8000',sound:true,tts:false,showGame:true,showViewers:false};
+ try{settings=JSON.parse(localStorage.getItem('silesia_obs_settings')||'{"theme":"default","position":"bottom-left","duration":"8000","sound":true,"tts":false,"showGame":true,"showViewers":false}');}catch(e){}
+
+ name.textContent=escapeHtml(data.displayName||data.login||'Unknown').slice(0,20);
+ title.textContent=escapeHtml(data.title||'LIVE!').slice(0,60);
+ game.textContent='🎮 '+(escapeHtml(data.game||'Just Chatting').slice(0,25));
+ viewers.textContent='👁️ '+(data.viewers||0);
+
+ // Theme
+ notif.className='obs-live-notif '+settings.position+' '+settings.theme;
+ notif.classList.add('show');
+
+ // Visibility
+ game.style.display=settings.showGame?'inline':'none';
+ viewers.style.display=settings.showViewers?'inline':'none';
+
+ // Sound
+ if(settings.sound){
+  const customSounds=JSON.parse(localStorage.getItem('silesia_custom_sounds')||'{}');
+  const soundData=customSounds[data.sound];
+  if(soundData&&soundData.url) playSound(data.sound, soundData.url);
+  else playSound(data.sound||'default');
+ }
+
+ // TTS
+ if(settings.tts&&'speechSynthesis' in window){
+  try{
+   const utter=new SpeechSynthesisUtterance((data.displayName||data.login)+' is now live!');
+   utter.volume=0.6;
+   utter.rate=1.1;
+   speechSynthesis.speak(utter);
+  }catch(e){}
+ }
+
+ // Duration
+ const duration=parseInt(settings.duration)||8000;
+ setTimeout(()=>{notif.classList.remove('show');},duration);
+}
+
+// Listen to localStorage events from panel.html
+window.addEventListener('storage',e=>{
+ if(e.key==='silesia_last_live_event'&&e.newValue){
+  try{
+   const data=JSON.parse(e.newValue);
+   if(data&&data.time&&Date.now()-data.time<2000){
+    showNotif(data);
+   }
+  }catch(err){}
+ }
+ if(e.key==='silesia_obs_settings_update'){
+  // Settings updated, no action needed, will load on next notif
+ }
 });
 
-document.addEventListener('keydown',e=>{
- if(e.key==='Escape'){
-  document.getElementById('profileModal').classList.remove('on');
-  document.getElementById('gameModal').classList.remove('on');
-  document.getElementById('storyViewer').classList.remove('on');
- }
-});
+// For testing via URL params: overlay.html?test=1&name=Agricola&title=SILESIA%20LIVE&game=Just%20Chatting
+const params=new URLSearchParams(location.search);
+if(params.get('test')==='1'){
+ setTimeout(()=>{
+  showNotif({login:'agricola_demeter',displayName:params.get('name')||'Agricola',title:params.get('title')||'SILESIA 1132/1200 — LIVE!',game:params.get('game')||'Just Chatting',viewers:params.get('viewers')||42,sound:params.get('sound')||'default'});
+ },1000);
+}
+
+// If opened directly with ?streamers=agricola_demeter,shroud,xqc — poll localStorage? No, overlay is passive, panel must be open on same PC
+// For remote use, need server — but for same PC, storage event works
+
+// Keep alive for OBS
+setInterval(()=>{},1000);
 </script>
 </body>
 </html>
