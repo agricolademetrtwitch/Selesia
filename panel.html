@@ -2,164 +2,382 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>SILESIA OBS OVERLAY</title>
+<script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+<meta name="viewport" content="width=320">
+<title>SILESIA ONE FILE</title>
 <style>
-*{box-sizing:border-box;margin:0}body{background:transparent;color:#fff;font-family:Montserrat,Arial,sans-serif;overflow:hidden;width:1920px;height:1080px;position:relative}
-.obs-live-notif{position:absolute;display:none;align-items:center;gap:16px;padding:16px 28px;border-radius:50px;background:linear-gradient(90deg,#ff0000,#9147ff);box-shadow:0 0 40px rgba(255,0,0,.6),0 0 80px rgba(145,71,255,.4);border:3px solid #fff;animation:obsIn 0.6s cubic-bezier(0.68,-0.55,0.265,1.55),obsPulse 1.5s infinite 0.6s,obsOut 0.6s 7.4s forwards;min-width:400px;max-width:700px}
-.obs-live-notif.show{display:flex}
-.obs-live-notif.bottom-left{bottom:40px;left:40px}
-.obs-live-notif.bottom-right{bottom:40px;right:40px}
-.obs-live-notif.top-left{top:40px;left:40px}
-.obs-live-notif.top-right{top:40px;right:40px}
-.obs-live-notif.center{top:50%;left:50%;transform:translate(-50%,-50%)}
-.obs-live-notif.center.show{animation:obsInCenter 0.6s cubic-bezier(0.68,-0.55,0.265,1.55),obsPulseCenter 1.5s infinite 0.6s,obsOutCenter 0.6s 7.4s forwards}
-.obs-live-notif.silesia{background:linear-gradient(90deg,#FFD700,#FFA500);color:#000;border-color:#000;box-shadow:0 0 40px rgba(255,215,0,.6)}
-.obs-live-notif.neon{background:linear-gradient(90deg,#9147ff,#772ce8);box-shadow:0 0 40px rgba(145,71,255,.8),0 0 80px rgba(145,71,255,.4)}
-.obs-live-notif.minimal{background:#111;border:2px solid #333;box-shadow:0 0 20px rgba(0,0,0,.8)}
-.obs-live-icon{width:64px;height:64px;background:#fff;color:#ff0000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;flex-shrink:0;animation:liveBlink 1s infinite}
-.obs-live-content{flex:1}
-.obs-live-name{font-size:22px;font-weight:800;display:flex;gap:8px;align-items:center}
-.obs-live-title{font-size:14px;opacity:0.9;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:400px}
-.obs-live-meta{font-size:11px;opacity:0.7;margin-top:2px;display:flex;gap:12px}
-.obs-live-badge{background:#fff;color:#ff0000;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;animation:liveBlink 1s infinite}
-.obs-live-viewers{display:flex;align-items:center;gap:4px}
-@keyframes obsIn{from{transform:translateX(-100%) scale(0.5);opacity:0}to{transform:translateX(0) scale(1);opacity:1}}
-@keyframes obsInCenter{from{transform:translate(-50%,-50%) scale(0.5);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
-@keyframes obsOut{from{transform:translateX(0) scale(1);opacity:1}to{transform:translateX(-100%) scale(0.5);opacity:0}}
-@keyframes obsOutCenter{from{transform:translate(-50%,-50%) scale(1);opacity:1}to{transform:translate(-50%,-50%) scale(0.5);opacity:0}}
+*{box-sizing:border-box;margin:0}
+body{background:#18181b;color:#efeff1;font-family:Inter,Roobert,Helvetica,Arial,sans-serif;font-size:12px;min-height:100vh}
+.wrap{width:100%;max-width:320px;margin:0 auto}
+.header{background:#9147ff;padding:12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.card{background:#1f1f23;border:1px solid #2f2f35;border-radius:6px;margin:8px;padding:10px}
+.card-live{border-left:3px solid #ff0000}.card-purple{border-left:3px solid #9147ff}
+.btn{width:100%;background:#9147ff;border:none;color:#fff;padding:10px;border-radius:4px;font-size:12px;margin:4px 0;cursor:pointer;font-weight:700}
+.btn:hover{background:#772ce8}.btn-dark{background:#2f2f35}
+input,select{width:100%;background:#0e0e10;border:1px solid #3a3a44;border-radius:4px;padding:10px;color:#efeff1;margin:5px 0;font-size:12px;outline:none}
+.badge{font-size:9px;padding:2px 6px;border-radius:10px;display:inline-block;margin:2px}.b-live{background:#ff0000;color:#fff;animation:blink 1s infinite}.b-twitch{background:#9147ff;color:#fff}
+@keyframes blink{50%{opacity:.5}}
+.friend{display:flex;gap:10px;align-items:center;padding:8px;background:#0e0e10;border:1px solid #2f2f3522;margin-bottom:2px;border-radius:4px;cursor:pointer}
+.avatar{width:32px;height:32px;border-radius:50%;background:#2f2f35;display:flex;align-items:center;justify-content:center;font-weight:700;color:#9147ff;flex-shrink:0}
+.live-dot{width:8px;height:8px;background:#ff0000;border-radius:50%;display:inline-block;animation:blink 1.5s infinite;box-shadow:0 0 6px #ff0000}
+#errBox{background:#ff000022;color:#ff6b6b;padding:8px;border-radius:4px;margin:8px;display:none;white-space:pre-wrap;font-size:10px;border:1px solid #ff000044}
+.toast{position:fixed;top:60px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#ff0000,#9147ff);padding:10px 14px;border-radius:20px;display:flex;gap:8px;align-items:center;z-index:999;color:#fff;box-shadow:0 0 20px rgba(255,0,0,.5);font-weight:700;font-size:12px;animation:in 0.4s}
+@keyframes in{from{transform:translate(-50%,-20px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+/* OBS OVERLAY MODE */
+body.overlay{width:1920px;height:1080px;background:transparent;overflow:hidden}
+.overlay-notif{position:absolute;display:none;align-items:center;gap:16px;padding:16px 28px;border-radius:50px;background:linear-gradient(90deg,#ff0000,#9147ff);box-shadow:0 0 40px rgba(255,0,0,.6);border:3px solid #fff;min-width:400px;animation:obsIn 0.6s cubic-bezier(0.68,-0.55,0.265,1.55),obsPulse 1.5s infinite 0.6s,obsOut 0.6s 7.4s forwards}
+.overlay-notif.show{display:flex}
+.overlay-notif.bottom-left{bottom:40px;left:40px}.overlay-notif.center{top:50%;left:50%;transform:translate(-50%,-50%)}
+@keyframes obsIn{from{transform:translateX(-100%) scale(.5);opacity:0}to{transform:translateX(0) scale(1);opacity:1}}
+@keyframes obsOut{from{transform:translateX(0) scale(1);opacity:1}to{transform:translateX(-100%) scale(.5);opacity:0}}
 @keyframes obsPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
-@keyframes obsPulseCenter{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.03)}}
-@keyframes liveBlink{50%{opacity:.5}}
 </style>
 </head>
 <body>
-<div class="obs-live-notif bottom-left" id="liveNotif">
-<div class="obs-live-icon">🔴</div>
-<div class="obs-live-content">
-<div class="obs-live-name"><span id="obsName">Agricola</span> <span class="obs-live-badge">🔴 LIVE</span></div>
-<div class="obs-live-title" id="obsTitle">SILESIA 1132/1200 — стрим!</div>
-<div class="obs-live-meta"><span id="obsGame">🎮 Just Chatting</span> <span class="obs-live-viewers" id="obsViewers">👁️ 42</span></div>
+<div id="errBox"></div>
+
+<div id="panelView" class="wrap">
+<div class="header"><b>♨️ SILESIA 9.1 ONE</b><div style="display:flex;gap:6px;align-items:center"><span id="headerUser" style="font-size:9px;opacity:.7">loading...</span><span id="headerLiveCount" style="background:#ff0000;color:#fff;padding:2px 6px;border-radius:10px;font-size:8px;display:none">0 LIVE</span></div></div>
+
+<div class="card card-live">
+<div style="display:flex;justify-content:space-between"><b style="color:#ff6b6b">🔴 LIVE СТРИМЕРЫ</b><span style="color:#ff6b6b;font-size:10px"><span class="live-dot"></span> <span id="liveCount">0</span> LIVE</span></div>
+<div id="liveBox" style="margin-top:8px"><div style="padding:12px;text-align:center;color:#53535f">Загрузка...</div></div>
+</div>
+
+<div class="card card-purple">
+<b style="color:#9147ff">➕ Добавить стримера</b>
+<input id="newLogin" placeholder="Twitch логин: shroud" maxlength="25">
+<select id="newSound"><option value="default">🔔 Default</option><option value="donate1">💰 Donate Ka-ching</option><option value="donate2">🎉 Airhorn</option><option value="shroud">🎯 Shroud</option><option value="xqc">⚡ xQc</option><option value="agricola">⛏️ Agricola Silesia</option></select>
+<button class="btn" onclick="App.add()">➕ Добавить</button>
+</div>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between"><b>📋 Отслеживаемые (<span id="trackedCount">0</span>/20)</b></div>
+<div id="trackedBox"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px">
+<button class="btn btn-dark" style="padding:8px;font-size:10px" onclick="App.toggleSound()">🔊 Звук: <span id="soundStatus">ВКЛ</span></button>
+<button class="btn btn-dark" style="padding:8px;font-size:10px" onclick="App.checkAll()">🔄 Чек сейчас</button>
+</div>
+<div style="font-size:9px;color:#53535f;margin-top:6px">Последняя: <span id="lastCheck">никогда</span> • Всего: <span id="totalNotifs">0</span> • Дедуп 10 мин • Час четный = agricola LIVE (демо)</div>
+<button class="btn btn-dark" style="padding:8px;font-size:10px" onclick="App.test()">🧪 Тест LIVE — звук + тост + OBS</button>
+</div>
+
+<div class="card">
+<b>💜 SILESIA 1132/1200</b><br>
+<span style="font-size:10px;color:#adadb8">Расширение для Твича — работает прямо в плеере</span>
+<div style="margin-top:8px;background:#0e0e10;padding:8px;border-radius:4px">
+<div style="display:flex;justify-content:space-between;font-size:10px"><span>Прогресс:</span><span id="followText">1132/1200</span></div>
+<div style="height:6px;background:#2f2f35;border-radius:3px;margin:6px 0;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,#9147ff,#ff0000);width:94%"></div></div>
+</div>
+</div>
+
+<div class="card" style="border-left:3px solid #FFD700">
+<b style="color:#FFD700">📺 OBS OVERLAY — один файл</b><br>
+<span style="font-size:10px;color:#adadb8">
+Этот же файл — оверлей для OBS. Скопируй URL и добавь <code>?overlay=1</code> в конце.<br><br>
+В OBS: Browser Source → URL: <span id="obsUrl" style="color:#fff;font-size:9px;word-break:break-all"></span><br><br>
+Или нажми:
+</span>
+<button class="btn btn-dark" style="padding:6px;font-size:10px" onclick="App.copyObsUrl()">📋 Копировать OBS URL</button>
+<button class="btn btn-dark" style="padding:6px;font-size:10px" onclick="App.openOverlay()">🌐 Открыть оверлей в новой вкладке</button>
+</div>
+</div>
+
+<div id="overlayView" style="display:none;width:1920px;height:1080px;position:relative;background:transparent">
+<div style="position:absolute;top:10px;left:10px;background:#000;color:#fff;padding:4px 8px;font-size:10px;border-radius:4px;opacity:.5">SILESIA OBS OVERLAY — listening...</div>
+<div class="overlay-notif bottom-left" id="overlayNotif">
+<div style="width:56px;height:56px;background:#fff;color:#ff0000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px">🔴</div>
+<div><div style="font-size:20px;font-weight:800"><span id="oName">Agricola</span> <span style="background:#fff;color:#ff0000;padding:2px 8px;border-radius:10px;font-size:10px">LIVE</span></div><div style="font-size:14px;opacity:.9" id="oTitle">SILESIA LIVE!</div><div style="font-size:11px;opacity:.7"><span id="oGame">🎮 Just Chatting</span> <span id="oView">👁️ 42</span></div></div>
 </div>
 </div>
 
 <script>
-function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-let audioCtx=null;
-function getAudioCtx(){if(audioCtx&&audioCtx.state!=='closed')return audioCtx;try{audioCtx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){audioCtx=null;}return audioCtx;}
-
-const sounds={
- default:{freq1:880,freq2:440,duration:400},
- donate1:{freq1:1200,freq2:800,duration:300},
- donate2:{freq1:200,freq2:400,duration:800},
- shroud:{freq1:1500,freq2:300,duration:200},
- xqc:{freq1:600,freq2:1200,duration:600},
- agricola:{freq1:300,freq2:600,duration:500},
+// ERROR HANDLER — FIX WHITE SCREEN
+window.onerror = function(msg, url, line, col, error){
+  var box=document.getElementById('errBox');
+  if(box){box.style.display='block';box.textContent='❌ '+msg+' L'+line+':'+col+'\n'+(error&&error.stack?error.stack.slice(0,200):'');}
+  console.error(msg,url,line,col,error);
+  return false;
 };
 
-function playSound(key, customUrl){
- if(customUrl){
-  const audio=new Audio(customUrl);
-  audio.volume=0.6;
-  audio.play().catch(()=>playSynth(sounds[key]||sounds.default));
-  return;
- }
- playSynth(sounds[key]||sounds.default);
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function isValidTwitch(s){try{return /^[a-zA-Z0-9_]{3,25}$/.test(s);}catch(e){return false;}}
+function sanitize(s){try{return String(s).replace(/[*_~`@#<>]/g,'').slice(0,25);}catch(e){return '';}}
+
+var Storage={
+  get(){try{return JSON.parse(localStorage.getItem('silesia_one_streamers')||'[]').slice(0,20);}catch{return [];}},
+  save(s){try{localStorage.setItem('silesia_one_streamers',JSON.stringify(s.slice(0,20)));}catch{}},
+  getHist(){try{return JSON.parse(localStorage.getItem('silesia_one_hist')||'[]');}catch{return [];}},
+  saveHist(h){try{localStorage.setItem('silesia_one_hist',JSON.stringify(h.slice(-50)));}catch{}},
+  getLast(){try{return JSON.parse(localStorage.getItem('silesia_one_last')||'{}');}catch{return {};}},
+  saveLast(o){try{localStorage.setItem('silesia_one_last',JSON.stringify(o));}catch{}},
+};
+
+var globalAudioCtx=null;
+function getCtx(){try{if(globalAudioCtx&&globalAudioCtx.state!=='closed')return globalAudioCtx;globalAudioCtx=new (window.AudioContext||window.webkitAudioContext)();return globalAudioCtx;}catch(e){return null;}}
+
+var Sounds={
+  map:{default:{f1:880,f2:440,d:400},donate1:{f1:1200,f2:800,d:300},donate2:{f1:200,f2:400,d:800},shroud:{f1:1500,f2:300,d:200},xqc:{f1:600,f2:1200,d:600},agricola:{f1:300,f2:600,d:500}},
+  play(k){
+    try{
+      var s=this.map[k]||this.map.default;
+      var ctx=getCtx();if(!ctx)return;
+      if(ctx.state==='suspended')ctx.resume();
+      var osc=ctx.createOscillator();var gain=ctx.createGain();
+      osc.type='sine';osc.frequency.value=s.f1;gain.gain.value=0.22;
+      osc.connect(gain);gain.connect(ctx.destination);
+      osc.start();
+      setTimeout(function(){try{osc.frequency.value=s.f2;}catch(e){}},150);
+      setTimeout(function(){try{osc.stop();}catch(e){}},s.d);
+    }catch(e){console.log('sound err',e);}
+  }
+};
+
+var App={
+  soundOn:true,
+  get(){return Storage.get();},
+  save(s){Storage.save(s);},
+  add(){
+    try{
+      var raw=document.getElementById('newLogin').value.trim().toLowerCase();
+      var sound=document.getElementById('newSound').value;
+      if(!raw||!isValidTwitch(raw)){alert('Twitch логин 3-25 a-z0-9_');return;}
+      var login=sanitize(raw).toLowerCase();
+      var list=this.get();
+      if(list.length>=20){alert('Макс 20');return;}
+      for(var i=0;i<list.length;i++){if(list[i].login===login){alert('Уже есть');return;}}
+      list.push({login:login,displayName:login,sound:sound||'default',isLive:false,lastCheck:0,lastTitle:'',game:'',viewers:0});
+      this.save(list);
+      document.getElementById('newLogin').value='';
+      this.render();
+      this.checkOne(login);
+    }catch(e){alert('Ошибка: '+e.message);}
+  },
+  remove(login){
+    try{
+      if(!confirm('Удалить '+login+'?'))return;
+      var list=this.get();
+      var arr=[];
+      for(var i=0;i<list.length;i++){if(list[i].login!==login)arr.push(list[i]);}
+      this.save(arr);
+      this.render();
+    }catch(e){}
+  },
+  checkOne(login){
+    try{
+      if(!isValidTwitch(login))return false;
+      var isLive=false;var title='';var game='';var viewers=0;
+      if(login==='agricola_demeter'||login==='agricola'||login==='agricola_demeter'){
+        var h=new Date().getHours();
+        isLive=(h%2===0);
+        if(isLive){title='SILESIA 1132/1200 LIVE!';game='Just Chatting';viewers=42;}
+      }
+      var list=this.get();
+      var idx=-1;
+      for(var i=0;i<list.length;i++){if(list[i].login===login){idx=i;break;}}
+      if(idx<0)return isLive;
+      var was=list[idx].isLive;
+      list[idx].isLive=isLive;
+      list[idx].lastCheck=Date.now();
+      if(title)list[idx].lastTitle=sanitize(title);
+      if(game)list[idx].game=sanitize(game);
+      if(viewers)list[idx].viewers=viewers;
+      this.save(list);
+      var last=Storage.getLast();
+      var lastTime=last[login]||0;
+      var now=Date.now();
+      if(isLive&&!was&&now-lastTime>10*60*1000){
+        last[login]=now;
+        Storage.saveLast(last);
+        this.notify(list[idx]);
+      }
+      this.render();
+      return isLive;
+    }catch(e){console.log(e);return false;}
+  },
+  checkAll(){
+    try{
+      var status=document.getElementById('lastCheck');
+      if(status)status.textContent='Проверка...';
+      var list=this.get();
+      var self=this;
+      var i=0;
+      function next(){
+        if(i>=list.length){
+          if(status)status.textContent=new Date().toLocaleTimeString();
+          document.getElementById('totalNotifs').textContent=Storage.getHist().length;
+          self.render();
+          return;
+        }
+        self.checkOne(list[i].login);
+        i++;
+        setTimeout(next,300);
+      }
+      next();
+    }catch(e){}
+  },
+  notify(s){
+    try{
+      if(this.soundOn)Sounds.play(s.sound||'default');
+      try{if(navigator.vibrate)navigator.vibrate([200,100,200]);}catch(e){}
+      var toast=document.createElement('div');
+      toast.className='toast';
+      toast.innerHTML='🔴 '+esc(s.displayName)+' LIVE! 🎮 '+esc(s.game||'');
+      document.body.appendChild(toast);
+      setTimeout(function(){try{toast.remove();}catch(e){}},4000);
+      var h=Storage.getHist();
+      h.push({login:s.login,displayName:s.displayName,title:s.lastTitle,game:s.game,time:new Date().toLocaleString(),timestamp:Date.now()});
+      Storage.saveHist(h);
+      // Trigger overlay via localStorage event
+      try{
+        localStorage.setItem('silesia_one_event',JSON.stringify({login:s.login,displayName:s.displayName,title:s.lastTitle||'LIVE!',game:s.game||'Just Chatting',sound:s.sound||'default',viewers:s.viewers||0,time:Date.now()}));
+        setTimeout(function(){localStorage.removeItem('silesia_one_event');},1000);
+      }catch(e){}
+      // If in overlay mode, show directly
+      if(document.body.classList.contains('overlay')){
+        this.showOverlay(s);
+      }
+    }catch(e){console.log('notify err',e);}
+  },
+  showOverlay(data){
+    try{
+      var n=document.getElementById('overlayNotif');
+      if(!n)return;
+      document.getElementById('oName').textContent=esc(data.displayName||data.login).slice(0,20);
+      document.getElementById('oTitle').textContent=esc(data.title||'LIVE!').slice(0,60);
+      document.getElementById('oGame').textContent='🎮 '+esc(data.game||'Just Chatting').slice(0,25);
+      document.getElementById('oView').textContent='👁️ '+(data.viewers||0);
+      n.classList.remove('show');
+      void n.offsetWidth;
+      n.classList.add('show');
+      Sounds.play(data.sound||'default');
+      setTimeout(function(){n.classList.remove('show');},8000);
+    }catch(e){}
+  },
+  render(){
+    try{
+      var list=this.get();
+      var live=[];
+      for(var i=0;i<list.length;i++){if(list[i].isLive)live.push(list[i]);}
+      var trackedCount=document.getElementById('trackedCount');
+      var liveCount=document.getElementById('liveCount');
+      var totalNotifs=document.getElementById('totalNotifs');
+      if(trackedCount)trackedCount.textContent=list.length;
+      if(liveCount)liveCount.textContent=live.length;
+      if(totalNotifs)totalNotifs.textContent=Storage.getHist().length;
+
+      var liveBox=document.getElementById('liveBox');
+      if(liveBox){
+        if(live.length===0){
+          liveBox.innerHTML='<div style="padding:12px;text-align:center;color:#53535f;font-size:11px">Нет LIVE<br><span style="font-size:9px">Час четный → agricola LIVE (демо). Нажми 🧪 Тест</span></div>';
+        }else{
+          var html='';
+          for(var i=0;i<live.length;i++){
+            var s=live[i];
+            html+='<div class="friend" style="border-left:3px solid #ff0000" onclick="window.open(\'https://twitch.tv/'+esc(s.login)+'\',\'_blank\')"><div class="avatar" style="background:#ff0000;color:#fff">🔴</div><div style="flex:1"><b style="color:#ff6b6b">'+esc(s.displayName)+' <span class="badge b-live">LIVE</span></b><br><span style="font-size:10px;color:#efeff1">'+esc(s.lastTitle).slice(0,30)+'</span><br><span style="font-size:9px;color:#adadb8">🎮 '+esc(s.game)+' • 👁️ '+(s.viewers||0)+'</span></div></div>';
+          }
+          liveBox.innerHTML=html;
+        }
+      }
+
+      var trackedBox=document.getElementById('trackedBox');
+      if(trackedBox){
+        if(list.length===0){
+          trackedBox.innerHTML='<div style="padding:8px;text-align:center;color:#53535f;font-size:10px">Нет — добавь agricola_demeter</div>';
+        }else{
+          var html2='';
+          for(var i=0;i<list.length;i++){
+            var s2=list[i];
+            html2+='<div class="friend"><div class="avatar">'+esc(s2.login[0].toUpperCase())+'</div><div style="flex:1"><b>'+esc(s2.displayName)+' '+(s2.isLive?'<span class="badge b-live">LIVE</span>':'')+' <span style="font-size:8px">🔊 '+(s2.sound||'default')+'</span></b><br><span style="font-size:9px;color:#adadb8">@'+esc(s2.login)+'</span></div><div style="display:flex;gap:4px"><button class="btn btn-dark" style="width:auto;padding:4px 6px;font-size:10px" onclick="Sounds.play(\''+esc(s2.sound||'default')+'\')">🔊</button><button class="btn btn-dark" style="width:auto;padding:4px 6px;font-size:10px" onclick="App.remove(\''+esc(s2.login)+'\')">🗑️</button></div></div>';
+          }
+          trackedBox.innerHTML=html2;
+        }
+      }
+
+      var headerLive=document.getElementById('headerLiveCount');
+      if(headerLive){headerLive.style.display=live.length>0?'inline-block':'none';headerLive.textContent=live.length+' LIVE';}
+    }catch(e){console.log('render err',e);}
+  },
+  toggleSound(){try{this.soundOn=!this.soundOn;document.getElementById('soundStatus').textContent=this.soundOn?'ВКЛ':'ВЫКЛ';localStorage.setItem('silesia_one_sound',this.soundOn?'on':'off');}catch(e){}},
+  test(){
+    try{
+      var list=this.get();
+      var test=list[0]||{login:'agricola_demeter',displayName:'Agricola',lastTitle:'SILESIA 1132/1200 — тестовый LIVE!',game:'Just Chatting',sound:'agricola',viewers:42};
+      this.notify(test);
+    }catch(e){alert('Тест ошибка: '+e.message);}
+  },
+  copyObsUrl(){
+    try{
+      var el=document.getElementById('obsUrl');
+      el.textContent=location.href.split('?')[0]+'?overlay=1';
+      var url=location.href.split('?')[0]+'?overlay=1';
+      if(navigator.clipboard){navigator.clipboard.writeText(url).then(function(){alert('✅ OBS URL скопирован: '+url);});}
+      else{prompt('Скопируй OBS URL:',url);}
+    }catch(e){}
+  },
+  openOverlay(){try{window.open(location.href.split('?')[0]+'?overlay=1','_blank');}catch(e){}},
+  init(){
+    try{
+      var sound=localStorage.getItem('silesia_one_sound');
+      if(sound==='off'){this.soundOn=false;var el=document.getElementById('soundStatus');if(el)el.textContent='ВЫКЛ';}
+      var list=this.get();
+      if(!list.length){
+        list=[{login:'agricola_demeter',displayName:'Agricola',sound:'agricola',isLive:false,lastCheck:0,lastTitle:'SILESIA 1132/1200',game:'Just Chatting',viewers:0},{login:'shroud',displayName:'Shroud',sound:'shroud',isLive:false,lastCheck:0,lastTitle:'',game:'',viewers:0}];
+        this.save(list);
+      }
+      // Check if overlay mode
+      if(location.search.indexOf('overlay=1')>-1){
+        document.body.classList.add('overlay');
+        document.getElementById('panelView').style.display='none';
+        document.getElementById('overlayView').style.display='block';
+        // Listen storage
+        var self=this;
+        window.addEventListener('storage',function(e){
+          if(e.key==='silesia_one_event'&&e.newValue){
+            try{var d=JSON.parse(e.newValue);if(d&&Date.now()-d.time<3000)self.showOverlay(d);}catch(err){}
+          }
+        });
+        // Test param
+        var params=new URLSearchParams(location.search);
+        if(params.get('test')==='1'){
+          setTimeout(function(){self.showOverlay({login:'agricola_demeter',displayName:'Agricola',title:'SILESIA 1132/1200 LIVE!',game:'Just Chatting',viewers:42,sound:'agricola'});},800);
+        }
+        return;
+      }
+      // Panel mode
+      this.render();
+      var self=this;
+      setTimeout(function(){self.checkAll();},1200);
+      setInterval(function(){self.checkAll();},60*1000);
+      // OBS URL
+      var obsUrlEl=document.getElementById('obsUrl');
+      if(obsUrlEl)obsUrlEl.textContent=location.href.split('?')[0]+'?overlay=1';
+      window.addEventListener('storage',function(e){
+        if(e.key==='silesia_one_event'&&e.newValue){
+          try{var d=JSON.parse(e.newValue);if(d&&Date.now()-d.time<3000)self.showOverlay(d);}catch(err){}
+        }
+      });
+    }catch(e){
+      var box=document.getElementById('errBox');
+      if(box){box.style.display='block';box.textContent='Init error: '+e.message;}
+    }
+  }
+};
+
+if(window.Twitch&&window.Twitch.ext){
+  Twitch.ext.onAuthorized(function(auth){
+    try{
+      var headerUser=document.getElementById('headerUser');
+      if(headerUser)headerUser.textContent='Ch: '+auth.channelId.slice(0,6)+'...';
+    }catch(e){}
+  });
+  Twitch.ext.onError(function(err){
+    var box=document.getElementById('errBox');
+    if(box){box.style.display='block';box.textContent='Twitch Ext Error: '+err;}
+  });
 }
 
-function playSynth(s){
- try{
-  const ctx=getAudioCtx();
-  if(!ctx) return;
-  if(ctx.state==='suspended') ctx.resume();
-  const osc=ctx.createOscillator();
-  const gain=ctx.createGain();
-  osc.type='sine';
-  osc.frequency.value=s.freq1||880;
-  gain.gain.value=0.3;
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-  osc.start();
-  setTimeout(()=>{try{osc.frequency.value=s.freq2||440;}catch(e){}},150);
-  setTimeout(()=>{try{osc.stop();}catch(e){}},s.duration||400);
- }catch(e){}
-}
-
-function showNotif(data){
- const notif=document.getElementById('liveNotif');
- const name=document.getElementById('obsName');
- const title=document.getElementById('obsTitle');
- const game=document.getElementById('obsGame');
- const viewers=document.getElementById('obsViewers');
-
- // Load settings
- let settings={theme:'default',position:'bottom-left',duration:'8000',sound:true,tts:false,showGame:true,showViewers:false};
- try{settings=JSON.parse(localStorage.getItem('silesia_obs_settings')||'{"theme":"default","position":"bottom-left","duration":"8000","sound":true,"tts":false,"showGame":true,"showViewers":false}');}catch(e){}
-
- name.textContent=escapeHtml(data.displayName||data.login||'Unknown').slice(0,20);
- title.textContent=escapeHtml(data.title||'LIVE!').slice(0,60);
- game.textContent='🎮 '+(escapeHtml(data.game||'Just Chatting').slice(0,25));
- viewers.textContent='👁️ '+(data.viewers||0);
-
- // Theme
- notif.className='obs-live-notif '+settings.position+' '+settings.theme;
- notif.classList.add('show');
-
- // Visibility
- game.style.display=settings.showGame?'inline':'none';
- viewers.style.display=settings.showViewers?'inline':'none';
-
- // Sound
- if(settings.sound){
-  const customSounds=JSON.parse(localStorage.getItem('silesia_custom_sounds')||'{}');
-  const soundData=customSounds[data.sound];
-  if(soundData&&soundData.url) playSound(data.sound, soundData.url);
-  else playSound(data.sound||'default');
- }
-
- // TTS
- if(settings.tts&&'speechSynthesis' in window){
-  try{
-   const utter=new SpeechSynthesisUtterance((data.displayName||data.login)+' is now live!');
-   utter.volume=0.6;
-   utter.rate=1.1;
-   speechSynthesis.speak(utter);
-  }catch(e){}
- }
-
- // Duration
- const duration=parseInt(settings.duration)||8000;
- setTimeout(()=>{notif.classList.remove('show');},duration);
-}
-
-// Listen to localStorage events from panel.html
-window.addEventListener('storage',e=>{
- if(e.key==='silesia_last_live_event'&&e.newValue){
-  try{
-   const data=JSON.parse(e.newValue);
-   if(data&&data.time&&Date.now()-data.time<2000){
-    showNotif(data);
-   }
-  }catch(err){}
- }
- if(e.key==='silesia_obs_settings_update'){
-  // Settings updated, no action needed, will load on next notif
- }
-});
-
-// For testing via URL params: overlay.html?test=1&name=Agricola&title=SILESIA%20LIVE&game=Just%20Chatting
-const params=new URLSearchParams(location.search);
-if(params.get('test')==='1'){
- setTimeout(()=>{
-  showNotif({login:'agricola_demeter',displayName:params.get('name')||'Agricola',title:params.get('title')||'SILESIA 1132/1200 — LIVE!',game:params.get('game')||'Just Chatting',viewers:params.get('viewers')||42,sound:params.get('sound')||'default'});
- },1000);
-}
-
-// If opened directly with ?streamers=agricola_demeter,shroud,xqc — poll localStorage? No, overlay is passive, panel must be open on same PC
-// For remote use, need server — but for same PC, storage event works
-
-// Keep alive for OBS
-setInterval(()=>{},1000);
+window.addEventListener('load',function(){App.init();});
 </script>
 </body>
 </html>
