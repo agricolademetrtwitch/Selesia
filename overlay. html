@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=320,initial-scale=1">
+<title>SILESIA 9.4 Professional</title>
+<script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+<style>
+:root{--bg:#0e0e10;--bg2:#18181b;--bg3:#1f1f23;--border:#2f2f35;--text:#efeff1;--muted:#adadb8;--dim:#53535f;--purple:#9147ff;--purple2:#772ce8;--red:#ff0000;--green:#00f5d4;--gold:#FFD700}
+*{box-sizing:border-box;margin:0}html,body{background:var(--bg);color:var(--text);font-family:Inter,Roobert,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.4;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.wrap{width:100%;max-width:320px;margin:0 auto;min-height:100vh;background:var(--bg)}
+.header{background:linear-gradient(90deg,var(--bg2),var(--bg3));padding:12px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--purple);position:sticky;top:0;z-index:20}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;margin:8px;padding:12px;position:relative}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:8px 8px 0 0;background:linear-gradient(90deg,var(--purple),var(--red))}
+.card.live::before{background:linear-gradient(90deg,var(--red),#ff6b6b)}.card.gold::before{background:linear-gradient(90deg,var(--gold),#FFA500)}.card.green::before{background:linear-gradient(90deg,var(--green),var(--purple))}
+.btn{width:100%;background:linear-gradient(90deg,var(--purple),var(--purple2));border:none;color:#fff;padding:11px;border-radius:6px;font-size:12px;font-weight:800;cursor:pointer;transition:transform .1s,box-shadow .2s;margin:4px 0}
+.btn:active{transform:scale(.98)}.btn:hover{box-shadow:0 4px 16px rgba(145,71,255,.35)}.btn.dark{background:var(--border)}.btn.gold{background:linear-gradient(90deg,var(--gold),#FFA500);color:#000}
+input,select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px;color:var(--text);margin:5px 0;font-size:12px;outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus{border-color:var(--purple);box-shadow:0 0 0 2px rgba(145,71,255,.2)}
+.label{font-size:9px;color:var(--muted);margin:10px 0 4px;display:block;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.badge{font-size:8px;padding:2px 7px;border-radius:10px;display:inline-block;margin:2px;font-weight:800}.b-live{background:var(--red);color:#fff;animation:blink 1s infinite;box-shadow:0 0 8px var(--red)}.b-purple{background:var(--purple);color:#fff}.b-gold{background:var(--gold);color:#000}
+@keyframes blink{50%{opacity:.5}}
+.row{display:flex;gap:10px;align-items:center;padding:10px;background:var(--bg);border:1px solid rgba(47,47,53,.3);margin-bottom:2px;border-radius:8px;cursor:pointer;transition:transform .1s,border-color .2s}
+.row:hover{transform:translateX(2px);border-color:rgba(145,71,255,.3)}.row.live{border-left:3px solid var(--red);background:linear-gradient(90deg,#1a0a0a,var(--bg2))}
+.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(45deg,#2f2f35,#3a3a44);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--purple);flex-shrink:0;border:2px solid var(--border)}
+.avatar.live{border-color:var(--red);background:linear-gradient(45deg,#2a0a0a,rgba(255,0,0,.15));color:var(--red)}
+.live-dot{width:8px;height:8px;background:var(--red);border-radius:50%;display:inline-block;animation:blink 1.5s infinite;box-shadow:0 0 8px var(--red)}
+.xp{height:6px;background:var(--bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:6px 0}.xp-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--green));transition:width .5s;width:0}
+.nav{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;position:sticky;top:50px;z-index:19;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav button{background:transparent;border:none;color:var(--dim);padding:10px 10px;font-size:9px;font-weight:800;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;text-transform:uppercase;letter-spacing:.5px}
+.nav button.on{color:var(--purple);border-bottom-color:var(--purple);background:linear-gradient(180deg,rgba(145,71,255,.15),transparent)}
+.panel{display:none}.panel.on{display:block}
+.toast{position:fixed;top:60px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#1a0a0a,var(--bg2));border:2px solid var(--red);padding:14px 18px;border-radius:16px;z-index:999;display:flex;gap:12px;align-items:center;box-shadow:0 8px 32px rgba(255,0,0,.4);max-width:310px;animation:toastIn .5s cubic-bezier(0.68,-0.55,0.265,1.55)}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,-20px) scale(.9)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
+#errBox{background:rgba(255,0,0,.12);color:#ff6b6b;padding:10px;border-radius:8px;margin:8px;display:none;white-space:pre-wrap;font-size:10px;border:1px solid rgba(255,0,0,.25)}
+/* OVERLAY MODE - transparent */
+body.overlay{width:1920px;height:1080px;background:transparent;overflow:hidden}
+.overlay-notif{position:absolute;bottom:40px;left:40px;display:none;align-items:center;gap:16px;padding:16px 28px;border-radius:50px;background:linear-gradient(90deg,var(--red),var(--purple));border:3px solid #fff;min-width:420px;box-shadow:0 0 40px rgba(255,0,0,.6)}
+.overlay-notif.show{display:flex;animation:obsIn .6s cubic-bezier(0.68,-0.55,0.265,1.55),obsPulse 1.5s infinite .6s,obsOut .6s 7.4s forwards}
+@keyframes obsIn{from{transform:translateX(-100%) scale(.5);opacity:0}to{transform:translateX(0) scale(1);opacity:1}}
+@keyframes obsOut{from{transform:translateX(0) scale(1);opacity:1}to{transform:translateX(-100%) scale(.5);opacity:0}}
+@keyframes obsPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+</style>
+</head>
+<body>
+<div id="errBox"></div>
+
+<!-- CONFIG VIEW: visible only to broadcaster in dashboard.twitch.tv -->
+<div id="configView" style="display:none;max-width:640px;margin:0 auto;background:var(--bg);min-height:100vh;padding:12px">
+<div style="text-align:center;padding:20px 12px;border-bottom:2px solid var(--purple);margin-bottom:12px">
+<div style="width:64px;height:64px;background:linear-gradient(45deg,var(--purple),var(--green));border-radius:12px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;color:#fff">S</div>
+<h2 style="color:var(--green);letter-spacing:1px;font-size:16px">SILESIA ESPORTS - Config</h2>
+<p style="color:var(--muted);font-size:11px;margin-top:6px">Owner: <b style="color:#fff">Agricola_Demeter</b> • Steam: agricolademeter • Insta: @agricolademetrtwitch</p>
+<p style="color:var(--dim);font-size:9px;margin-top:6px">Настройте это расширение до начала трансляции, чтобы обеспечить своим зрителям наилучшие впечатления от стрима.</p>
+</div>
+
+<div class="card gold">
+<b style="color:var(--gold)">🎯 ROAD TO PARTNER 1132/1200</b>
+<div style="display:flex;justify-content:space-between;font-size:10px;margin:8px 0"><span style="color:var(--muted)">Followers</span><span style="color:#fff;font-weight:800" id="cfgProgressText">1132 / 1200 (94%)</span></div>
+<div class="xp"><div class="xp-fill" id="cfgProgressBar" style="width:94%"></div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+<input id="cfgFollowers" type="number" min="0" max="100000" placeholder="1132" value="1132">
+<input id="cfgGoal" type="number" min="1" max="100000" placeholder="1200" value="1200">
+</div>
+<button class="btn gold" onclick="Config.saveProgress()">💾 Сохранить прогресс (видно всем зрителям)</button>
+<span class="label">Используется Twitch Configuration Service — публикуется для всех viewers</span>
+</div>
+
+<div class="card live">
+<b style="color:var(--red)">🔴 LIVE СТРИМЕРЫ — управляй списком для всех зрителей</b>
+<span class="label">Добавить стримера (публикуется всем)</span>
+<input id="cfgLogin" placeholder="Twitch логин: shroud" maxlength="25">
+<input id="cfgName" placeholder="Отображаемое имя (опционально)" maxlength="25">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+<select id="cfgSound"><option value="default">🔔 Default 880→440Hz</option><option value="donate1">💰 Donate Ka-ching</option><option value="donate2">🎉 Airhorn</option><option value="shroud">🎯 Shroud Headshot</option><option value="xqc">⚡ xQc Juicer</option><option value="agricola">⛏️ Agricola Silesia</option></select>
+<input id="cfgCustomUrl" placeholder="https://.../sound.mp3 (custom)" style="display:none">
+</div>
+<button class="btn" onclick="Config.addStreamer()">➕ Добавить стримера для всех зрителей</button>
+<div id="cfgStreamers" style="margin-top:10px"></div>
+</div>
+
+<div class="card green">
+<b style="color:var(--green)">🔗 ПРИВАТНЫЕ НАСТРОЙКИ — только для тебя (не видно зрителям)</b>
+<span class="label">Twitch OAuth Token (для точного LIVE через Helix API)</span>
+<input id="cfgToken" type="password" placeholder="OAuth token — twitchtokengenerator.com" maxlength="300">
+<button class="btn dark" onclick="Config.saveToken()">💾 Сохранить токен в sessionStorage (локально)</button>
+<span style="font-size:8px;color:var(--dim)">Без токена — детерминированный демо режим: час четный = Agricola LIVE. Токен не публикуется зрителям, только у тебя. Хранится в sessionStorage, очищается при закрытии.</span>
+
+<span class="label" style="margin-top:12px">Discord Webhook (SSRF protected — new URL + hostname check)</span>
+<input id="cfgWebhook" placeholder="https://discord.com/api/webhooks/..." maxlength="250">
+<button class="btn dark" onclick="Config.saveWebhook()">💾 Сохранить Webhook (проверка discord.com)</button>
+<span style="font-size:8px;color:var(--dim)">Проверка: hostname === discord.com || discordapp.com && pathname.startsWith('/api/webhooks/') && https. Защита от bypass через ?url=...</span>
+</div>
+
+<div class="card">
+<b>📺 OBS OVERLAY — настройки для твоего OBS</b>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+<select id="cfgObsTheme"><option value="default">Default красно-фиолетовый</option><option value="silesia">⛏️ Silesia золотой</option><option value="neon">💜 Neon</option><option value="minimal">⚫ Minimal</option></select>
+<select id="cfgObsPos"><option value="bottom-left">↙️ Снизу слева</option><option value="bottom-right">↘️ Снизу справа</option><option value="top-left">↖️ Сверху слева</option><option value="top-right">↗️ Сверху справа</option><option value="center">🎯 Центр</option></select>
+<select id="cfgObsDur"><option value="5000">5 сек</option><option value="8000" selected>8 сек</option><option value="12000">12 сек</option></select>
+</div>
+<div style="margin-top:8px;background:var(--bg);padding:8px;border-radius:6px">
+<span style="font-size:10px;color:var(--muted)">OBS Browser Source URL (этот же файл + ?overlay=1):</span>
+<input id="cfgObsUrl" readonly style="font-size:9px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+<button class="btn dark" style="padding:6px;font-size:10px" onclick="Config.copyObs()">📋 Копировать OBS URL</button>
+<button class="btn dark" style="padding:6px;font-size:10px" onclick="Config.testObs()">🧪 Тест оверлея</button>
+</div>
+</div>
+</div>
+
+<div class="card">
+<b>✅ Статус конфигурации</b>
+<div style="font-size:10px;color:var(--muted);line-height:1.7">
+Прогресс: <span id="cfgStatusProgress" style="color:#fff">1132/1200</span><br>
+Стримеров: <span id="cfgStatusStreamers" style="color:#fff">0</span><br>
+Токен: <span id="cfgStatusToken">— не установлен (демо режим)</span><br>
+Webhook: <span id="cfgStatusWebhook">— не настроен</span><br>
+OBS: <span id="cfgStatusObs">default / bottom-left / 8000ms</span><br>
+Последняя публикация: <span id="cfgStatusTime">никогда</span><br><br>
+<span style="color:var(--green)">Config видна только тебе в dashboard.twitch.tv. Кнопка ниже публикует данные через Twitch Configuration Service для всех зрителей в Panel.</span>
+</div>
+<button class="btn" style="background:var(--green);color:#000" onclick="Config.publish()">🚀 Опубликовать конфиг для всех зрителей (broadcaster config)</button>
+<span class="label">После публикации открой свой канал как зритель — в панели слева увидишь обновленный список и прогресс</span>
+</div>
+</div>
+
+<!-- PANEL VIEW: visible to all viewers -->
+<div id="panelView" class="wrap" style="display:none">
+<div class="header">
+<div><b>♨️ SILESIA ESPORTS</b><br><small id="panelSub" style="color:var(--muted)">Owner: Agricola_Demeter • <span id="followText">1132/1200</span> • 94% • No config needed? Panel uses public data.</small></div>
+<div style="text-align:right"><span id="headerUser" style="font-size:8px;color:var(--muted)">viewer</span><br><span id="headerLiveCount" style="background:var(--red);color:#fff;padding:2px 6px;border-radius:10px;font-size:8px;display:none">0 LIVE</span></div>
+</div>
+
+<div style="padding:8px;background:var(--bg2);border-bottom:1px solid var(--border)">
+<div style="display:flex;justify-content:space-between;font-size:9px;color:var(--muted)"><span>🎯 ROAD TO PARTNER</span><span id="panelProgressText" style="color:#fff;font-weight:800">1132/1200 • 68 left</span></div>
+<div class="xp" style="margin:6px 0"><div class="xp-fill" id="panelProgressBar" style="width:94%"></div></div>
+<button class="btn" style="padding:7px;font-size:10px" onclick="window.open('https://twitch.tv/agricola_demeter','_blank')">💜 Follow — 68 до Partner!</button>
+</div>
+
+<div class="nav">
+<button id="btn-livepanel" class="on" onclick="Nav.open('livepanel')">🔴 LIVE <span id="liveBadge" style="background:var(--red);color:#fff;padding:1px 5px;border-radius:10px;font-size:8px;display:none">0</span></button>
+<button id="btn-sounds" onclick="Nav.open('sounds')">🔊 ЗВУКИ</button>
+<button id="btn-chat" onclick="Nav.open('chat')">💬 ЧАТ</button>
+<button id="btn-live" onclick="Nav.open('live')">🔔 ЛАЙФ</button>
+</div>
+
+<div id="livepanel" class="panel on">
+<div class="card live" style="padding:8px"><div style="display:flex;justify-content:space-between"><b style="color:var(--red)">🔴 LIVE MONITORING — PROFESSIONAL</b><span style="color:var(--red);font-size:9px"><span class="live-dot"></span> <span id="liveCount">0</span> LIVE • SSRF fixed • Audio reuse</span></div><span style="font-size:8px;color:var(--dim)">Custom sounds как донаты • Concurrency 3 • Dedup 10min • Abort 5s • Quota safe • Deterministic demo</span></div>
+<div class="card"><div style="display:flex;justify-content:space-between"><b>🔴 Сейчас LIVE</b><button class="btn dark" style="width:auto;padding:4px 8px;font-size:8px;margin:0" onclick="Live.checkAll()">🔄 Чек сейчас</button></div><div id="liveBox" style="margin-top:8px"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px"><button class="btn dark" style="padding:6px;font-size:9px" onclick="Live.toggleSound()">🔊 Звук: <span id="soundStatus">ВКЛ</span></button><button class="btn dark" style="padding:6px;font-size:9px" onclick="Live.test()">🧪 Тест LIVE</button></div><div style="font-size:8px;color:var(--dim);margin-top:6px">Последняя: <span id="lastCheck">никогда</span> • Всего: <span id="totalNotifs">0</span> • Config от бродкастера через Twitch Configuration Service</div></div>
+<div class="card"><div style="display:flex;justify-content:space-between"><b>📋 Отслеживаемые (<span id="trackedCount">0</span>/20)</b><span style="font-size:8px;color:var(--dim)">Настроено в Config бродкастером</span></div><div id="trackedBox"></div></div>
+</div>
+
+<div id="sounds" class="panel"><div class="card live"><b style="color:var(--purple)">🔊 КАСТОМ ЗВУКИ — КАК ДОНАТЫ</b><div id="soundsLib" style="margin-top:8px"></div></div><div class="card"><b>🎯 Звуки стримеров</b><div id="soundsAssign"></div></div></div>
+
+<div id="chat" class="panel"><div class="card" style="padding:8px"><b style="color:var(--purple)">💬 ЧАТ + LIVE NOTIFS</b><div id="chatBox" style="height:200px;overflow-y:auto;background:var(--bg);border:1px solid var(--border);border-radius:6px;margin-top:8px;padding:0"></div><div style="display:flex;gap:6px;margin-top:8px"><input id="chatInput" placeholder="Написать..." maxlength="200" onkeydown="if(event.key==='Enter')Chat.send()"><button class="btn" style="width:auto;padding:10px 14px;margin:0" onclick="Chat.send()">Отпр.</button></div></div></div>
+
+<div id="live" class="panel"><div class="card" style="padding:0"><div id="liveFeed" style="max-height:360px;overflow-y:auto"></div></div></div>
+</div>
+
+<!-- OVERLAY VIEW: transparent for OBS / Twitch Video Overlay -->
+<div id="overlayView" style="display:none;width:1920px;height:1080px;position:relative;background:transparent">
+<div style="position:absolute;top:10px;left:10px;background:#000;color:#fff;padding:6px 10px;font-size:10px;border-radius:6px;opacity:.6;font-weight:700">SILESIA 9.4 OBS OVERLAY — listening... • ?overlay=1</div>
+<div class="overlay-notif" id="overlayNotif">
+<div style="width:56px;height:56px;background:#fff;color:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;flex-shrink:0">🔴</div>
+<div><div style="font-size:20px;font-weight:900"><span id="oName">Agricola</span> <span style="background:#fff;color:var(--red);padding:2px 8px;border-radius:10px;font-size:10px;font-weight:900">LIVE</span></div><div style="font-size:14px" id="oTitle">SILESIA 1132/1200 LIVE!</div><div style="font-size:11px;opacity:.7"><span id="oGame">🎮 Just Chatting</span> <span id="oView">👁️ 42</span></div></div>
+</div>
+</div>
+
+<script>
+// PROFESSIONAL ERROR BOUNDARY — NO WHITE SCREEN
+window.onerror=function(msg,url,line,col,err){
+  var box=document.getElementById('errBox');
+  if(box){box.style.display='block';box.textContent='❌ '+msg+' @ L'+line+':'+col+'\n'+(err&&err.stack?err.stack.slice(0,300):'');}
+  console.error('[SILESIA]',msg,url,line,col,err);
+  return false;
+};
+window.onunhandledrejection=function(e){
+  var box=document.getElementById('errBox');
+  if(box){box.style.display='block';box.textContent='❌ Unhandled: '+(e.reason&&e.reason.message?e.reason.message:e.reason); }
+};
+
+function esc(s){if(!s)return'';try{return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}catch(e){return'';}}
+function escAttr(s){try{return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#039;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}catch(e){return'';}}
+function sanitize(s){try{return String(s).replace(/[*_~`@#<>]/g,'').trim().slice(0,25);}catch(e){return'';}}
+function isValidTwitch(s){try{return /^[a-zA-Z0-9_]{3,25}$/.test(s);}catch(e){return false;}}
+
+var Storage={
+  get(){try{var v=localStorage.getItem('silesia_tracked');return v?JSON.parse(v).slice(0,20):[];}catch(e){return [];}},
+  save(s){try{localStorage.setItem('silesia_tracked',JSON.stringify(s.slice(0,20)));}catch(e){try{localStorage.setItem('silesia_tracked',JSON.stringify(s.slice(0,10)));}catch{}}},
+  getHist(){try{var v=localStorage.getItem('silesia_hist');return v?JSON.parse(v):[];}catch{return [];}},
+  saveHist(h){try{localStorage.setItem('silesia_hist',JSON.stringify(h.slice(-80)));}catch{}},
+  getLast(){try{var v=localStorage.getItem('silesia_last');return v?JSON.parse(v):{};}catch{return {};}},
+  saveLast(o){try{localStorage.setItem('silesia_last',JSON.stringify(o));}catch{}},
+  getChat(){try{var v=localStorage.getItem('silesia_chat');return v?JSON.parse(v):[];}catch{return [];}},
+  saveChat(c){try{localStorage.setItem('silesia_chat',JSON.stringify(c.slice(-100)));}catch{}},
+  getLive(){try{var v=localStorage.getItem('silesia_live');return v?JSON.parse(v):[];}catch{return [];}},
+  saveLive(l){try{localStorage.setItem('silesia_live',JSON.stringify(l.slice(-100)));}catch{}},
+  getSounds(){try{var v=localStorage.getItem('silesia_sounds');return v?JSON.parse(v):{};}catch{return {};}},
+  saveSounds(s){try{lo
